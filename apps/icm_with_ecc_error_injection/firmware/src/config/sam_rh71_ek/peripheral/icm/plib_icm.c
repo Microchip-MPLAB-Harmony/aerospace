@@ -187,7 +187,10 @@ void ICM_Initialize(void)
 */
 void ICM_SetEndOfMonitoringDisable(bool disable)
 {
-    ICM_REGS->ICM_CFG = ( ICM_REGS->ICM_CFG & ~ICM_CFG_EOMDIS_Msk ) | ICM_CFG_EOMDIS(disable == true);
+    uint32_t cfgReg = ( ICM_REGS->ICM_CFG & ~ICM_CFG_EOMDIS_Msk );
+    if (disable == true)
+        cfgReg |= ICM_CFG_EOMDIS(1);
+    ICM_REGS->ICM_CFG = cfgReg;
 }
 
 // *****************************************************************************
@@ -214,7 +217,10 @@ void ICM_SetEndOfMonitoringDisable(bool disable)
 */
 void ICM_WriteBackDisable(bool disable)
 {
-    ICM_REGS->ICM_CFG = ( ICM_REGS->ICM_CFG & ~ICM_CFG_WBDIS_Msk ) | ICM_CFG_WBDIS(disable == true);
+    uint32_t cfgReg = ( ICM_REGS->ICM_CFG & ~ICM_CFG_WBDIS_Msk );
+    if (disable == true)
+        cfgReg |= ICM_CFG_WBDIS(1);
+    ICM_REGS->ICM_CFG = cfgReg;
 }
 
 // *****************************************************************************

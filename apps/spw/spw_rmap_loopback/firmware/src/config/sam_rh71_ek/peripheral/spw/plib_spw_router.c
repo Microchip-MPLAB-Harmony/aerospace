@@ -108,7 +108,10 @@ void SPW_ROUTER_Initialize(void)
 */
 void SPW_ROUTER_TimeoutDisable(bool disable)
 {
-    SPW_REGS->SPW_ROUTER_CFG = ( SPW_REGS->SPW_ROUTER_CFG & ~SPW_ROUTER_CFG_DISTIMEOUT_Msk ) | SPW_ROUTER_CFG_DISTIMEOUT(disable == true);
+    uint32_t cfgReg = ( SPW_REGS->SPW_ROUTER_CFG & ~SPW_ROUTER_CFG_DISTIMEOUT_Msk );
+    if (disable == true)
+        cfgReg |= SPW_ROUTER_CFG_DISTIMEOUT(1);
+    SPW_REGS->SPW_ROUTER_CFG = cfgReg;
 }
 
 // *****************************************************************************
@@ -129,7 +132,10 @@ void SPW_ROUTER_TimeoutDisable(bool disable)
 */
 void SPW_ROUTER_LogicalAddressRoutingEnable(bool enable)
 {
-    SPW_REGS->SPW_ROUTER_CFG = ( SPW_REGS->SPW_ROUTER_CFG & ~SPW_ROUTER_CFG_LAENA_Msk ) | SPW_ROUTER_CFG_LAENA(enable == true);
+    uint32_t cfgReg = ( SPW_REGS->SPW_ROUTER_CFG & ~SPW_ROUTER_CFG_LAENA_Msk );
+    if (enable == true)
+        cfgReg |= SPW_ROUTER_CFG_LAENA(1);
+    SPW_REGS->SPW_ROUTER_CFG = cfgReg;
 }
 
 // *****************************************************************************
@@ -150,7 +156,10 @@ void SPW_ROUTER_LogicalAddressRoutingEnable(bool enable)
 */
 void SPW_ROUTER_FallbackEnable(bool enable)
 {
-    SPW_REGS->SPW_ROUTER_CFG = ( SPW_REGS->SPW_ROUTER_CFG & ~SPW_ROUTER_CFG_FALLBACK_Msk ) | SPW_ROUTER_CFG_FALLBACK(enable == true);
+    uint32_t cfgReg = ( SPW_REGS->SPW_ROUTER_CFG & ~SPW_ROUTER_CFG_FALLBACK_Msk );
+    if (enable == true)
+        cfgReg |= SPW_ROUTER_CFG_FALLBACK(1);
+    SPW_REGS->SPW_ROUTER_CFG = cfgReg;
 }
 
 // *****************************************************************************
@@ -175,7 +184,10 @@ void SPW_ROUTER_RoutingTableEntrySet(uint8_t logicalAddress, bool delHeader, SPW
 {
     if ( logicalAddress >= 32 )
     {
-        SPW_REGS->SPW_ROUTER_TABLE[logicalAddress-32] = SPW_ROUTER_TABLE_DELHEAD(delHeader == true) | SPW_ROUTER_TABLE_ADDR(physicalAddress);
+        uint32_t entry = SPW_ROUTER_TABLE_ADDR(physicalAddress);
+        if (delHeader == true)
+            entry |= SPW_ROUTER_TABLE_DELHEAD(1);
+        SPW_REGS->SPW_ROUTER_TABLE[logicalAddress-32] = entry; 
     }
 }
 

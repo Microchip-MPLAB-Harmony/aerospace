@@ -110,7 +110,7 @@ FLEXRAMECC_STATUS FLEXRAMECC_StatusGet(void)
 
 // *****************************************************************************
 /* Function:
-    uint32_t FLEXRAMECC_GetFailAddress(void)
+    uint32_t* FLEXRAMECC_GetFailAddress(void)
 
    Summary:
     Get the last fail address were ECC error occurs in FLEXRAM memory.
@@ -122,11 +122,11 @@ FLEXRAMECC_STATUS FLEXRAMECC_StatusGet(void)
     None.
 
    Returns:
-    Fail address were fixable or unfixable error occured in FLEXRAM memory.
+    Pointer of fail address were fixable or unfixable error occured in FLEXRAM memory.
 */
-uint32_t FLEXRAMECC_GetFailAddress(void)
+uint32_t* FLEXRAMECC_GetFailAddress(void)
 {
-    return FLEXRAMECC_REGS->FLEXRAMECC_FAILAR;
+    return (uint32_t*)(FLEXRAMECC_REGS->FLEXRAMECC_FAILAR);
 }
 
 // *****************************************************************************

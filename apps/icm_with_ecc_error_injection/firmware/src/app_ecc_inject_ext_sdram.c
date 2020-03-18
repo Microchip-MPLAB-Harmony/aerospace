@@ -86,7 +86,7 @@ extern volatile app_ecc_error_count_t g_areaEccErrCountTable[APP_MEMORY_REGION_N
 void APP_ECC_INJECT_EXT_SDRAM_FixCallback(uintptr_t context)
 {
     /* Read the fault address and data corrected on the fly at fault address before clearing the interrupt*/
-    uint32_t* fault_pointer = (uint32_t*)HEMC_HeccGetFailAddress();
+    uint32_t* fault_pointer = HEMC_HeccGetFailAddress();
     uint32_t fault_data = *fault_pointer;
     /* HECC controller issue with ICM : the fault address is incremented by 4 when read by ICM */
     uint32_t fault_data_decr = 0;
@@ -157,7 +157,7 @@ void APP_ECC_INJECT_EXT_SDRAM_FixCallback(uintptr_t context)
 void APP_ECC_INJECT_EXT_SDRAM_NoFixCallback(uintptr_t context)
 {
     /* Read the fault address before clearing the interrupt*/
-    uint32_t* fault_pointer = (uint32_t*)HEMC_HeccGetFailAddress();
+    uint32_t* fault_pointer = HEMC_HeccGetFailAddress();
     bool isDataCacheWasEnabled = false;
     bool isInstCacheWasEnabled = false;
     HEMC_HECC_STATUS value = HEMC_HeccGetStatus();
@@ -264,7 +264,7 @@ void APP_ECC_INJECT_EXT_SDRAM_initialize_error(
     __DSB();
     __ISB();
 
-    pEccErrorInject->ecc_tcb1 = HEMC_TestModeGetCbValue(HEMC_HEMC_CH_HSDRAMC);
+    pEccErrorInject->ecc_tcb1 = (uint8_t)(HEMC_TestModeGetCbValue(HEMC_HEMC_CH_HSDRAMC) & 0xFF);
     __DSB();
     __ISB();
 
@@ -294,7 +294,7 @@ void APP_ECC_INJECT_EXT_SDRAM_initialize_error(
    Returns:
     None.
 */
-void APP_ECC_INJECT_EXT_SDRAM_generate_error(app_ecc_error_inject_t* pEccErrorInject,
+void APP_ECC_INJECT_EXT_SDRAM_generate_error(const app_ecc_error_inject_t* pEccErrorInject,
         uint32_t* pBuffer, app_error_type_t error_type)
 {
     uint8_t tcb1 = pEccErrorInject->ecc_tcb1;

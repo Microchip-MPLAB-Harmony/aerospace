@@ -83,7 +83,10 @@
 */
 void ${SPW_INSTANCE_NAME}_PKTRX_SetDiscard(bool discard)
 {
-    SPW_REGS->SPW_PKTRX1_CFG = SPW_PKTRX1_CFG_DISCARD(discard);
+    if (discard == true)
+        SPW_REGS->SPW_PKTRX1_CFG = SPW_PKTRX1_CFG_DISCARD(1);
+    else
+        SPW_REGS->SPW_PKTRX1_CFG = 0;
 }
 
 // *****************************************************************************
@@ -173,9 +176,9 @@ SPW_PKTRX_STATUS ${SPW_INSTANCE_NAME}_PKTRX_StatusGet(void)
 */
 SPW_PKTRX_INT_MASK ${SPW_INSTANCE_NAME}_PKTRX_IrqStatusGetMaskedAndClear(void)
 {
-    SPW_PKTRX_INT_MASK pendingMaskedIrq = SPW_REGS->SPW_PKTRX1_PI_RM;
+    uint32_t pendingMaskedIrq = SPW_REGS->SPW_PKTRX1_PI_RM;
     SPW_REGS->SPW_PKTRX1_PI_C = pendingMaskedIrq;
-    return pendingMaskedIrq;
+    return (SPW_PKTRX_INT_MASK)(pendingMaskedIrq);
 }
 
 // *****************************************************************************
@@ -196,7 +199,7 @@ SPW_PKTRX_INT_MASK ${SPW_INSTANCE_NAME}_PKTRX_IrqStatusGetMaskedAndClear(void)
 */
 void ${SPW_INSTANCE_NAME}_PKTRX_InterruptEnable(SPW_PKTRX_INT_MASK interruptMask)
 {
-    SPW_REGS->SPW_PKTRX1_IM_S = interruptMask;
+    SPW_REGS->SPW_PKTRX1_IM_S = (uint32_t)interruptMask;
 }
 
 // *****************************************************************************
@@ -217,7 +220,7 @@ void ${SPW_INSTANCE_NAME}_PKTRX_InterruptEnable(SPW_PKTRX_INT_MASK interruptMask
 */
 void ${SPW_INSTANCE_NAME}_PKTRX_InterruptDisable(SPW_PKTRX_INT_MASK interruptMask)
 {
-    SPW_REGS->SPW_PKTRX1_IM_C = interruptMask;
+    SPW_REGS->SPW_PKTRX1_IM_C = (uint32_t)interruptMask;
 }
 </#if>
 

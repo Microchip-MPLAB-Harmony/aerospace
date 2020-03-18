@@ -73,7 +73,7 @@
 #define IP1553_BUFFERS_SIZE                              (32)
 
 /* Return 32 bit bitfield with bit value to 1 for the corresponding x buffer. */
-#define IP1553_BUFFER_TO_BITFIELD_SA(x)                  (1 << x)
+#define IP1553_BUFFER_TO_BITFIELD_SA(x)                  (1UL << x)
 
 /* IP1553 RT address value for broadcast mode */
 #define IP1553_RT_ADDRESS_BROADCAST_MODE                 (0x1F)

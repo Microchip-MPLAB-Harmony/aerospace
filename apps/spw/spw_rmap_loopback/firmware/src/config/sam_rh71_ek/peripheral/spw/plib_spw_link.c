@@ -105,7 +105,7 @@ void SPW_LINK_Initialize(void)
 */
 SPW_LINK_STATUS SPW_LINK_StatusGet(SPW_LINK link)
 {
-    SPW_LINK_STATUS status = 0;
+    uint32_t status = 0;
     if ( link == SPW_LINK_1 )
     {
         status = SPW_REGS->SPW_LINK1_STATUS;
@@ -114,7 +114,7 @@ SPW_LINK_STATUS SPW_LINK_StatusGet(SPW_LINK link)
     {
         status = SPW_REGS->SPW_LINK2_STATUS;
     }
-    return status;
+    return (SPW_LINK_STATUS)(status);
 }
 
 // *****************************************************************************
@@ -136,7 +136,7 @@ SPW_LINK_STATUS SPW_LINK_StatusGet(SPW_LINK link)
 */
 SPW_LINK_INT_MASK SPW_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link)
 {
-    SPW_LINK_INT_MASK pendingMaskedIrq = 0;
+    uint32_t pendingMaskedIrq = 0;
     if (link == SPW_LINK_1)
     {
         pendingMaskedIrq = SPW_REGS->SPW_LINK1_PI_RM;
@@ -147,7 +147,7 @@ SPW_LINK_INT_MASK SPW_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link)
         pendingMaskedIrq = SPW_REGS->SPW_LINK2_PI_RM;
         SPW_REGS->SPW_LINK2_PI_C = pendingMaskedIrq;
     }
-    return pendingMaskedIrq;
+    return (SPW_LINK_INT_MASK)(pendingMaskedIrq);
 }
 
 // *****************************************************************************
@@ -171,11 +171,11 @@ void SPW_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 {
     if ( link == SPW_LINK_1 )
     {
-        SPW_REGS->SPW_LINK1_IM_S = interruptMask;
+        SPW_REGS->SPW_LINK1_IM_S = (uint32_t)interruptMask;
     }
     else if ( link == SPW_LINK_2 )
     {
-        SPW_REGS->SPW_LINK2_IM_S = interruptMask;
+        SPW_REGS->SPW_LINK2_IM_S = (uint32_t)interruptMask;
     }
 }
 
@@ -200,11 +200,11 @@ void SPW_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 {
     if ( link == SPW_LINK_1 )
     {
-        SPW_REGS->SPW_LINK1_IM_C = interruptMask;
+        SPW_REGS->SPW_LINK1_IM_C = (uint32_t)interruptMask;
     }
     else if ( link == SPW_LINK_2 )
     {
-        SPW_REGS->SPW_LINK2_IM_C = interruptMask;
+        SPW_REGS->SPW_LINK2_IM_C = (uint32_t)interruptMask;
     }
 }
 

@@ -85,7 +85,7 @@ extern volatile app_ecc_error_count_t g_areaEccErrCountTable[APP_MEMORY_REGION_N
 */
 static void APP_ECC_INJECT_FLEXRAM_FixCallback(uintptr_t context)
 {
-    uint32_t* fault_pointer = (uint32_t*)(FLEXRAMECC_GetFailAddress());
+    uint32_t* fault_pointer = FLEXRAMECC_GetFailAddress();
     FLEXRAMECC_STATUS status_reg = FLEXRAMECC_StatusGet();
 
     if ( status_reg & FLEXRAMECC_STATUS_MEM_FIX )
@@ -118,7 +118,7 @@ static void APP_ECC_INJECT_FLEXRAM_FixCallback(uintptr_t context)
 */
 static void APP_ECC_INJECT_FLEXRAM_NoFixCallback(uintptr_t context)
 {
-    uint32_t* fault_pointer = (uint32_t*)(FLEXRAMECC_GetFailAddress());
+    uint32_t* fault_pointer = FLEXRAMECC_GetFailAddress();
     __DSB();
     __ISB();
     bool isDataCacheWasEnabled = false;
@@ -251,7 +251,7 @@ void APP_ECC_INJECT_FLEXRAM_initialize_error(
    Returns:
     None.
 */
-void APP_ECC_INJECT_FLEXRAM_generate_error(app_ecc_error_inject_t* pEccErrorInject,
+void APP_ECC_INJECT_FLEXRAM_generate_error(const app_ecc_error_inject_t* pEccErrorInject,
     uint32_t* pBuffer, app_error_type_t error_type)
 {
     uint8_t tcb1 = pEccErrorInject->ecc_tcb1;

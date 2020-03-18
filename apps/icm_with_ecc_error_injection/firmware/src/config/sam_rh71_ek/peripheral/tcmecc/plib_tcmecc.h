@@ -159,9 +159,9 @@ void TCMECC_Initialize(void);
 
 TCMECC_STATUS TCMECC_StatusGet(void);
 
-uint32_t TCMECC_GetFailAddressITCM(void);
+uint64_t* TCMECC_GetFailAddressITCM(void);
 
-uint32_t TCMECC_GetFailAddressDTCM(void);
+uint32_t* TCMECC_GetFailAddressDTCM(void);
 
 void TCMECC_ResetCounters(void);
 
@@ -189,7 +189,7 @@ void TCMECC_ResetCounters(void);
 static inline void TCMECC_TestModeReadEnable(void)
 {
     TCMECC_REGS->TCMECC_CR |= TCMECC_CR_TEST_MODE_RD_Msk;
-    while ( !( TCMECC_REGS->TCMECC_CR & TCMECC_CR_TEST_MODE_RD_Msk ) );
+    while ( ( TCMECC_REGS->TCMECC_CR & TCMECC_CR_TEST_MODE_RD_Msk ) != TCMECC_CR_TEST_MODE_RD_Msk );
 }
 
 // *****************************************************************************
@@ -211,7 +211,7 @@ static inline void TCMECC_TestModeReadEnable(void)
 static inline void TCMECC_TestModeReadDisable(void)
 {
     TCMECC_REGS->TCMECC_CR &= ~(TCMECC_CR_TEST_MODE_RD_Msk);
-    while ( TCMECC_REGS->TCMECC_CR & TCMECC_CR_TEST_MODE_RD_Msk );
+    while ( (TCMECC_REGS->TCMECC_CR & TCMECC_CR_TEST_MODE_RD_Msk) == TCMECC_CR_TEST_MODE_RD_Msk );
 }
 
 // *****************************************************************************
@@ -235,7 +235,7 @@ static inline void TCMECC_TestModeReadDisable(void)
 static inline void TCMECC_TestModeWriteEnable(void)
 {
     TCMECC_REGS->TCMECC_CR |= TCMECC_CR_TEST_MODE_WR_Msk;
-    while ( !( TCMECC_REGS->TCMECC_CR & TCMECC_CR_TEST_MODE_WR_Msk ) );
+    while ( ( TCMECC_REGS->TCMECC_CR & TCMECC_CR_TEST_MODE_WR_Msk ) != TCMECC_CR_TEST_MODE_WR_Msk );
 
 }
 
@@ -258,7 +258,7 @@ static inline void TCMECC_TestModeWriteEnable(void)
 static inline void TCMECC_TestModeWriteDisable(void)
 {
     TCMECC_REGS->TCMECC_CR &= ~(TCMECC_CR_TEST_MODE_WR_Msk);
-    while ( TCMECC_REGS->TCMECC_CR & TCMECC_CR_TEST_MODE_WR_Msk );
+    while ( (TCMECC_REGS->TCMECC_CR & TCMECC_CR_TEST_MODE_WR_Msk) == TCMECC_CR_TEST_MODE_WR_Msk );
 }
 
 // *****************************************************************************
@@ -281,8 +281,8 @@ static inline void TCMECC_TestModeWriteDisable(void)
 static inline void TCMECC_TestModeGetCbValue(uint8_t* tcb1, uint8_t* tcb2)
 {
     uint32_t testcb1 = TCMECC_REGS->TCMECC_TESTCB1 & TCMECC_TESTCB1_Msk;
-    (*tcb1) = ( (testcb1 & TCMECC_TESTCB1_TCB1_Msk) >> TCMECC_TESTCB1_TCB1_Pos );
-    (*tcb2) = ( (testcb1 & TCMECC_TESTCB1_TCB2_Msk) >> TCMECC_TESTCB1_TCB2_Pos );
+    (*tcb1) = (uint8_t)( (testcb1 & TCMECC_TESTCB1_TCB1_Msk) >> TCMECC_TESTCB1_TCB1_Pos );
+    (*tcb2) = (uint8_t)( (testcb1 & TCMECC_TESTCB1_TCB2_Msk) >> TCMECC_TESTCB1_TCB2_Pos );
 }
 
 // *****************************************************************************

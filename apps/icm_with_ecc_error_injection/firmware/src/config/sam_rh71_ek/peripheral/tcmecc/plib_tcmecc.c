@@ -112,7 +112,7 @@ TCMECC_STATUS TCMECC_StatusGet(void)
 
 // *****************************************************************************
 /* Function:
-    uint32_t TCMECC_GetFailAddressITCM(void)
+    uint64_t* TCMECC_GetFailAddressITCM(void)
 
    Summary:
     Get the last fail address were ECC error occurs in Instruction TCM.
@@ -124,16 +124,16 @@ TCMECC_STATUS TCMECC_StatusGet(void)
     None.
 
    Returns:
-    Fail address were fixable or unfixable error occured in ITCM.
+    Pointer of fail address were fixable or unfixable error occured in ITCM.
 */
-uint32_t TCMECC_GetFailAddressITCM(void)
+uint64_t* TCMECC_GetFailAddressITCM(void)
 {
-    return TCMECC_REGS->TCMECC_FAILAR;
+    return (uint64_t*)((TCMECC_REGS->TCMECC_FAILAR)  & 0x1FFFF);
 }
 
 // *****************************************************************************
 /* Function:
-    uint32_t TCMECC_GetFailAddressDTCM(void)
+    uint32_t* TCMECC_GetFailAddressDTCM(void)
 
    Summary:
     Get the last fail address were ECC error occurs in Data TCM.
@@ -145,11 +145,11 @@ uint32_t TCMECC_GetFailAddressITCM(void)
     None.
 
    Returns:
-    Fail address were fixable or unfixable error occured in DTCM.
+    Pointer of fail address were fixable or unfixable error occured in DTCM.
 */
-uint32_t TCMECC_GetFailAddressDTCM(void)
+uint32_t* TCMECC_GetFailAddressDTCM(void)
 {
-    return TCMECC_REGS->TCMECC_FAILARD;
+    return (uint32_t*)((TCMECC_REGS->TCMECC_FAILARD) & 0x2003FFFF);
 }
 // *****************************************************************************
 /* Function:

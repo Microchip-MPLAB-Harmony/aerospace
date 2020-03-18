@@ -101,9 +101,9 @@ SPW_PKTTX_STATUS ${SPW_INSTANCE_NAME}_PKTTX_StatusGet(void)
 */
 SPW_PKTTX_INT_MASK ${SPW_INSTANCE_NAME}_PKTTX_IrqStatusGetMaskedAndClear(void)
 {
-    SPW_PKTTX_INT_MASK pendingMaskedIrq = SPW_REGS->SPW_PKTTX1_PI_RM;
+    uint32_t pendingMaskedIrq = SPW_REGS->SPW_PKTTX1_PI_RM;
     SPW_REGS->SPW_PKTTX1_PI_C = pendingMaskedIrq;
-    return pendingMaskedIrq;
+    return (SPW_PKTTX_INT_MASK)(pendingMaskedIrq);
 }
 
 // *****************************************************************************
@@ -124,7 +124,7 @@ SPW_PKTTX_INT_MASK ${SPW_INSTANCE_NAME}_PKTTX_IrqStatusGetMaskedAndClear(void)
 */
 void ${SPW_INSTANCE_NAME}_PKTTX_InterruptEnable(SPW_PKTTX_INT_MASK interruptMask)
 {
-    SPW_REGS->SPW_PKTTX1_IM_S = interruptMask;
+    SPW_REGS->SPW_PKTTX1_IM_S = (uint32_t)interruptMask;
 }
 
 // *****************************************************************************
@@ -145,7 +145,7 @@ void ${SPW_INSTANCE_NAME}_PKTTX_InterruptEnable(SPW_PKTTX_INT_MASK interruptMask
 */
 void ${SPW_INSTANCE_NAME}_PKTTX_InterruptDisable(SPW_PKTTX_INT_MASK interruptMask)
 {
-    SPW_REGS->SPW_PKTTX1_IM_C = interruptMask;
+    SPW_REGS->SPW_PKTTX1_IM_C = (uint32_t)interruptMask;
 }
 </#if>
 // *****************************************************************************

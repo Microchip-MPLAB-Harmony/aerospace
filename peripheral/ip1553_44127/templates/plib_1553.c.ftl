@@ -232,7 +232,7 @@ void ${IP1553_INSTANCE_NAME}_ResetRxBuffersStatus(uint32_t buffers)
 */
 IP1553_INT_MASK ${IP1553_INSTANCE_NAME}_IrqStatusGet( void )
 {
-    return ${IP1553_INSTANCE_NAME}_REGS->IP1553_ISR;
+    return (IP1553_INT_MASK)(${IP1553_INSTANCE_NAME}_REGS->IP1553_ISR);
 }
 
 <#if IP1553_MODE == "BC">
@@ -352,7 +352,10 @@ uint16_t ${IP1553_INSTANCE_NAME}_GetSecondStatusWord( void )
 */
 void ${IP1553_INSTANCE_NAME}_BCEnableCmdSet(bool enable)
 {
-    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_BEC_Msk ) | IP1553_CR_BEC(enable == true);
+    uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_BEC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_BEC(1);
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
 }
 
 // *****************************************************************************
@@ -374,7 +377,10 @@ void ${IP1553_INSTANCE_NAME}_BCEnableCmdSet(bool enable)
 */
 void ${IP1553_INSTANCE_NAME}_SREQBitCmdSet(bool enable)
 {
-    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_SRC_Msk ) | IP1553_CR_SRC(enable == true);
+    uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_SRC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_SRC(1);
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
 }
 
 // *****************************************************************************
@@ -397,7 +403,10 @@ void ${IP1553_INSTANCE_NAME}_SREQBitCmdSet(bool enable)
 */
 void ${IP1553_INSTANCE_NAME}_BusyBitCmdSet(bool enable)
 {
-    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_BC_Msk ) | IP1553_CR_BC(enable == true);
+    uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_BC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_BC(1);
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
 }
 
 // *****************************************************************************
@@ -419,7 +428,10 @@ void ${IP1553_INSTANCE_NAME}_BusyBitCmdSet(bool enable)
 */
 void ${IP1553_INSTANCE_NAME}_SSBitCmdSet(bool enable)
 {
-    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_SC_Msk ) | IP1553_CR_SC(enable == true);
+    uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_SC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_SC(1);
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
 }
 
 // *****************************************************************************
@@ -445,7 +457,10 @@ void ${IP1553_INSTANCE_NAME}_SSBitCmdSet(bool enable)
 */
 void ${IP1553_INSTANCE_NAME}_TRBitCmdSet(bool enable)
 {
-    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_TC_Msk ) | IP1553_CR_TC(enable == true);
+    uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_TC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_TC(1);
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
 }
 </#if>
 

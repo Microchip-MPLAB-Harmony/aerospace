@@ -148,7 +148,7 @@ void FLEXRAMECC_Initialize(void);
 
 FLEXRAMECC_STATUS FLEXRAMECC_StatusGet(void);
 
-uint32_t FLEXRAMECC_GetFailAddress(void);
+uint32_t* FLEXRAMECC_GetFailAddress(void);
 
 void FLEXRAMECC_ResetCounters(void);
 
@@ -156,8 +156,6 @@ void FLEXRAMECC_ResetCounters(void);
 void FLEXRAMECC_FixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t contextHandle);
 
 void FLEXRAMECC_NoFixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t contextHandle);
-
-void FLEXRAMECC_InterruptHandler(void);
 
 void FLEXRAMECC_INTFIX_InterruptHandler(void);
 
@@ -188,7 +186,7 @@ void FLEXRAMECC_INTNOFIX_InterruptHandler(void);
 static inline void FLEXRAMECC_TestModeReadEnable(void)
 {
     FLEXRAMECC_REGS->FLEXRAMECC_CR |= FLEXRAMECC_CR_TEST_MODE_RD_Msk;
-    while ( !( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_RD_Msk ) );
+    while ( ( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_RD_Msk ) != FLEXRAMECC_CR_TEST_MODE_RD_Msk);
 }
 
 // *****************************************************************************
@@ -210,7 +208,7 @@ static inline void FLEXRAMECC_TestModeReadEnable(void)
 static inline void FLEXRAMECC_TestModeReadDisable(void)
 {
     FLEXRAMECC_REGS->FLEXRAMECC_CR &= ~(FLEXRAMECC_CR_TEST_MODE_RD_Msk);
-    while ( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_RD_Msk );
+    while ( (FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_RD_Msk) ==  FLEXRAMECC_CR_TEST_MODE_RD_Msk );
 }
 
 // *****************************************************************************
@@ -234,7 +232,7 @@ static inline void FLEXRAMECC_TestModeReadDisable(void)
 static inline void FLEXRAMECC_TestModeWriteEnable(void)
 {
     FLEXRAMECC_REGS->FLEXRAMECC_CR |= FLEXRAMECC_CR_TEST_MODE_WR_Msk;
-    while ( !( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_WR_Msk ) );
+    while ( ( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_WR_Msk ) != FLEXRAMECC_CR_TEST_MODE_WR_Msk );
 
 }
 
@@ -257,7 +255,7 @@ static inline void FLEXRAMECC_TestModeWriteEnable(void)
 static inline void FLEXRAMECC_TestModeWriteDisable(void)
 {
     FLEXRAMECC_REGS->FLEXRAMECC_CR &= ~(FLEXRAMECC_CR_TEST_MODE_WR_Msk);
-    while ( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_WR_Msk );
+    while ( (FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_WR_Msk) == FLEXRAMECC_CR_TEST_MODE_WR_Msk );
 }
 
 // *****************************************************************************
@@ -278,7 +276,7 @@ static inline void FLEXRAMECC_TestModeWriteDisable(void)
 */
 static inline uint8_t FLEXRAMECC_TestModeGetCbValue(void)
 {
-    return FLEXRAMECC_REGS->FLEXRAMECC_TESTCB1 & FLEXRAMECC_TESTCB1_Msk;
+    return (uint8_t)(FLEXRAMECC_REGS->FLEXRAMECC_TESTCB1 & FLEXRAMECC_TESTCB1_Msk);
 }
 
 // *****************************************************************************

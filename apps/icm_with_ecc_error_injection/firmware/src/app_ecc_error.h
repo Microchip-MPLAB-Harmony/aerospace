@@ -82,7 +82,7 @@
 typedef enum
 {
     APP_ERROR_TYPE_FIXABLE = 0,
-    APP_ERROR_TYPE_UNFIXABLE = 1,
+    APP_ERROR_TYPE_UNFIXABLE = 1
 } app_error_type_t;
 
 // *****************************************************************************

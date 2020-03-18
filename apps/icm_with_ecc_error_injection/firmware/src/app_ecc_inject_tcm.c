@@ -86,8 +86,8 @@ extern volatile app_ecc_error_count_t g_areaEccErrCountTable[APP_MEMORY_REGION_N
 static void APP_ECC_INJECT_TCM_FixCallback(uintptr_t context)
 {
     uint32_t fault_data_word = 0;
-    uint32_t* fault_pointer_word = (uint32_t*)(TCMECC_GetFailAddressDTCM() & 0x2003FFFF);
-    uint64_t* fault_pointer = (uint64_t*)(TCMECC_GetFailAddressITCM() & 0x1FFFF);
+    uint32_t* fault_pointer_word = TCMECC_GetFailAddressDTCM();
+    uint64_t* fault_pointer = TCMECC_GetFailAddressITCM();
     uint64_t fault_data = *fault_pointer;
 
     if ( ( (uint32_t)fault_pointer_word >= 0x20000000 ) && ( (uint32_t)fault_pointer_word <= 0x2003FFFF ) )
@@ -139,8 +139,8 @@ static void APP_ECC_INJECT_TCM_FixCallback(uintptr_t context)
 */
 static void APP_ECC_INJECT_TCM_NoFixCallback(uintptr_t context)
 {
-    uint32_t* fault_pointer_word = (uint32_t*)(TCMECC_GetFailAddressDTCM() & 0x2003FFFF);
-    uint64_t* fault_pointer = (uint64_t*)(TCMECC_GetFailAddressITCM() & 0x1FFFF);
+    uint32_t* fault_pointer_word = TCMECC_GetFailAddressDTCM();
+    uint64_t* fault_pointer = TCMECC_GetFailAddressITCM();
     TCMECC_STATUS status_reg = TCMECC_StatusGet();
 
     if ( status_reg & TCMECC_STATUS_MEM_NOFIX_I )
@@ -265,7 +265,7 @@ void APP_ECC_INJECT_TCM_initialize_error(
    Returns:
     None.
 */
-void APP_ECC_INJECT_TCM_generate_error(app_ecc_error_inject_t* pEccErrorInject,
+void APP_ECC_INJECT_TCM_generate_error(const app_ecc_error_inject_t* pEccErrorInject,
         uint32_t* pBuffer, app_error_type_t error_type)
 {
     uint8_t tcb1 = pEccErrorInject->ecc_tcb1;

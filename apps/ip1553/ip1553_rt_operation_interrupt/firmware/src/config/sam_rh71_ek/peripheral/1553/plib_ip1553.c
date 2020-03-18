@@ -225,7 +225,7 @@ void IP1553_ResetRxBuffersStatus(uint32_t buffers)
 */
 IP1553_INT_MASK IP1553_IrqStatusGet( void )
 {
-    return IP1553_REGS->IP1553_ISR;
+    return (IP1553_INT_MASK)(IP1553_REGS->IP1553_ISR);
 }
 
 
@@ -249,7 +249,10 @@ IP1553_INT_MASK IP1553_IrqStatusGet( void )
 */
 void IP1553_BCEnableCmdSet(bool enable)
 {
-    IP1553_REGS->IP1553_CR = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_BEC_Msk ) | IP1553_CR_BEC(enable == true);
+    uint32_t crReg = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_BEC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_BEC(1);
+    IP1553_REGS->IP1553_CR = crReg;
 }
 
 // *****************************************************************************
@@ -271,7 +274,10 @@ void IP1553_BCEnableCmdSet(bool enable)
 */
 void IP1553_SREQBitCmdSet(bool enable)
 {
-    IP1553_REGS->IP1553_CR = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_SRC_Msk ) | IP1553_CR_SRC(enable == true);
+    uint32_t crReg = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_SRC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_SRC(1);
+    IP1553_REGS->IP1553_CR = crReg;
 }
 
 // *****************************************************************************
@@ -294,7 +300,10 @@ void IP1553_SREQBitCmdSet(bool enable)
 */
 void IP1553_BusyBitCmdSet(bool enable)
 {
-    IP1553_REGS->IP1553_CR = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_BC_Msk ) | IP1553_CR_BC(enable == true);
+    uint32_t crReg = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_BC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_BC(1);
+    IP1553_REGS->IP1553_CR = crReg;
 }
 
 // *****************************************************************************
@@ -316,7 +325,10 @@ void IP1553_BusyBitCmdSet(bool enable)
 */
 void IP1553_SSBitCmdSet(bool enable)
 {
-    IP1553_REGS->IP1553_CR = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_SC_Msk ) | IP1553_CR_SC(enable == true);
+    uint32_t crReg = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_SC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_SC(1);
+    IP1553_REGS->IP1553_CR = crReg;
 }
 
 // *****************************************************************************
@@ -337,12 +349,15 @@ void IP1553_SSBitCmdSet(bool enable)
     None
 
    Note:
-    After reception of a valid ?Inhibit T/F Bit? command the T/F bit is maintained
-    at logic level ?0?.
+    After reception of a valid Inhibit T/F Bit command the T/F bit is maintained
+    at logic level 0.
 */
 void IP1553_TRBitCmdSet(bool enable)
 {
-    IP1553_REGS->IP1553_CR = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_TC_Msk ) | IP1553_CR_TC(enable == true);
+    uint32_t crReg = ( IP1553_REGS->IP1553_CR & ~IP1553_CR_TC_Msk );
+    if (enable == true)
+        crReg |= IP1553_CR_TC(1);
+    IP1553_REGS->IP1553_CR = crReg;
 }
 
 // *****************************************************************************

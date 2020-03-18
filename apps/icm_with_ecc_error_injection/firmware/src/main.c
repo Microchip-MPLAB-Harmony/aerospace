@@ -129,7 +129,7 @@ static volatile uint8_t regionHashCompleted;
 static volatile uint8_t regionDigestMismatch;
 
 /* Table containing the current position in buffer were next error will be injected for each region */
-static uint8_t g_eccErrorBufferPosition[APP_MEMORY_REGION_NUM] = {0};
+static uint32_t g_eccErrorBufferPosition[APP_MEMORY_REGION_NUM] = {0};
 
 /* Table of ECC injection parameters for each region */
 app_ecc_error_inject_t g_eccErrorInjectTable[APP_MEMORY_REGION_NUM] = {0};
@@ -269,15 +269,15 @@ static void APP_generate_ecc_error(app_error_type_t error_type)
 
     if ( error_type == APP_ERROR_TYPE_FIXABLE )
     {
-        printf("-> Generate fixable error on region %s at index : %d \n\r",
+        printf("-> Generate fixable error on region %s at index : %u \n\r",
                 g_memoryRegionString[g_selectedMemoryRegion],
-                g_eccErrorBufferPosition[g_selectedMemoryRegion]);
+                (unsigned int)g_eccErrorBufferPosition[g_selectedMemoryRegion]);
     }
     else if ( error_type == APP_ERROR_TYPE_UNFIXABLE )
     {
-        printf("-> Generate not fixable error on region %s at index : %d \n\r",
+        printf("-> Generate not fixable error on region %s at index : %u \n\r",
                 g_memoryRegionString[g_selectedMemoryRegion],
-                g_eccErrorBufferPosition[g_selectedMemoryRegion]);
+                (unsigned int)g_eccErrorBufferPosition[g_selectedMemoryRegion]);
     }
 
     switch ( g_selectedMemoryRegion )
@@ -373,7 +373,7 @@ int main ( void )
         DCACHE_CLEAN_INVALIDATE_BY_ADDR((uint32_t *)buffer_external_sram, (int32_t)(sizeof(buffer_external_sram)));
 
     /* Set ICM memory address for generated hash */
-    ICM_SetHashStartAddress((uint32_t) & bufferHash);
+    ICM_SetHashStartAddress((uint32_t)&bufferHash);
 
     regionHashCompleted = 0;
     regionDigestMismatch = 0;
@@ -479,7 +479,7 @@ int main ( void )
             {
                 /* Change current memory region */
                 g_selectedMemoryRegion++;
-                if ( g_selectedMemoryRegion > 3 )
+                if ( g_selectedMemoryRegion > APP_MEMORY_REGION_EXTERNAL_SDRAM )
                 {
                     g_selectedMemoryRegion = APP_MEMORY_REGION_ITCM;
                 }
@@ -502,7 +502,6 @@ int main ( void )
     }
 
     /* Execution should not come here during normal operation */
-
     return ( EXIT_FAILURE );
 }
 

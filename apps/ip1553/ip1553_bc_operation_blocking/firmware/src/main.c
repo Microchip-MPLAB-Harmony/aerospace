@@ -154,7 +154,7 @@ int main(void)
 {
     uint8_t user_input = 0;
     uint32_t transferStatusWord = 0;
-    uint32_t status = 0;
+    IP1553_INT_MASK status = 0;
     uint32_t transferErrors = 0;
     bool isTransferEnded = false;
     bool hasStatusWord = false;

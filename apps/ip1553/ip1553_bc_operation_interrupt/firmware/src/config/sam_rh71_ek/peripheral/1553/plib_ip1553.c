@@ -225,7 +225,7 @@ void IP1553_ResetRxBuffersStatus(uint32_t buffers)
 */
 IP1553_INT_MASK IP1553_IrqStatusGet( void )
 {
-    return IP1553_REGS->IP1553_ISR;
+    return (IP1553_INT_MASK)(IP1553_REGS->IP1553_ISR);
 }
 
 // *****************************************************************************
