@@ -153,10 +153,12 @@ def icmCreateRegionDesc(component, menu, RegionNumber):
 # Round entered value to multiple of 64 byte 
 def adjustRegionDescriptorSize(symbol, event):
     value = event["value"]
-    if (value != 64):
-        symbol.setValue(int(floor(value/64)))
-    else:
+    if (value < 64):
         symbol.setValue(0)
+    elif ((value % 64) == 0):
+        symbol.setValue(int(value/64)-1)
+    else:
+        symbol.setValue(int(floor(value/64)))
 
 # Display comment if value is rounded 
 def checkRegionDescriptorSizeComment(symbol, event):

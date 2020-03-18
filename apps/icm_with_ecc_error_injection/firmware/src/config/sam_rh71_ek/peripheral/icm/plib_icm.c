@@ -75,7 +75,7 @@ static const icm_descriptor_registers_t __attribute__((aligned (64))) icmListDes
                     ICM_RCFG_EOM(0) |
                     ICM_RCFG_WRAP(0) |
                     ICM_RCFG_CDWBN(0),
-        .ICM_RCTRL = ICM_RCTRL_TRSIZE(157),
+        .ICM_RCTRL = ICM_RCTRL_TRSIZE(156),
         .ICM_RNEXT = 0,
     },
     {
@@ -91,7 +91,7 @@ static const icm_descriptor_registers_t __attribute__((aligned (64))) icmListDes
                     ICM_RCFG_EOM(0) |
                     ICM_RCFG_WRAP(0) |
                     ICM_RCFG_CDWBN(0),
-        .ICM_RCTRL = ICM_RCTRL_TRSIZE(157),
+        .ICM_RCTRL = ICM_RCTRL_TRSIZE(156),
         .ICM_RNEXT = 0,
     },
     {
@@ -107,7 +107,7 @@ static const icm_descriptor_registers_t __attribute__((aligned (64))) icmListDes
                     ICM_RCFG_EOM(0) |
                     ICM_RCFG_WRAP(0) |
                     ICM_RCFG_CDWBN(0),
-        .ICM_RCTRL = ICM_RCTRL_TRSIZE(157),
+        .ICM_RCTRL = ICM_RCTRL_TRSIZE(156),
         .ICM_RNEXT = 0,
     },
     {
@@ -123,7 +123,7 @@ static const icm_descriptor_registers_t __attribute__((aligned (64))) icmListDes
                     ICM_RCFG_EOM(0) |
                     ICM_RCFG_WRAP(1) |
                     ICM_RCFG_CDWBN(0),
-        .ICM_RCTRL = ICM_RCTRL_TRSIZE(157),
+        .ICM_RCTRL = ICM_RCTRL_TRSIZE(156),
         .ICM_RNEXT = 0,
     },
 };
