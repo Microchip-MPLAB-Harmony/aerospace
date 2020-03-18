@@ -266,6 +266,9 @@ static void APP_SPW_InitRx(void)
     app_rx_buff_list.head = 0;
     app_rx_buff_list.full = 0;
 
+    /* Disable discard mode to stall incoming packets */
+    SPW_PKTRX_SetDiscard(false);
+
     /* Set list element 0 in Next buffer with start condition now */
     next_buffer = app_rx_buff_list.head;
     APP_SPW_SetNextReceiveBuffer(next_buffer, SPW_PKTRX_NXTBUF_START_NOW);
