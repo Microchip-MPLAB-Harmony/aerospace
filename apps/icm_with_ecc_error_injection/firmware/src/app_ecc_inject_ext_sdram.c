@@ -82,13 +82,21 @@ extern volatile app_ecc_error_count_t g_areaEccErrCountTable[APP_MEMORY_REGION_N
 
    Returns:
     None.
+
+   Note:
+    HECC controller issues:
+     - When data is read by the ICM, the fault address is incremented by 4.
+       -> Workaround: Correct both fail address and previous address
+     - When UNAL bit is activated in HSDRAMC, two interrupts are issued.
+       -> Workaround: Treat both interrupt. Software counter is incremented twice.
 */
 void APP_ECC_INJECT_EXT_SDRAM_FixCallback(uintptr_t context)
 {
     /* Read the fault address and data corrected on the fly at fault address before clearing the interrupt*/
     uint32_t* fault_pointer = HEMC_HeccGetFailAddress();
     uint32_t fault_data = *fault_pointer;
-    /* HECC controller issue with ICM : the fault address is incremented by 4 when read by ICM */
+
+    /* HECC controller issue with ICM : write back also the previous address */
     uint32_t fault_data_decr = 0;
     if ( (uint32_t)fault_pointer > 0x64000000UL )
     {
@@ -153,6 +161,13 @@ void APP_ECC_INJECT_EXT_SDRAM_FixCallback(uintptr_t context)
 
    Returns:
     None.
+
+   Note:
+    HECC controller issues:
+     - When data is read by the ICM, the fault address is incremented by 4.
+       -> Workaround: Correct both fail address and previous address
+     - When UNAL bit is activated in HSDRAMC, two interrupts are issued.
+       -> Workaround: Treat both interrupt. Software counter is incremented twice.
 */
 void APP_ECC_INJECT_EXT_SDRAM_NoFixCallback(uintptr_t context)
 {
@@ -179,7 +194,7 @@ void APP_ECC_INJECT_EXT_SDRAM_NoFixCallback(uintptr_t context)
         __DSB();
         __ISB();
 
-        /* HECC controller issue with ICM : the fault address is incremented by 4 when read by ICM */
+        /* HECC controller issue with ICM : write back also the previous address */
         if ( (uint32_t)fault_pointer > 0x64000000UL )
         {
             *(fault_pointer - 1) = 0xDEADDEAD;
