@@ -104,7 +104,7 @@ uint32_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram
 SPW_PKTTX_SEND_LIST_ENTRY __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) app_tx_packet_send_list[APP_TX_NUM_PACKET] = {0};
 
 /* Store information if the TX sequence is ended */
-bool app_tx_is_end = false;
+volatile bool app_tx_is_end = false;
 
 /* Rx buffer of data */
 uint8_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) app_rx_buffer_data[APP_RX_PACKET_SIZE_BYTES] = {0};
@@ -113,7 +113,7 @@ uint8_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram_
 SPW_PKTRX_INFO __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) app_rx_packet_info[APP_RX_PACKET_NUM] = {0};
 
 /* Store information if the RX sequence is ended */
-bool app_rx_is_end = false;
+volatile bool app_rx_is_end = false;
 
 /* Rmap header buffer */
 uint8_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) app_buffer_rmap_header[APP_RMAP_HEADER_MAX_SIZE] = {0};
@@ -211,8 +211,8 @@ static void APP_SPW_InitRx(uint8_t expectedDataSize)
             SPW_PKTRX_NXTBUF_START_NOW,
             0);
 
-    /* Enable packet TX interrupts */
-    SPW_PKTTX_InterruptEnable(SPW_PKTTX_INT_MASK_DEACT);
+    /* Enable packet RX interrupts */
+    SPW_PKTRX_InterruptEnable(SPW_PKTRX_INT_MASK_DEACT);
     }
 }
 
@@ -315,7 +315,7 @@ static int8_t APP_SPW_WaitAndCheckRmapReply(uint32_t expectedSize)
     int8_t res = 0;
 
     /* Wait end of packet form transmit and receive modules */
-    while (!app_tx_is_end && !app_rx_is_end);
+    while ( (app_tx_is_end == false) ||  (app_rx_is_end == false) );
 
     /* Check if there was error in TX send list */
     SPW_PKTTX_STATUS tx_status = SPW_PKTTX_StatusGet();
