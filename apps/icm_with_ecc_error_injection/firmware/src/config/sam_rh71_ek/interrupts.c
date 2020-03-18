@@ -120,8 +120,8 @@ void MCAN0_INT0_Handler         ( void ) __attribute__((weak, alias("Dummy_Handl
 void MCAN0_INT1_Handler         ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void MCAN1_INT0_Handler         ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void MCAN1_INT1_Handler         ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void TCMRAM_INTFIX_InterruptHandler ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void TCMRAM_INTNOFIX_InterruptHandler ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void TCMECC_INTFIX_InterruptHandler ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void TCMECC_INTNOFIX_InterruptHandler ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void FLEXRAMECC_INTFIX_InterruptHandler ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void FLEXRAMECC_INTNOFIX_InterruptHandler ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void SHA_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -215,8 +215,8 @@ const DeviceVectors exception_table=
     .pfnMCAN0_INT1_Handler         = ( void * ) MCAN0_INT1_Handler,
     .pfnMCAN1_INT0_Handler         = ( void * ) MCAN1_INT0_Handler,
     .pfnMCAN1_INT1_Handler         = ( void * ) MCAN1_INT1_Handler,
-    .pfnTCMECC_INTFIX_Handler      = ( void * ) TCMRAM_INTFIX_InterruptHandler,
-    .pfnTCMECC_INTNOFIX_Handler    = ( void * ) TCMRAM_INTNOFIX_InterruptHandler,
+    .pfnTCMECC_INTFIX_Handler      = ( void * ) TCMECC_INTFIX_InterruptHandler,
+    .pfnTCMECC_INTNOFIX_Handler    = ( void * ) TCMECC_INTNOFIX_InterruptHandler,
     .pfnFLEXRAMECC_INTFIX_Handler  = ( void * ) FLEXRAMECC_INTFIX_InterruptHandler,
     .pfnFLEXRAMECC_INTNOFIX_Handler = ( void * ) FLEXRAMECC_INTNOFIX_InterruptHandler,
     .pfnSHA_Handler                = ( void * ) SHA_Handler,

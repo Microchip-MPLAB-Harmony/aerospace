@@ -49,17 +49,17 @@ def interruptControl(NVIC, event):
     Database.clearSymbolValue("core", noFixInterruptHandlerLock)
     if (event["value"] == True):
         Database.setSymbolValue("core", fixInterruptVector, True, 2)
-        Database.setSymbolValue("core", fixInterruptHandler, "TCMRAM_INTFIX_InterruptHandler", 2)
+        Database.setSymbolValue("core", fixInterruptHandler, "TCMECC_INTFIX_InterruptHandler", 2)
         Database.setSymbolValue("core", fixInterruptHandlerLock, True, 2)
         Database.setSymbolValue("core", noFixInterruptVector, True, 2)
-        Database.setSymbolValue("core", noFixInterruptHandler, "TCMRAM_INTNOFIX_InterruptHandler", 2)
+        Database.setSymbolValue("core", noFixInterruptHandler, "TCMECC_INTNOFIX_InterruptHandler", 2)
         Database.setSymbolValue("core", noFixInterruptHandlerLock, True, 2)
     else :
         Database.setSymbolValue("core", fixInterruptVector, False, 2)
-        Database.setSymbolValue("core", fixInterruptHandler, "TCMRAM_INTFIX_Handler", 2)
+        Database.setSymbolValue("core", fixInterruptHandler, "TCMECC_INTFIX_Handler", 2)
         Database.setSymbolValue("core", fixInterruptHandlerLock, False, 2)
         Database.setSymbolValue("core", noFixInterruptVector, False, 2)
-        Database.setSymbolValue("core", noFixInterruptHandler, "TCMRAM_INTNOFIX_Handler", 2)
+        Database.setSymbolValue("core", noFixInterruptHandler, "TCMECC_INTNOFIX_Handler", 2)
         Database.setSymbolValue("core", noFixInterruptHandlerLock, False, 2)
 
 ###################################################################################################
@@ -119,15 +119,15 @@ def instantiateComponent(tcmeccComponent):
     tcmeccClkEnComment.setVisible(False)
     tcmeccClkEnComment.setDependencies(tcmeccClockWarningStatus, ["core." + tcmeccInstanceName.getValue() + "_CLOCK_ENABLE"])
 
-    fixInterruptVector = "TCMRAM_INTFIX_INTERRUPT_ENABLE"
-    fixInterruptHandler = "TCMRAM_INTFIX_INTERRUPT_HANDLER"
-    fixInterruptHandlerLock = "TCMRAM_INTFIX_INTERRUPT_HANDLER_LOCK"
-    fixInterruptVectorUpdate = "TCMRAM_INTFIX_INTERRUPT_ENABLE_UPDATE"
+    fixInterruptVector = "TCMECC_INTFIX_INTERRUPT_ENABLE"
+    fixInterruptHandler = "TCMECC_INTFIX_INTERRUPT_HANDLER"
+    fixInterruptHandlerLock = "TCMECC_INTFIX_INTERRUPT_HANDLER_LOCK"
+    fixInterruptVectorUpdate = "TCMECC_INTFIX_INTERRUPT_ENABLE_UPDATE"
     
-    noFixInterruptVector = "TCMRAM_INTNOFIX_INTERRUPT_ENABLE"
-    noFixInterruptHandler = "TCMRAM_INTNOFIX_INTERRUPT_HANDLER"
-    noFixInterruptHandlerLock = "TCMRAM_INTNOFIX_INTERRUPT_HANDLER_LOCK"
-    noFixInterruptVectorUpdate = "TCMRAM_INTNOFIX_INTERRUPT_ENABLE_UPDATE"
+    noFixInterruptVector = "TCMECC_INTNOFIX_INTERRUPT_ENABLE"
+    noFixInterruptHandler = "TCMECC_INTNOFIX_INTERRUPT_HANDLER"
+    noFixInterruptHandlerLock = "TCMECC_INTNOFIX_INTERRUPT_HANDLER_LOCK"
+    noFixInterruptVectorUpdate = "TCMECC_INTNOFIX_INTERRUPT_ENABLE_UPDATE"
 
     # NVIC Dynamic settings
     tcmeccinterruptControl = tcmeccComponent.createBooleanSymbol("NVIC_TCMECC_ENABLE", None)

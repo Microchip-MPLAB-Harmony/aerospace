@@ -316,9 +316,9 @@ void ${TCMECC_INSTANCE_NAME}_FixCallbackRegister(TCMECC_CALLBACK callback, uintp
 
 void ${TCMECC_INSTANCE_NAME}_NoFixCallbackRegister(TCMECC_CALLBACK callback, uintptr_t contextHandle);
 
-void TCMRAM_INTFIX_InterruptHandler(void);
+void TCMECC_INTFIX_InterruptHandler(void);
 
-void TCMRAM_NOINTFIX_InterruptHandler(void);
+void TCMECC_NOINTFIX_InterruptHandler(void);
 
 </#if>
 

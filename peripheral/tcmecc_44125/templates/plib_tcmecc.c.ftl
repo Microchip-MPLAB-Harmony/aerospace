@@ -280,7 +280,7 @@ void ${TCMECC_INSTANCE_NAME}_NoFixCallbackRegister(TCMECC_CALLBACK callback, uin
 
 // *****************************************************************************
 /* Function:
-    void TCMRAM_INTFIX_InterruptHandler(void)
+    void TCMECC_INTFIX_InterruptHandler(void)
 
    Summary:
     ${TCMECC_INSTANCE_NAME} Peripheral Interrupt Handler.
@@ -303,7 +303,7 @@ void ${TCMECC_INSTANCE_NAME}_NoFixCallbackRegister(TCMECC_CALLBACK callback, uin
     instance interrupt is enabled. If peripheral instance's interrupt is not
     enabled user need to call it from the main while loop of the application.
 */
-void TCMRAM_INTFIX_InterruptHandler(void)
+void TCMECC_INTFIX_InterruptHandler(void)
 {
 
     if (${TCMECC_INSTANCE_NAME?lower_case}Obj.fix_callback != NULL)
@@ -314,7 +314,7 @@ void TCMRAM_INTFIX_InterruptHandler(void)
 
 // *****************************************************************************
 /* Function:
-    void TCMRAM_INTNOFIX_InterruptHandler(void)
+    void TCMECC_INTNOFIX_InterruptHandler(void)
 
    Summary:
     ${TCMECC_INSTANCE_NAME} Peripheral Interrupt Handler.
@@ -337,7 +337,7 @@ void TCMRAM_INTFIX_InterruptHandler(void)
     instance interrupt is enabled. If peripheral instance's interrupt is not
     enabled user need to call it from the main while loop of the application.
 */
-void TCMRAM_INTNOFIX_InterruptHandler(void)
+void TCMECC_INTNOFIX_InterruptHandler(void)
 {
     if (${TCMECC_INSTANCE_NAME?lower_case}Obj.nofix_callback != NULL)
     {
