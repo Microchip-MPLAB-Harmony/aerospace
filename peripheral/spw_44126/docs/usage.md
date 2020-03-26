@@ -1,4 +1,12 @@
-﻿# SPW Peripheral Library Help
+﻿---
+grand_parent: Peripheral libraries
+parent: SPW Peripheral Library
+title: SPW Peripheral Library Usage
+has_toc: true
+nav_order: 1
+---
+
+# SPW Peripheral Library Usage
 
 ## Configuring the library
 Configure the peripheral library using the MHC.
@@ -14,7 +22,7 @@ The SPW initialization is done during system initialization. It configure the mo
 
 If interrupts are used, the callback function should be set and expected interrupts enabled:
 
-```C
+```c
     /* Add SPW interrupt callback */
     SPW_CallbackRegister(SPW_Callback_Function, (uintptr_t)NULL);
 
@@ -41,7 +49,7 @@ For both link, the current state can be checked with ```SPW_LINK_StatusGet```
 
 Example for waiting both links to be in ```Run``` state:
 
-```C
+```c
     /* Wait link goes to Run state */
     SPW_LINK_STATE spwLink1Status = 0;
     SPW_LINK_STATE spwLink2Status = 0;
@@ -80,7 +88,7 @@ Receive buffer can be set in NEXT state using the function ```SPW_PKTRX_SetNextB
 * The split option to indicate if incoming packet should be split when this buffer activates.
 * The start condition and the matching value for start condition if needed.
 
-```C
+```c
     /* Allocate Rx buffer of data */
     uint8_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) buffer_data[PACKET_SIZE_BYTES] = {0};
 
@@ -102,7 +110,7 @@ Receive buffer can be set in NEXT state using the function ```SPW_PKTRX_SetNextB
 
 The status for NEXT, CURRENT and PREVIOUS buffers can be get with ```SPW_PKTRX_StatusGet``` to check or wait transitions. For example, wait buffer become active after he was set in next buffer:
 
-```C
+```c
     /* Wait buffer become active */
     while ((SPW_PKTRX_StatusGet() & SPW_PKTRX_STATUS_ACT) == 0);
 ```
@@ -118,7 +126,7 @@ The user can also request the CURRENT buffer to deactivate in two ways:
 * Split request with function ```SPW_PKTRX_CurrentPacketSplit``` if the PREVIOUS buffer is not locked
 * Abort of the CURRENT reception with function ```SPW_PKTRX_CurrentPacketAbort```, in that case it discards any ongoing packet.
 
-```C
+```c
     /* Deactivate current buffer (Abort with split) */
     SPW_PKTRX_CurrentPacketSplit();
 ```
@@ -126,7 +134,7 @@ The user can also request the CURRENT buffer to deactivate in two ways:
 
 The status of the previous buffer can be gets with function ``SPW_PKTRX_GetPreviousBufferStatus````. Reading his status also unlock the PREVIOUS buffer.
 
-```C
+```c
 /* Get Status and unlock previous buffer */
 SPW_PKTRX_PREV_STATUS status = SPW_PKTRX_GetPreviousBufferStatus();
 ```
@@ -152,7 +160,7 @@ Send list can be set in NEXT state using the function ```SPW_PKTTX_SetNextSendLi
 * The abort option if ongoing send list should be abort when this send list wants to start.
 * The start condition and the matching value for start condition if needed.
 
-```C
+```c
     /* Allocate Tx buffer for header  */
     uint8_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) header_buffer[HEADER_SIZE_BYTES] = {0};
 
@@ -190,7 +198,7 @@ The status for NEXT, CURRENT and PREVIOUS buffers can be get with ```SPW_PKTTX_S
 
 The field ```SPW_PKTTX_STATUS_PREV_MASK``` contains the PREVIOUS send list status.
 
-```C
+```c
     /* Get transmitter Status */
     SPW_PKTTX_STATUS tx_status = SPW_PKTTX_StatusGet();
 
@@ -202,7 +210,7 @@ The field ```SPW_PKTTX_STATUS_PREV_MASK``` contains the PREVIOUS send list statu
 
 The PREVIOUS send list should be unlocked by performing a dummy write in status register. This can be done with the function ```SPW_PKTTX_UnlockStatus```:
 
-```C
+```c
     /* Unlock previous buffer status */
     SPW_PKTTX_UnlockStatus();
 ```
@@ -211,7 +219,7 @@ The PREVIOUS send list should be unlocked by performing a dummy write in status 
 
 RMAP status can be check with ```SPW_RMAP_StatusGetAndClear``` function. It can be used to check if there was an error during the processing of a received RMAP command.
 
-```C
+```c
     /* Get and clear RMAP status */
     SPW_RMAP_STATUS status = SPW_RMAP_StatusGetAndClear();
 

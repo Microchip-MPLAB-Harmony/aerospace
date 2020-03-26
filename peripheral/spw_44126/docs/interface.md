@@ -1,71 +1,28 @@
-# SPW Library Interface
+---
+grand_parent: Peripheral libraries
+parent: SPW Peripheral Library
+title: SPW Peripheral Library Interface
+has_children: false
+has_toc: true
+nav_order: 2
+---
 
-#### Data Types and Constants
-* [SPW IRQ status](##-spw-irq-status)
-* [SPW Callback](##-spw-callback)
-* [SPW PLib Instance Object](##-spw-plib-instance-object)
-* [SPW link](##-spw-link)
-* [SPW LINK status](##-spw-link-status)
-* [SPW LINK state](##-spw-link-state)
-* [SPW LINK IRQ status](##-spw-link-irq-status)
-* [SPW PKTRX status](##-spw-pktrx-status)
-* [SPW PKTRX previous buffer status](##-spw-pktrx-previous-buffer-status)
-* [SPW PKTRX interrupt status](##-spw-pktrx-interrupt-status)
-* [SPW PKTRX next receive buffer start condition](##-spw-pktrx-next-receive-buffer-start-condition)
-* [SPW PKTRX packet information data](##-spw-pktrx-packet-information-data)
-* [SPW PKTTX status](##-spw-pkttx-status)
-* [SPW PKTTX Previous status](##-spw-pkttx-previous-status)
-* [SPW PKTTX interrupt status](##-spw-pkttx-interrupt-status)
-* [SPW PKTTX next send list start mode](##-spw-pkttx-next-send-list-start-mode)
-* [SPW PKTTX send list entry](##-spw-pkttx-send-list-entry)
-* [SPW RMAP status](##-spw-rmap-status)
-* [SPW RMAP Error Code](##-spw-rmap-error-code)
-* [SPW ROUTER table physical address](##-spw-router-table-physical-address)
-* [SPW ROUTER status](##-spw-router-status)
-* [SPW ROUTER Timeout status](##-spw-router-timeout-status)
+# Peripheral Library Interface
+{: .no_toc }
 
-#### Initialization functions
-* [SPW_Initialize](##-spw_initialize)
-* [SPW_LINK_Initialize](##-spw_link_initialize)
-* [SPW_RMAP_Initialize](##-spw_rmap_initialize)
-* [SPW_ROUTER_Initialize](##-spw_router_initialize)
+## Table of contents
+{: .no_toc .text-delta }
 
-#### Setup functions
-* [SPW_CallbackRegister](##-spw_callbackregister)
-* [SPW_LINK_InterruptEnable](##-spw_link_interruptenable)
-* [SPW_LINK_InterruptDisable](##-spw_link_interruptdisable)
-* [SPW_PKTRX_SetDiscard](##-spw_pktrx_setdiscard)
-* [SPW_PKTRX_SetNextBuffer](##-spw_pktrx_setnextbuffer)
-* [SPW_PKTRX_InterruptEnable](##-spw_pktrx_interruptenable)
-* [SPW_PKTRX_InterruptDisable](##-spw_pktrx_interruptdisable)
-* [SPW_PKTRX_CurrentPacketAbort](##-spw_pktrx_currentpacketabort)
-* [SPW_PKTRX_CurrentPacketSplit](##-spw_pktrx_currentpacketsplit)
-* [SPW_PKTTX_InterruptEnable](##-spw_pkttx_interruptenable)
-* [SPW_PKTTX_InterruptDisable](##-spw_pkttx_interruptdisable)
-* [SPW_PKTTX_SetNextSendList](##-spw_pkttx_setnextsendlist)
-* [SPW_PKTTX_UnlockStatus](##-spw_pkttx_unlockstatus)
-* [SPW_ROUTER_TimeoutDisable](##-spw_router_timeoutdisable)
-* [SPW_ROUTER_LogicalAddressRoutingEnable](##-spw_router_logicaladdressroutingenable)
-* [SPW_ROUTER_FallbackEnable](##-spw_router_fallbackenable)
-* [SPW_ROUTER_RoutingTableEntrySet](##-spw_router_routingtableentryset)
-
-#### Status functions
-* [SPW_LINK_StatusGet](##-spw_link_statusget)
-* [SPW_LINK_IrqStatusGetMaskedAndClear](##-spw_link_irqstatusgetmaskedandclear)
-* [SPW_PKTRX_StatusGet](##-spw_pktrx_statusget)
-* [SPW_PKTRX_IrqStatusGetMaskedAndClear](##-spw_pktrx_irqstatusgetmaskedandclear)
-* [SPW_PKTRX_GetPreviousBufferStatus](##-spw_pktrx_getpreviousbufferstatus)
-* [SPW_PKTTX_StatusGet](##-spw_pkttx_statusget)
-* [SPW_PKTTX_IrqStatusGetMaskedAndClear](##-spw_pkttx_irqstatusgetmaskedandclear)
-* [SPW_RMAP_StatusGetAndClear](##-spw_rmap_statusgetandclear)
-* [SPW_ROUTER_StatusGet](##-spw_router_statusget)
-* [SPW_ROUTER_TimeoutStatusGet](##-spw_router_timeoutstatusget)
-
+1. TOC
+{:toc}
 
 ---
 
-## SPW IRQ status
-```C
+## Data Types and Constants
+
+### SPW IRQ status
+
+```c
 typedef enum
 {
     SPW_INT_MASK_NONE = 0,
@@ -83,47 +40,45 @@ typedef enum
 } SPW_INT_MASK;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW IRQ lines that have pending interrupt   
+**Summary**
 
-**Description**:
-&nbsp;&nbsp;This data type identifies the SPW IRQ lines that have pending interrupt   
+Identifies the SPW IRQ lines that have pending interrupt
+
+**Description**
+
+This data type identifies the SPW IRQ lines that have pending interrupt
 
 ---
 
-## SPW Callback
-```C
+### SPW Callback
+
+```c
 typedef void (*SPW_CALLBACK) (SPW_INT_MASK irqStatus, uintptr_t contextHandle)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;SPW Callback Function Pointer.
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type defines the required function signature for the SPW callback function.   
-&nbsp;&nbsp;Application must register a pointer to a callback function whose function signature   
-&nbsp;&nbsp;(parameter and return value types) match the types specified by this function pointer   
-&nbsp;&nbsp;in order to receive callback from the PLIB.    
-&nbsp;&nbsp;The parameters and return values are described here and a partial example implementation is provided.
+SPW Callback Function Pointer.
 
-**Parameters**:   
-&nbsp;&nbsp;*irqStatus*   
-&nbsp;&nbsp;&nbsp;&nbsp;The IRQ interrupt type value.
-&nbsp;&nbsp;*contextHandle*   
-&nbsp;&nbsp;&nbsp;&nbsp;Value identifying the context of the application that registered the callback function
+**Description**
 
-**Remarks**:   
-&nbsp;&nbsp;The context parameter contains the a handle to the client context, provided   
-&nbsp;&nbsp;at the time the callback function was registered using the CallbackRegister function.   
-&nbsp;&nbsp;This context handle value is passed back to the client as the "context" parameter.   
-&nbsp;&nbsp;It can be any value (such as a pointer to the client's data) necessary to   
-&nbsp;&nbsp;identify the client context or instance of the client that made the data transfer request. 
+This data type defines the required function signature for the SPW callback function. Application must register a pointer to a callback function whose function signature (parameter and return value types) match the types specified by this function pointer in order to receive callback from the PLIB.
+The parameters and return values are described here and a partial example implementation is provided.
 
-&nbsp;&nbsp;The callback function executes in the PLIB's interrupt context. It is recommended   
-&nbsp;&nbsp;of the application to not perform process intensive or blocking operations with in this function.
+**Parameters**
 
-**Example**:
-```C
+*irqStatus* The IRQ interrupt type value.
+*contextHandle* Value identifying the context of the application that registered the callback function
+
+**Remarks**
+
+The context parameter contains the a handle to the client context, provided at the time the callback function was registered using the CallbackRegister function. This context handle value is passed back to the client as the "context" parameter. It can be any value (such as a pointer to the client's data) necessary to identify the client context or instance of the client that made the data transfer request.
+
+The callback function executes in the PLIB's interrupt context. It is recommended of the application to not perform process intensive or blocking operations with in this function.
+
+**Example**
+
+```c
 void APP_SPW_Handler(uintptr_t context)
 {
     //Fixable error has occurred
@@ -134,8 +89,9 @@ SPW_CallbackRegister(&APP_SPW_Handler, (uintptr_t)NULL);
 
 ---
 
-## SPW PLib Instance Object
-```C
+### SPW PLib Instance Object
+
+```c
 typedef struct
 {
     /* Transfer Event Callback for interrupt*/
@@ -145,16 +101,20 @@ typedef struct
     uintptr_t context;
 } SPW_OBJ;
 ```
-**Summary**:   
-&nbsp;&nbsp;SPW PLib Object structure
 
-**Description**:   
-&nbsp;&nbsp;This data structure defines the SPW PLib Instance Object   
+**Summary**
+
+SPW PLib Object structure
+
+**Description**
+
+This data structure defines the SPW PLib Instance Object
 
 ---
 
-## SPW link
-```C
+### SPW link
+
+```c
 typedef enum
 {
     SPW_LINK_1 = 1,
@@ -163,25 +123,29 @@ typedef enum
     SPW_LINK_INVALID = 0xFFFFFFFF
 } SPW_LINK;
 ```
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW link   
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW link   
+**Summary**
+
+Identifies the SPW link
+
+**Description**
+
+This data type identifies the SPW link
 
 ---
 
-## SPW LINK status
-```C
+### SPW LINK status
+
+```c
 typedef enum
 {
-    SPW_LINK_STATUS_LINKSTATE_MASK = SPW_LINK1_STATUS_LINKSTATE_Msk, 
+    SPW_LINK_STATUS_LINKSTATE_MASK = SPW_LINK1_STATUS_LINKSTATE_Msk,
     SPW_LINK_STATUS_TXDEFDIV_MASK = SPW_LINK1_STATUS_TXDEFDIV_Msk,
     SPW_LINK_STATUS_TXEMPTY = SPW_LINK1_STATUS_TXEMPTY_Msk,
     SPW_LINK_STATUS_GOTNULL = SPW_LINK1_STATUS_GOTNULL_Msk,
     SPW_LINK_STATUS_GOTFCT = SPW_LINK1_STATUS_GOTFCT_Msk,
     SPW_LINK_STATUS_GOTNCHAR = SPW_LINK1_STATUS_GOTNCHAR_Msk,
-    SPW_LINK_STATUS_SEEN0 = SPW_LINK1_STATUS_SEEN0_Msk, 
+    SPW_LINK_STATUS_SEEN0 = SPW_LINK1_STATUS_SEEN0_Msk,
     SPW_LINK_STATUS_SEEN1 = SPW_LINK1_STATUS_SEEN1_Msk,
     SPW_LINK_STATUS_SEEN2 = SPW_LINK1_STATUS_SEEN2_Msk,
     SPW_LINK_STATUS_SEEN3 = SPW_LINK1_STATUS_SEEN3_Msk,
@@ -192,16 +156,19 @@ typedef enum
 } SPW_LINK_STATUS;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW LINK current status   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW LINK status   
+Identifies the SPW LINK current status
+
+**Description**
+
+This data type identifies the SPW LINK status
 
 ---
 
-## SPW LINK state
-```C
+### SPW LINK state
+
+```c
 typedef enum
 {
     SPW_LINK_STATE_ERROR_RESET = 0,
@@ -215,16 +182,19 @@ typedef enum
 } SPW_LINK_STATE;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW LINK current CODEC link state machine   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW CODEC link state machine   
+Identifies the SPW LINK current CODEC link state machine
+
+**Description**
+
+This data type identifies the SPW CODEC link state machine
 
 ---
 
-## SPW LINK IRQ status
-```C
+### SPW LINK IRQ status
+
+```c
 typedef enum
 {
     SPW_LINK_INT_MASK_DISERR = SPW_LINK1_PI_RM_DISERR_Msk,
@@ -242,19 +212,22 @@ typedef enum
 } SPW_LINK_INT_MASK;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW LINK IRQ event that have pending interrupt   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW LINK IRQ event that have pending interrupt   
+Identifies the SPW LINK IRQ event that have pending interrupt
+
+**Description**
+
+This data type identifies the SPW LINK IRQ event that have pending interrupt
 
 ---
 
-## SPW PKTRX status
-```C
+### SPW PKTRX status
+
+```c
 typedef enum
 {
-    SPW_PKTRX_STATUS_COUNT_MASK = SPW_PKTRX1_STATUS_COUNT_Msk, 
+    SPW_PKTRX_STATUS_COUNT_MASK = SPW_PKTRX1_STATUS_COUNT_Msk,
     SPW_PKTRX_STATUS_PACKET = SPW_PKTRX1_STATUS_PACKET_Msk,
     SPW_PKTRX_STATUS_LOCKED = SPW_PKTRX1_STATUS_LOCKED_Msk,
     SPW_PKTRX_STATUS_ARM = SPW_PKTRX1_STATUS_ARM_Msk,
@@ -266,16 +239,19 @@ typedef enum
 } SPW_PKTRX_STATUS;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW PKTRX current status   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW PKTRX status   
+Identifies the SPW PKTRX current status
+
+**Description**
+
+This data type identifies the SPW PKTRX status
 
 ---
 
-## SPW PKTRX previous buffer status
-```C
+### SPW PKTRX previous buffer status
+
+```c
 typedef enum
 {
     SPW_PKTRX_PREV_STATUS_CNT_MASK = SPW_PKTRX1_PREVBUFSTS_CNT_Msk,
@@ -289,16 +265,19 @@ typedef enum
 } SPW_PKTRX_PREV_STATUS;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW PKTRX previous buffer status   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW PKTRX previous buffer   
+Identifies the SPW PKTRX previous buffer status
+
+**Description**
+
+This data type identifies the SPW PKTRX previous buffer
 
 ---
 
-## SPW PKTRX interrupt status
-```C
+### SPW PKTRX interrupt status
+
+```c
 typedef enum
 {
     SPW_PKTRX_INT_MASK_DEACT = SPW_PKTRX1_PI_R_DEACT_Msk,
@@ -311,19 +290,22 @@ typedef enum
 } SPW_PKTRX_INT_MASK;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW PKTRX current interrupt status   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW PKTRX interrupt status   
+Identifies the SPW PKTRX current interrupt status
+
+**Description**
+
+This data type identifies the SPW PKTRX interrupt status
 
 ---
 
-## SPW PKTRX next receive buffer start condition
-```C
+### SPW PKTRX next receive buffer start condition
+
+```c
 typedef enum
 {
-    SPW_PKTRX_NXTBUF_START_EVENT = SPW_PKTRX1_NXTBUFCFG_START_STARTEVENT_Val, 
+    SPW_PKTRX_NXTBUF_START_EVENT = SPW_PKTRX1_NXTBUFCFG_START_STARTEVENT_Val,
     SPW_PKTRX_NXTBUF_START_NOW = SPW_PKTRX1_NXTBUFCFG_START_STARTNOW_Val,
     SPW_PKTRX_NXTBUF_START_TCH1 = SPW_PKTRX1_NXTBUFCFG_START_STARTTCH1_Val,
     SPW_PKTRX_NXTBUF_START_LATER = SPW_PKTRX1_NXTBUFCFG_START_STARTLATER_Val,
@@ -332,16 +314,19 @@ typedef enum
 } SPW_PKTRX_NXTBUF_START;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW PKTRX next receive buffer start condition   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW PKTRX next receive buffer start condition   
+Identifies the SPW PKTRX next receive buffer start condition
+
+**Description**
+
+This data type identifies the SPW PKTRX next receive buffer start condition
 
 ---
 
-## SPW PKTRX packet information data
-```C
+### SPW PKTRX packet information data
+
+```c
 typedef struct
 {
     /* Word 0 */
@@ -366,19 +351,22 @@ typedef struct
 } SPW_PKTRX_INFO;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;SPW received packet information data   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data structure defines the received SPW packet information data   
+SPW received packet information data
+
+**Description**
+
+This data structure defines the received SPW packet information data
 
 ---
 
-## SPW PKTTX status
-```C
+### SPW PKTTX status
+
+```c
 typedef enum
 {
-    SPW_PKTTX_STATUS_ARM = SPW_PKTTX1_STATUS_ARM_Msk, 
+    SPW_PKTTX_STATUS_ARM = SPW_PKTTX1_STATUS_ARM_Msk,
     SPW_PKTTX_STATUS_ACT = SPW_PKTTX1_STATUS_ACT_Msk,
     SPW_PKTTX_STATUS_PENDING = SPW_PKTTX1_STATUS_PENDING_Msk,
     SPW_PKTTX_STATUS_DEACT = SPW_PKTTX1_STATUS_DEACT_Msk,
@@ -388,16 +376,19 @@ typedef enum
 } SPW_PKTTX_STATUS;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW PKTTX current status   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW PKTTX status   
+Identifies the SPW PKTTX current status
+
+**Description**
+
+This data type identifies the SPW PKTTX status
 
 ---
 
-## SPW PKTTX Previous status
-```C
+### SPW PKTTX Previous status
+
+```c
 typedef enum
 {
     SPW_PKTTX_PREV_NOINFO = 0,
@@ -408,19 +399,22 @@ typedef enum
     SPW_PKTTX_PREV_ABORTEDTIMEOUT,
     /* Force the compiler to reserve 32-bit memory for enum */
     SPW_PKTTX_PREV_INVALID = 0xFFFFFFFF
-}SPW_PKTTX_PREV;
+} SPW_PKTTX_PREV;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW PKTTX Previous status.   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the PKTTX Previous status.   
+Identifies the SPW PKTTX Previous status.
+
+**Description**
+
+This data type identifies the PKTTX Previous status.
 
 ---
 
-## SPW PKTTX interrupt status
-```C
+### SPW PKTTX interrupt status
+
+```c
 typedef enum
 {
     SPW_PKTTX_INT_MASK_DEACT = SPW_PKTTX1_PI_R_DEACT_Msk,
@@ -429,21 +423,25 @@ typedef enum
     SPW_PKTTX_INT_MASK_EEP = SPW_PKTTX1_PI_R_EEP_Msk,
     /* Force the compiler to reserve 32-bit memory for enum */
     SPW_PKTTX_INT_MASK_INVALID = 0xFFFFFFFF
-}SPW_PKTTX_INT_MASK;
+} SPW_PKTTX_INT_MASK;
 ```
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW PKTTX current interrupt status   
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW PKTTX interrupt status  
+**Summary**
+
+Identifies the SPW PKTTX current interrupt status
+
+**Description**
+
+This data type identifies the SPW PKTTX interrupt status
 
 ---
 
-## SPW PKTTX next send list start mode
-```C
+### SPW PKTTX next send list start mode
+
+```c
 typedef enum
 {
-    SPW_PKTTX_NXTSEND_START_EVENT = SPW_PKTTX1_NXTSENDCFG_START_STARTEVENT_Val, 
+    SPW_PKTTX_NXTSEND_START_EVENT = SPW_PKTTX1_NXTSENDCFG_START_STARTEVENT_Val,
     SPW_PKTTX_NXTSEND_START_NOW = SPW_PKTTX1_NXTSENDCFG_START_STARTNOW_Val,
     SPW_PKTTX_NXTSEND_START_TCH1 = SPW_PKTTX1_NXTSENDCFG_START_STARTTCH1_Val,
     /* Force the compiler to reserve 32-bit memory for enum */
@@ -451,16 +449,19 @@ typedef enum
 } SPW_PKTTX_NXTSEND_START;
 ```
 
-**Summary**:
-&nbsp;&nbsp;Identifies the SPW PKTTX next send list start mode
+**Summary**
 
-**Description**:
-&nbsp;&nbsp;This data type identifies the SPW PKTTX next send list start mode
+Identifies the SPW PKTTX next send list start mode
+
+**Description**
+
+This data type identifies the SPW PKTTX next send list start mode
 
 ---
 
-## SPW PKTTX send list entry
-```C
+### SPW PKTTX send list entry
+
+```c
 typedef struct
 {
     /* Word 0 */
@@ -502,41 +503,47 @@ typedef struct
     /* Word 6 */
     uint32_t DAddr      : 32;
 
-    /* Word 7 */    
+    /* Word 7 */
     uint32_t TimeOut    : 19;
     uint32_t NotUsed5   : 13;
 } SPW_PKTTX_SEND_LIST_ENTRY;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;SPW send list entry   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data structure defines a SPW send list entry   
+SPW send list entry
+
+**Description**
+
+This data structure defines a SPW send list entry
 
 ---
 
-## SPW RMAP status
-```C
+### SPW RMAP status
+
+```c
 typedef enum
 {
-    SPW_RMAP_STATUS_ERRCODE_MASK = SPW_RMAP1_STS_RC_ERRCODE_Msk, 
+    SPW_RMAP_STATUS_ERRCODE_MASK = SPW_RMAP1_STS_RC_ERRCODE_Msk,
     SPW_RMAP_STATUS_VALID = SPW_RMAP1_STS_RC_VALID_Msk,
     /* Force the compiler to reserve 32-bit memory for enum */
     SPW_RMAP_STATUS_INVALID = 0xFFFFFFFF
 } SPW_RMAP_STATUS;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW RMAP current status   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW RMAP status   
+Identifies the SPW RMAP current status
+
+**Description**
+
+This data type identifies the SPW RMAP status
 
 ---
 
-## SPW RMAP Error Code
-```C
+### SPW RMAP Error Code
+
+```c
 typedef enum
 {
     /* No error detected */
@@ -570,16 +577,19 @@ typedef enum
 } SPW_RMAP_ERRCODE;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW RMAP Error Code   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW RMAP Error Code
+Identifies the SPW RMAP Error Code
+
+**Description**
+
+This data type identifies the SPW RMAP Error Code
 
 ---
 
-## SPW ROUTER table physical address
-```C
+### SPW ROUTER table physical address
+
+```c
 typedef enum
 {
     SPW_ROUTER_PHYS_ADDR_DISABLE = 0,
@@ -592,19 +602,22 @@ typedef enum
 } SPW_ROUTER_PHYS_ADDR;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW ROUTER table physical address   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW ROUTER table physical address   
+Identifies the SPW ROUTER table physical address
+
+**Description**
+
+This data type identifies the SPW ROUTER table physical address
 
 ---
 
-## SPW ROUTER status
-```C
+### SPW ROUTER status
+
+```c
 typedef enum
 {
-    SPW_ROUTER_STATUS_DEST_MASK = SPW_ROUTER_STS_DEST_Msk, 
+    SPW_ROUTER_STATUS_DEST_MASK = SPW_ROUTER_STS_DEST_Msk,
     SPW_ROUTER_STATUS_SOURCE_MASK = SPW_ROUTER_STS_SOURCE_Msk,
     SPW_ROUTER_STATUS_BYTE_MASK = SPW_ROUTER_STS_BYTE_Msk,
     SPW_ROUTER_STATUS_COUNT_MASK = SPW_ROUTER_STS_COUNT_Msk,
@@ -613,214 +626,253 @@ typedef enum
 } SPW_ROUTER_STATUS;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW ROUTER current status   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW ROUTER status   
+Identifies the SPW ROUTER current status
+
+**Description**
+
+This data type identifies the SPW ROUTER status
 
 ---
 
-## SPW ROUTER Timeout status
-```C
+### SPW ROUTER Timeout status
+
+```c
 typedef enum
 {
-    SPW_ROUTER_TIMEOUT_STATUS_ADDR_MASK = SPW_ROUTER_TIMEOUT_ADDR_Msk, 
+    SPW_ROUTER_TIMEOUT_STATUS_ADDR_MASK = SPW_ROUTER_TIMEOUT_ADDR_Msk,
     SPW_ROUTER_TIMEOUT_STATUS_LOCKED = SPW_ROUTER_TIMEOUT_LOCKED_Msk,
     /* Force the compiler to reserve 32-bit memory for enum */
     SPW_ROUTER_TIMEOUT_STATUS_INVALID = 0xFFFFFFFF
 } SPW_ROUTER_TIMEOUT_STATUS;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the SPW ROUTER Timeout current status   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the SPW ROUTER Timeout status   
+Identifies the SPW ROUTER Timeout current status
+
+**Description**
+
+This data type identifies the SPW ROUTER Timeout status
 
 ---
 
-## SPW_Initialize
-```C
+## Initialization functions
+
+### SPW_Initialize
+
+```c
 void SPW_Initialize(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Initializes given instance of the SPW peripheral   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Initializes given instance of the SPW peripheral
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+None
 
 ---
 
-## SPW_LINK_Initialize
-```C
+### SPW_LINK_Initialize
+
+```c
 void SPW_LINK_Initialize(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Initialize LINK modules of the SPW peripheral   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Initialize LINK modules of the SPW peripheral
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+None
 
 ---
 
-## SPW_RMAP_Initialize
-```C
+### SPW_RMAP_Initialize
+
+```c
 void SPW_RMAP_Initialize(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Initialize RMAP modules of the SPW peripheral   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Initialize RMAP modules of the SPW peripheral
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+None
 
 ---
 
-## SPW_ROUTER_Initialize
-```C
+### SPW_ROUTER_Initialize
+
+```c
 void SPW_ROUTER_Initialize(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Initialize ROUTER modules of the SPW peripheral   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Initialize ROUTER modules of the SPW peripheral
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+None
 
 ---
 
-## SPW_CallbackRegister
-```C
+## Setup functions
+
+### SPW_CallbackRegister
+
+```c
 void SPW_CallbackRegister(SPW_CALLBACK callback, uintptr_t contextHandle)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Sets the pointer to the function (and it's context) to be called when the   
-&nbsp;&nbsp;given SPW's interrupt events occur   
+**Summary**
 
-**Description**:
-&nbsp;&nbsp;This function sets the pointer to a client function to be called "back" when   
-&nbsp;&nbsp;the given SPW's interrupt events occur. It also passes a context value    
-&nbsp;&nbsp;(usually a pointer to a context structure) that is passed into the function   
-&nbsp;&nbsp;when it is called. The specified callback function will be called from the   
-&nbsp;&nbsp;peripheral interrupt context   
+Sets the pointer to the function (and it's context) to be called when the given SPW's interrupt events occurs.
 
-**Precondition**:   
-&nbsp;&nbsp;SPW_Initialize must have been called for the associated   
-&nbsp;&nbsp;SPW instance   
+**Description**
 
-**Parameters**:   
-&nbsp;&nbsp;*callback*   
-&nbsp;&nbsp;&nbsp;&nbsp;A pointer to a function with a calling signature defined by the SPW_CALLBACK   
-&nbsp;&nbsp;&nbsp;&nbsp;data type. Setting this to NULL disables the callback feature   
-&nbsp;&nbsp;*contextHandle*   
-&nbsp;&nbsp;&nbsp;&nbsp;A value (usually a pointer) passed (unused) into the function identified by   
-&nbsp;&nbsp;&nbsp;&nbsp;the callback parameter   
+This function sets the pointer to a client function to be called "back" when the given SPW's interrupt events occurs. It also passes a context value (usually a pointer to a context structure) that is passed into the function when it is called. The specified callback function will be called from the peripheral interrupt context
 
-**Returns**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Remarks**:   
-&nbsp;&nbsp;None
+SPW_Initialize must have been called for the associated SPW instance
+
+**Parameters**
+
+*callback* A pointer to a function with a calling signature defined by the SPW_CALLBACK data type. Setting this to NULL disables the callback feature
+*contextHandle* A value (usually a pointer) passed (unused) into the function identified by the callback parameter
+
+**Returns**
+
+None
+
+**Remarks**
+
+None
 
 ---
 
-## SPW_LINK_InterruptEnable
-```C
+### SPW_LINK_InterruptEnable
+
+```c
 void SPW_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 ```
-**Summary**:   
-&nbsp;&nbsp;Enables SPW LINK Interrupt for given link interface   
 
-**Precondition**:   
-&nbsp;&nbsp;SPW_Initialize must have been called for the associated SPW instance   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;*link*   
-&nbsp;&nbsp;&nbsp;&nbsp;The selected link ID   
-&nbsp;&nbsp;*interruptMask*   
-&nbsp;&nbsp;&nbsp;&nbsp;Interrupt to be enabled   
+Enables SPW LINK Interrupt for given link interface
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance
+
+**Parameters**
+
+*link* The selected link ID
+*interruptMask* Interrupt to be enabled
+
+**Returns**
+
+None
 
 ---
 
-## SPW_LINK_InterruptDisable
-```C
+### SPW_LINK_InterruptDisable
+
+```c
 void SPW_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Disables SPW LINK Interrupt for given link interface   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;SPW_Initialize must have been called for the associated SPW instance   
+Disables SPW LINK Interrupt for given link interface
 
-**Parameters**:   
-&nbsp;&nbsp;*link*   
-&nbsp;&nbsp;&nbsp;&nbsp;The selected link ID   
-&nbsp;&nbsp;*InterruptMask*   
-&nbsp;&nbsp;&nbsp;&nbsp;Interrupt to be disabled   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+SPW_Initialize must have been called for the associated SPW instance
+
+**Parameters**
+
+*link* The selected link ID
+*InterruptMask* Interrupt to be disabled
+
+**Returns**
+
+None
 
 ---
 
-## SPW_PKTRX_SetDiscard
-```C
+### SPW_PKTRX_SetDiscard
+
+```c
 void SPW_PKTRX_SetDiscard(bool discard)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Set the SPW packet RX inactive incoming mode to discard or stall option   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Set the SPW packet RX inactive incoming mode to discard or stall option
 
-**Parameters**:   
-&nbsp;&nbsp;*discard*   
-&nbsp;&nbsp;&nbsp;&nbsp;True for discard mode, false for stall mode   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None.   
+None
 
-**Notes**:   
-&nbsp;&nbsp;- The discard mode is not working with SAMRH71F20C device   
-&nbsp;&nbsp;- It will always stall by defaut, see ErrataSheet
+**Parameters**
+
+*discard* True for discard mode, false for stall mode
+
+**Returns**
+
+None.
+
+**Notes**:
+
+- The discard mode is not working with SAMRH71F20C device
+- It will always stall by defaut, see ErrataSheet
 
 ---
 
-## SPW_PKTRX_SetNextBuffer
-```C
+### SPW_PKTRX_SetNextBuffer
+
+```c
 void SPW_PKTRX_SetNextBuffer(
         uint8_t* dataAddress,
         uint32_t dataLengthBytes,
@@ -831,153 +883,177 @@ void SPW_PKTRX_SetNextBuffer(
         uint8_t startValue)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Set the SPW next receive buffer informations and start conditions   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Set the SPW next receive buffer informations and start conditions
 
-**Parameters**:   
-&nbsp;&nbsp;*dataAddress*   
-&nbsp;&nbsp;&nbsp;&nbsp;pointer to data buffer address   
-&nbsp;&nbsp;*dataLengthBytes*   
-&nbsp;&nbsp;&nbsp;&nbsp;length in byte of the data buffer address   
-&nbsp;&nbsp;*packetInfoAddress*   
-&nbsp;&nbsp;&nbsp;&nbsp;pointer to the packet info type address were packet information will be stored   
-&nbsp;&nbsp;*pckCount*   
-&nbsp;&nbsp;&nbsp;&nbsp;maximum number of entries in packet info buffer   
-&nbsp;&nbsp;*split*   
-&nbsp;&nbsp;&nbsp;&nbsp;set to True if any ongoing packet should be split when the start condition is met   
-&nbsp;&nbsp;*startMode*   
-&nbsp;&nbsp;&nbsp;&nbsp;receive buffer start mode condition   
-&nbsp;&nbsp;*startValue*   
-&nbsp;&nbsp;&nbsp;&nbsp;Matching value for event start condition   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+*dataAddress* pointer to data buffer address
+*dataLengthBytes* length in byte of the data buffer address
+*packetInfoAddress* pointer to the packet info type address were packet information will be stored
+*pckCount* maximum number of entries in packet info buffer
+*split* set to True if any ongoing packet should be split when the start condition is met
+*startMode* receive buffer start mode condition
+*startValue* Matching value for event start condition
+
+**Returns**
+
+None
 
 ---
 
-## SPW_PKTRX_InterruptEnable
-```C
+### SPW_PKTRX_InterruptEnable
+
+```c
 void SPW_PKTRX_InterruptEnable(SPW_PKTRX_INT_MASK interruptMask)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Enables SPW RX module Interrupt   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;SPW_Initialize must have been called for the associated SPW instance   
+Enables SPW RX module Interrupt
 
-**Parameters**:   
-&nbsp;&nbsp;*interruptMask*   
-&nbsp;&nbsp;&nbsp;&nbsp;Interrupt to be enabled   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+SPW_Initialize must have been called for the associated SPW instance
+
+**Parameters**
+
+*interruptMask* Interrupt to be enabled
+
+**Returns**
+
+None
 
 ---
 
-## SPW_PKTRX_InterruptDisable
-```C
+### SPW_PKTRX_InterruptDisable
+
+```c
 void SPW_PKTRX_InterruptDisable(SPW_PKTRX_INT_MASK interruptMask)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Disables SPW RX module Interrupt   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;SPW_Initialize must have been called for the associated SPW instance   
+Disables SPW RX module Interrupt
 
-**Parameters**:   
-&nbsp;&nbsp;*interruptMask*   
-&nbsp;&nbsp;&nbsp;&nbsp;Interrupt to be disabled   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+SPW_Initialize must have been called for the associated SPW instance
+
+**Parameters**
+
+*interruptMask* Interrupt to be disabled
+
+**Returns**
+
+None
 
 ---
 
-## SPW_PKTRX_CurrentPacketAbort
-```C
+### SPW_PKTRX_CurrentPacketAbort
+
+```c
 void SPW_PKTRX_CurrentPacketAbort(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Immediately abort and discard any ongoing SPW packet in RX module   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Immediately abort and discard any ongoing SPW packet in RX module
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+None
 
 ---
 
-## SPW_PKTRX_CurrentPacketSplit
-```C
+### SPW_PKTRX_CurrentPacketSplit
+
+```c
 void SPW_PKTRX_CurrentPacketSplit(void);
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Immediately split any ongoing SPW packet in RX module   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Immediately split any ongoing SPW packet in RX module
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+None
 
 ---
 
-## SPW_PKTTX_InterruptEnable
-```C
+### SPW_PKTTX_InterruptEnable
+
+```c
 void SPW_PKTTX_InterruptEnable(SPW_PKTTX_INT_MASK interruptMask)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Enables SPW TX module Interrupt   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;SPW_Initialize must have been called for the associated SPW instance   
+Enables SPW TX module Interrupt
 
-**Parameters**:   
-&nbsp;&nbsp;*interruptMask*   
-&nbsp;&nbsp;&nbsp;&nbsp;Interrupt to be enabled   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+SPW_Initialize must have been called for the associated SPW instance
+
+**Parameters**
+
+*interruptMask* Interrupt to be enabled
+
+**Returns**
+
+None
 
 ---
 
-## SPW_PKTTX_InterruptDisable
-```C
+### SPW_PKTTX_InterruptDisable
+
+```c
 void SPW_PKTTX_InterruptDisable(SPW_PKTTX_INT_MASK interruptMask)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Disables SPW TX module Interrupt   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;SPW_Initialize must have been called for the associated SPW instance   
+Disables SPW TX module Interrupt
 
-**Parameters**:   
-&nbsp;&nbsp;*interruptMask*   
-&nbsp;&nbsp;&nbsp;&nbsp;Interrupt to be disabled   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+SPW_Initialize must have been called for the associated SPW instance
+
+**Parameters**
+
+*interruptMask* Interrupt to be disabled
+
+**Returns**
+
+None
 
 ---
 
-## SPW_PKTTX_SetNextSendList
-```C
+### SPW_PKTTX_SetNextSendList
+
+```c
 void SPW_PKTTX_SetNextSendList(uint8_t* routerBytesTable,
                                SPW_PKTTX_SEND_LIST_ENTRY* sendListAddress,
                                uint16_t length,
@@ -986,326 +1062,386 @@ void SPW_PKTTX_SetNextSendList(uint8_t* routerBytesTable,
                                uint8_t startValue)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Set the SPW next send list informations and start conditions   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Set the SPW next send list informations and start conditions
 
-**Parameters**:   
-&nbsp;&nbsp;*routerBytesTable*   
-&nbsp;&nbsp;&nbsp;&nbsp;Table of 4 router bytes to prepend (if non-zero) to each   
-&nbsp;&nbsp;&nbsp;&nbsp;packets in the send list. All bytes are set to 0 if this pointer is NULL   
-&nbsp;&nbsp;*sendListAddress*   
-&nbsp;&nbsp;&nbsp;&nbsp;Pointer to the send list type object that will be transmitted   
-&nbsp;&nbsp;*length*   
-&nbsp;&nbsp;&nbsp;&nbsp;Number of entries in send list   
-&nbsp;&nbsp;*abort*   
-&nbsp;&nbsp;&nbsp;&nbsp;Set to True if any ongoing send list should be abort when this send list wants to start   
-&nbsp;&nbsp;*startMode*   
-&nbsp;&nbsp;&nbsp;&nbsp;Send list start mode condition   
-&nbsp;&nbsp;*startValue*   
-&nbsp;&nbsp;Matching value for event start condition   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+*routerBytesTable* Table of 4 router bytes to prepend (if non-zero) to each packets in the send list. All bytes are set to 0 if this pointer is NULL
+*sendListAddress* Pointer to the send list type object that will be transmitted
+*length* Number of entries in send list
+*abort* Set to True if any ongoing send list should be abort when this send list wants to start
+*startMode* Send list start mode condition
+*startValue* Matching value for event start condition
+
+**Returns**
+
+None
 
 ---
 
-## SPW_PKTTX_UnlockStatus
-```C
+### SPW_PKTTX_UnlockStatus
+
+```c
 void SPW_PKTTX_UnlockStatus(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Unlock the SPW TX module previous buffer status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Unlock the SPW TX module previous buffer status
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+None
 
 ---
 
-## SPW_ROUTER_TimeoutDisable
-```C
+### SPW_ROUTER_TimeoutDisable
+
+```c
 void SPW_ROUTER_TimeoutDisable(bool disable)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Disable SPW ROUTER timeout event   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Disable SPW ROUTER timeout event
 
-**Parameters**:   
-&nbsp;&nbsp;*disable*   
-&nbsp;&nbsp;&nbsp;&nbsp;if true, Router timeout event is disabled. Enabled if false   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+*disable* if true, Router timeout event is disabled. Enabled if false
+
+**Returns**
+
+None
 
 ---
 
-## SPW_ROUTER_LogicalAddressRoutingEnable
-```C
+### SPW_ROUTER_LogicalAddressRoutingEnable
+
+```c
 void SPW_ROUTER_LogicalAddressRoutingEnable(bool enable)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Enable SPW ROUTER Logical Address Routing   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Enable SPW ROUTER Logical Address Routing
 
-**Parameters**:   
-&nbsp;&nbsp;enable   
-&nbsp;&nbsp;&nbsp;&nbsp;if true, Router Logical Address Routing is enable. Disabled if false   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+*enable* if true, Router Logical Address Routing is enable. Disabled if false
+
+**Returns**
+
+None
 
 ---
 
-## SPW_ROUTER_FallbackEnable
-```C
+### SPW_ROUTER_FallbackEnable
+
+```c
 void SPW_ROUTER_FallbackEnable(bool enable)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Enable SPW ROUTER Fallback   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Enable SPW ROUTER Fallback
 
-**Parameters**:   
-&nbsp;&nbsp;*enable*   
-&nbsp;&nbsp;&nbsp;&nbsp;if true, Router Fallback is enable. Disabled if false   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+*enable* if true, Router Fallback is enable. Disabled if false
+
+**Returns**
+
+None
 
 ---
 
-## SPW_ROUTER_RoutingTableEntrySet
-```C
+### SPW_ROUTER_RoutingTableEntrySet
+
+```c
 void SPW_ROUTER_RoutingTableEntrySet(uint8_t logicalAddress, bool delHeader, uint8_t physicalAddress)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Set a SPW routing table entry for a logical address   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Set a SPW routing table entry for a logical address
 
-**Parameters**:   
-&nbsp;&nbsp;*logicalAddress*   
-&nbsp;&nbsp;&nbsp;&nbsp;Logical address entry to configure between 32 to 255   
-&nbsp;&nbsp;*delHeader*   
-&nbsp;&nbsp;&nbsp;&nbsp;if true, discard router byte for this logical address   
-&nbsp;&nbsp;*physicalAddress*   
-&nbsp;&nbsp;&nbsp;&nbsp;The physical address were incoming packet will be routed   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
 
----
+**Parameters**
 
-## SPW_LINK_StatusGet
-```C
+*logicalAddress* Logical address entry to configure between 32 to 255
+*delHeader* if true, discard router byte for this logical address
+*physicalAddress* The physical address were incoming packet will be routed
+
+**Returns**
+
+None
+
+## Status functions
+
+### SPW_LINK_StatusGet
+
+```c
 SPW_LINK_STATUS SPW_LINK_StatusGet(SPW_LINK link)
 ```
 
-**Summary**:
-&nbsp;&nbsp;Get the SPW LINK status of the given SPW link
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get the SPW LINK status of the given SPW link
 
-**Parameters**:   
-&nbsp;&nbsp;*link*   
-&nbsp;&nbsp;&nbsp;&nbsp;the selected link ID   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Current status of the selected SPW link
+None
+
+**Parameters**
+
+*link* the selected link ID
+
+**Returns**
+Current status of the selected SPW link
 
 ---
 
-## SPW_LINK_IrqStatusGetMaskedAndClear
-```C
+### SPW_LINK_IrqStatusGetMaskedAndClear
+
+```c
 SPW_LINK_INT_MASK SPW_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get the SPW LINK interrupt status for masked interrupt and clear them for the   
-&nbsp;&nbsp;selected link interface   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get the SPW LINK interrupt status for masked interrupt and clear them for the
+selected link interface
 
-**Parameters**:   
-&nbsp;&nbsp;*link*   
-&nbsp;&nbsp;&nbsp;&nbsp;The selected link ID   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Current interrupt status of the selected link
+None
+
+**Parameters**
+
+*link*
+The selected link ID
+
+**Returns**
+
+Current interrupt status of the selected link
 
 ---
 
-## SPW_PKTRX_StatusGet
-```C
+### SPW_PKTRX_StatusGet
+
+```c
 SPW_PKTRX_STATUS SPW_PKTRX_StatusGet(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get the SPW packet RX module status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get the SPW packet RX module status
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Current status of SPW packet RX module
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+Current status of SPW packet RX module
 
 ---
 
-## SPW_PKTRX_IrqStatusGetMaskedAndClear
-```C
+### SPW_PKTRX_IrqStatusGetMaskedAndClear
+
+```c
 SPW_PKTRX_INT_MASK SPW_PKTRX_IrqStatusGetMaskedAndClear(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get the SPW packet RX module interrupt status for masked interrupt and clear them   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get the SPW packet RX module interrupt status for masked interrupt and clear them
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Current interrupt status of SPW packet RX module
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+Current interrupt status of SPW packet RX module
 
 ---
 
-## SPW_PKTRX_GetPreviousBufferStatus
-```C
+### SPW_PKTRX_GetPreviousBufferStatus
+
+```c
 SPW_PKTRX_PREV_STATUS SPW_PKTRX_GetPreviousBufferStatus(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get the previous buffer status of SPW packet RX module   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get the previous buffer status of SPW packet RX module
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Current value of previous buffer status of SPW packet RX module
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+Current value of previous buffer status of SPW packet RX module
 
 ---
 
-## SPW_PKTTX_StatusGet
-```C
+### SPW_PKTTX_StatusGet
+
+```c
 SPW_PKTTX_STATUS SPW_PKTTX_StatusGet(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get the SPW packet TX module status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get the SPW packet TX module status
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Current status of SPW packet TX module
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+Current status of SPW packet TX module
 
 ---
 
-## SPW_PKTTX_IrqStatusGetMaskedAndClear
-```C
+### SPW_PKTTX_IrqStatusGetMaskedAndClear
+
+```c
 SPW_PKTTX_INT_MASK SPW_PKTTX_IrqStatusGetMaskedAndClear(void);
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get the SPW packet TX module interrupt status for masked interrupt and clear them   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get the SPW packet TX module interrupt status for masked interrupt and clear them
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Current interrupt status of SPW packet TX module
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+Current interrupt status of SPW packet TX module
 
 ---
 
-## SPW_RMAP_StatusGetAndClear
-```C
+### SPW_RMAP_StatusGetAndClear
+
+```c
 SPW_RMAP_STATUS SPW_RMAP_StatusGetAndClear(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get SPW RMAP Status and clear   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get SPW RMAP Status and clear
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;SPW RMAP Status   
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+SPW RMAP Status
 
 ---
 
-## SPW_ROUTER_StatusGet
-```C
+### SPW_ROUTER_StatusGet
+
+```c
 SPW_ROUTER_STATUS SPW_ROUTER_StatusGet(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get SPW ROUTER Status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get SPW ROUTER Status
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;SPW ROUTER Status
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+SPW ROUTER Status
 
 ---
 
-## SPW_ROUTER_TimeoutStatusGet
-```C
+### SPW_ROUTER_TimeoutStatusGet
+
+```c
 SPW_ROUTER_TIMEOUT_STATUS SPW_ROUTER_TimeoutStatusGet(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get SPW ROUTER Timeout Status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Get SPW ROUTER Timeout Status
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;SPW ROUTER Timeout Status
+None
 
+**Parameters**
 
+None
 
+**Returns**
 
+SPW ROUTER Timeout Status

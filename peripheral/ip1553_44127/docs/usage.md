@@ -1,7 +1,16 @@
-﻿# IP1553 Peripheral Library Help
+﻿---
+grand_parent: Peripheral libraries
+parent: IP1553 Peripheral Library
+title: IP1553 Peripheral Library Usage
+has_toc: true
+nav_order: 1
+---
+
+# IP1553 Peripheral Library Usage
 
 ## Configuring the library
-Configure the peripheral library using the MHC. 
+
+Configure the peripheral library using the MHC.
 
 * 12 MHz input clock should be configured with clock configurator.
 * The 1553 mode used is configurable : BC or RT mode
@@ -16,7 +25,7 @@ For both modes, once the module is initialize, the receive and transmit buffers 
 
 Code example for buffers configuration:
 
-```C
+```c
     /* Allocation of receive buffer for IP1553 */
     uint16_t IP1553RxBuffersRAM[IP1553_BUFFERS_NUM][IP1553_BUFFERS_SIZE] __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache")));
 
@@ -29,7 +38,7 @@ Code example for buffers configuration:
 
 To receive and transmit, the status of the buffers must be reset (indicate buffer is empty for RX and that buffer is ready to be sent for Tx):
 
-```C
+```c
     /* Reset Tx and Rx status for buffers 0 and 31 */
     IP1553_ResetTxBuffersStatus(0x80000001);
     IP1553_ResetRxBuffersStatus(0x80000001);
@@ -46,7 +55,7 @@ After the send of the command the BC can check the status to detect the end of t
 
 Example of sending data from BC buffer 0 to RT1 buffer 3 and wait for word status:
 
-```C
+```c
     /* Send 4 words data from BC buffer 2 to RT1 buffer 3, on Bus A */
     IP1553_BcStartDataTransfer(
         IP1553_DATA_TX_TYPE_BC_TO_RT,
@@ -85,7 +94,8 @@ If the buffer read or write by the BC command were prepared (reset status to ind
 The functions ```IP1553_GetRxBuffersStatus``` and ```IP1553_GetTxBuffersStatus``` can then be used to determine the modified buffers.
 
 Example of wait of data reception:
-```C
+
+```c
     while ( true )
     {
         IP1553_INT_MASK status = IP1553_IrqStatusGet();
@@ -114,11 +124,12 @@ Example of wait of data reception:
         }
     }
 ```
+
 ### Using interrupts
 
 When interrupts are used to check the IP1553 status, the interrupt callback function should be set and expected interrupts enabled:
 
-```C
+```c
     /* Set 1553 application callback on interrupt event */
     IP1553_CallbackRegister(IP1553_Callback_Function, (uintptr_t) NULL);
 

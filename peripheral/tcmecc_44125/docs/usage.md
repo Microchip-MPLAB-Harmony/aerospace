@@ -1,7 +1,15 @@
-﻿# TCMECC Peripheral Library Help
+﻿---
+grand_parent: Peripheral libraries
+parent: TCMECC Peripheral Library
+title: TCMECC Peripheral Library Usage
+has_toc: true
+nav_order: 1
+---
+
+# TCMECC Peripheral Library Usage
 
 ## Configuring the library
-Configure the peripheral library using the MHC. 
+Configure the peripheral library using the MHC.
 
 * "Interrupt Mode" option can be enabled to add interface functions for interrupt support:
     * Interrupts are enable during system initialization

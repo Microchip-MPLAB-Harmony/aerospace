@@ -1,86 +1,83 @@
-## FLEXRAMECC Library Interface
+---
+grand_parent: Peripheral libraries
+parent: FLEXRAMECC Peripheral Library
+title: FLEXRAMECC Peripheral Library Interface
+has_toc: true
+nav_order: 2
+---
 
-#### Data Types and Constants
-* [FLEXRAMECC_STATUS](##-FLEXRAMECC_STATUS)
-* [FLEXRAMECC_CALLBACK](##-FLEXRAMECC_CALLBACK)
-* [FLEXRAMECC_OBJ](##-FLEXRAMECC_OBJ)
+# Peripheral Library Interface
+{: .no_toc }
 
-#### Initialization functions
-* [FLEXRAMECC_Initialize](##-FLEXRAMECC_Initialize)
+## Table of contents
+{: .no_toc .text-delta }
 
-#### Setup functions
-* [FLEXRAMECC_ResetCounters](##-FLEXRAMECC_ResetCounters)
-* [FLEXRAMECC_FixCallbackRegister](##-FLEXRAMECC_FixCallbackRegister)
-* [FLEXRAMECC_NoFixCallbackRegister](##-FLEXRAMECC_NoFixCallbackRegister)
-
-#### Status functions
-* [FLEXRAMECC_StatusGet](##-FLEXRAMECC_StatusGet)
-* [FLEXRAMECC_GetFailAddress](##-FLEXRAMECC_GetFailAddress)
-
-#### Test Mode functions
-* [FLEXRAMECC_TestModeReadEnable](##-FLEXRAMECC_TestModeReadEnable)
-* [FLEXRAMECC_TestModeReadDisable](##-FLEXRAMECC_TestModeReadDisable)
-* [FLEXRAMECC_TestModeWriteEnable](##-FLEXRAMECC_TestModeWriteEnable)
-* [FLEXRAMECC_TestModeWriteDisable](##-FLEXRAMECC_TestModeWriteDisable)
-* [FLEXRAMECC_TestModeGetCbValue](##-FLEXRAMECC_TestModeGetCbValue)
-* [FLEXRAMECC_TestModeGetCbValue](##-FLEXRAMECC_TestModeGetCbValue)
+1. TOC
+{:toc}
 
 ---
 
-## FLEXRAMECC_STATUS
-```C
+## Data Types and Constants
+
+### FLEXRAMECC_STATUS
+
+```c
 typedef enum
 {
-    FLEXRAMECC_STATUS_MEM_FIX = FLEXRAMECC_SR_MEM_FIX_Msk, 
+    FLEXRAMECC_STATUS_MEM_FIX = FLEXRAMECC_SR_MEM_FIX_Msk,
     FLEXRAMECC_STATUS_CPT_FIX_MASK = FLEXRAMECC_SR_CPT_FIX_Msk,
     FLEXRAMECC_STATUS_OVER_FIX = FLEXRAMECC_SR_OVER_FIX_Msk,
     FLEXRAMECC_STATUS_MEM_NOFIX = FLEXRAMECC_SR_MEM_NOFIX_Msk,
     FLEXRAMECC_STATUS_CPT_NOFIX_MASK = FLEXRAMECC_SR_CPT_NOFIX_Msk,
     FLEXRAMECC_STATUS_OVER_NOFIX = FLEXRAMECC_SR_OVER_NOFIX_Msk,
-    FLEXRAMECC_STATUS_HES_MASK = FLEXRAMECC_SR_HES_Msk, 
+    FLEXRAMECC_STATUS_HES_MASK = FLEXRAMECC_SR_HES_Msk,
     FLEXRAMECC_STATUS_TYPE = FLEXRAMECC_SR_TYPE_Msk,
     /* Force the compiler to reserve 32-bit memory for enum */
     FLEXRAMECC_STATUS_INVALID = 0xFFFFFFFF
 } FLEXRAMECC_STATUS;
 ```
-**Summary**:   
-&nbsp;&nbsp;Identifies the FLEXRAMECC current status
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the FLEXRAMECC status   
+**Summary**
+
+ Identifies the FLEXRAMECC current status
+
+**Description**
+
+ This data type identifies the FLEXRAMECC status
 
 ---
 
-## FLEXRAMECC_CALLBACK
-```C
+### FLEXRAMECC_CALLBACK
+
+```c
 typedef void (*FLEXRAMECC_CALLBACK) (uintptr_t contextHandle);
 ```
-**Summary**:   
-&nbsp;&nbsp;FLEXRAMECC Callback Function Pointer.
 
-**Description**:   
-&nbsp;&nbsp;This data type defines the required function signature for the FLEXRAMECC callback function.   
-&nbsp;&nbsp;Application must register a pointer to a callback function whose function signature   
-&nbsp;&nbsp;(parameter and return value types) match the types specified by this function pointer   
-&nbsp;&nbsp;in order to receive callback from the PLIB.    
-&nbsp;&nbsp;The parameters and return values are described here and a partial example implementation is provided.
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;*contextHandle*   
-&nbsp;&nbsp;&nbsp;&nbsp;Value identifying the context of the application that registered the callback function
+FLEXRAMECC Callback Function Pointer.
 
-**Remarks**:   
-&nbsp;&nbsp;The context parameter contains the a handle to the client context, provided   
-&nbsp;&nbsp;at the time the callback function was registered using the CallbackRegister function.   
-&nbsp;&nbsp;This context handle value is passed back to the client as the "context" parameter.   
-&nbsp;&nbsp;It can be any value (such as a pointer to the client's data) necessary to   
-&nbsp;&nbsp;identify the client context or instance of the client that made the data transfer request. 
+**Description**
 
-&nbsp;&nbsp;The callback function executes in the PLIB's interrupt context. It is recommended   
-&nbsp;&nbsp;of the application to not perform process intensive or blocking operations with in this function.
+This data type defines the required function signature for the FLEXRAMECC callback function.
+Application must register a pointer to a callback function whose function signature (parameter and return value types) match the types specified by this function pointer in order to receive callback from the PLIB.
+The parameters and return values are described here and a partial example implementation is provided.
 
-**Example**:
-```C
+**Parameters**
+
+*contextHandle* Value identifying the context of the application that registered the callback function
+
+**Remarks**
+
+The context parameter contains the a handle to the client context, provided at the time the callback function was registered using the CallbackRegister function.
+This context handle value is passed back to the client as the "context" parameter.
+It can be any value (such as a pointer to the client's data) necessary to identify the client context or instance of the client that made the data transfer request.
+
+The callback function executes in the PLIB's interrupt context. It is recommended of the application to not perform process intensive or blocking operations with in this function.
+
+**Example**
+
+```c
 void APP_FLEXRAMECC_FixHandler(uintptr_t context)
 {
     //Fixable error has occurred
@@ -91,8 +88,9 @@ FLEXRAMECC_FixCallbackRegister(&APP_FLEXRAMECC_FixHandler, (uintptr_t)NULL);
 
 ---
 
-## FLEXRAMECC_OBJ
-```C
+### FLEXRAMECC_OBJ
+
+```c
 typedef struct
 {
     /* Transfer Event Callback for Fixable Error interrupt*/
@@ -108,267 +106,330 @@ typedef struct
     uintptr_t nofix_context;
 } FLEXRAMECC_OBJ;
 ```
-**Summary**:
-&nbsp;&nbsp;FLEXRAMECC PLib Object structure.
 
-**Description**:   
-&nbsp;&nbsp;This data structure defines the FLEXRAMECC PLib Instance Object.
+**Summary**
+
+ FLEXRAMECC PLib Object structure.
+
+**Description**
+
+ This data structure defines the FLEXRAMECC PLib Instance Object.
 
 ---
 
-## FLEXRAMECC_Initialize
-/* Function:
-```C
+## Initialization functions
+
+### FLEXRAMECC_Initialize
+
+```c
     void FLEXRAMECC_Initialize(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Initializes given instance of the FLEXRAMECC peripheral.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+ Initializes given instance of the FLEXRAMECC peripheral.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
+
+ None
+
+**Parameters**
+
+ None
+
+**Returns**
+
+ None
 
 ---
 
-## FLEXRAMECC_ResetCounters
-```C
+## Setup functions
+
+### FLEXRAMECC_ResetCounters
+
+```c
 void FLEXRAMECC_ResetCounters(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Reset Fix and NoFix error counters of the FLEXRAMECC peripheral.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+ Reset Fix and NoFix error counters of the FLEXRAMECC peripheral.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
 
----
+ None
 
-## FLEXRAMECC_FixCallbackRegister
-```C
-    void FLEXRAMECC_FixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t context)
-```
-**Summary**:   
-&nbsp;&nbsp;Sets the pointer to the function (and it's context) to be called   
-&nbsp;&nbsp;when the given FLEXRAMECC's ECC Fixable Error interrupt events occur.
+**Parameters**
 
-**Description**:   
-&nbsp;&nbsp;This function sets the pointer to a client function to be called   
-&nbsp;&nbsp;"back" when the given FLEXRAMECC's interrupt events occur. It also  
-&nbsp;&nbsp; passes a context value (usually a pointer to a context structure)  
-&nbsp;&nbsp; that is passed into the function when it is called. The specified  
-&nbsp;&nbsp; callback function will be called from the peripheral interrupt context.
+ None
 
-**Precondition**:   
-&nbsp;&nbsp;FLEXRAMECC_Initialize must have been called for the associated FLEXRAMECC instance.
+**Returns**
 
-**Parameters**:   
-&nbsp;&nbsp;*callback*   
-&nbsp;&nbsp;&nbsp;&nbsp;A pointer to a function with a calling signature defined by the FLEXRAMECC_CALLBACK data type.   
-&nbsp;&nbsp;&nbsp;&nbsp;Setting this to NULL disables the callback feature.   
-&nbsp;&nbsp;*contextHandle*   
-&nbsp;&nbsp;&nbsp;&nbsp;A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
-
-**Returns**:   
-&nbsp;&nbsp;None
-
-**Example**: 
-```C
-    // Refer to the description of the FLEXRAMECC_CALLBACK data type for
-    // example usage.
-```
+ None
 
 ---
 
-## FLEXRAMECC_NoFixCallbackRegister
-```C
+### FLEXRAMECC_FixCallbackRegister
+
+```c
+void FLEXRAMECC_FixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t context)
+```
+
+**Summary**
+
+ Sets the pointer to the function (and it's context) to be called when the given FLEXRAMECC's ECC Fixable Error interrupt events occur.
+
+**Description**
+
+ This function sets the pointer to a client function to be called "back" when the given FLEXRAMECC's interrupt events occur. It also passes a context value (usually a pointer to a context structure) that is passed into the function when it is called. The specified callback function will be called from the peripheral interrupt context.
+
+**Preconditions**
+
+ FLEXRAMECC_Initialize must have been called for the associated FLEXRAMECC instance.
+
+**Parameters**
+
+  *callback*
+    A pointer to a function with a calling signature defined by the FLEXRAMECC_CALLBACK data type.
+    Setting this to NULL disables the callback feature.
+  *contextHandle*
+    A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+
+**Returns**
+
+ None
+
+**Example**
+
+Refer to the description of the [FLEXRAMECC_CALLBACK](#flexramecc_callback) data type for example usage.
+
+---
+
+### FLEXRAMECC_NoFixCallbackRegister
+
+```c
 void FLEXRAMECC_NoFixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t context)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Sets the pointer to the function (and it's context) to be called when the given   
-&nbsp;&nbsp;FLEXRAMECC's ECC Not Fixable Error interrupt events occur.
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This function sets the pointer to a client function to be called "back" when   
-&nbsp;&nbsp;the given FLEXRAMECC's interrupt events occur. It also passes a context value   
-&nbsp;&nbsp;(usually a pointer to a context structure) that is passed into the function   
-&nbsp;&nbsp;when it is called. The specified callback function will be called from the   
-&nbsp;&nbsp;peripheral interrupt context.
+ Sets the pointer to the function (and it's context) to be called when the given FLEXRAMECC's ECC Not Fixable Error interrupt events occur.
 
-**Precondition**:   
-&nbsp;&nbsp;FLEXRAMECC_Initialize must have been called for the associated FLEXRAMECC instance.   
+**Description**
 
-**Parameters**:   
-&nbsp;&nbsp;*callback*   
-&nbsp;&nbsp;&nbsp;&nbsp;A pointer to a function with a calling signature defined by the FLEXRAMECC_CALLBACK data type.   
-&nbsp;&nbsp;&nbsp;&nbsp;Setting this to NULL disables the callback feature.   
-&nbsp;&nbsp;*contextHandle*   
-&nbsp;&nbsp;&nbsp;&nbsp;A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+ This function sets the pointer to a client function to be called "back" when the given FLEXRAMECC's interrupt events occur. It also passes a context value (usually a pointer to a context structure) that is passed into the function when it is called. The specified callback function will be called from the peripheral interrupt context.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
 
-**Example**: 
-```C
-    // Refer to the description of the FLEXRAMECC_CALLBACK data type for
-    // example usage.
-```
+ FLEXRAMECC_Initialize must have been called for the associated FLEXRAMECC instance.
+
+**Parameters**
+
+  *callback*
+    A pointer to a function with a calling signature defined by the FLEXRAMECC_CALLBACK data type.
+    Setting this to NULL disables the callback feature.
+  *contextHandle*
+    A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+
+**Returns**
+
+ None
+
+**Example**
+
+Refer to the description of the [FLEXRAMECC_CALLBACK](#flexramecc_callback) data type for example usage.
 
 ---
 
-## FLEXRAMECC_StatusGet
-```C
+## Status functions
+
+### FLEXRAMECC_StatusGet
+
+```c
 FLEXRAMECC_STATUS FLEXRAMECC_StatusGet(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Get the status of the FLEXRAMECC peripheral.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+ Get the status of the FLEXRAMECC peripheral.
 
-**Returns**:   
-&nbsp;&nbsp;Current status of the FLEXRAMECC peripheral.
+**Preconditions**
+
+ None
+
+**Parameters**
+
+ None
+
+**Returns**
+
+ Current status of the FLEXRAMECC peripheral.
 
 ---
 
-## FLEXRAMECC_GetFailAddress
-```C
+### FLEXRAMECC_GetFailAddress
+
+```c
 uint32_t FLEXRAMECC_GetFailAddress(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Get the last fail address were ECC error occurs in FLEXRAM memory.
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+ Get the last fail address were ECC error occurs in FLEXRAM memory.
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Fail address were fixable or unfixable error occured in FLEXRAM memory.
+ None
+
+**Parameters**
+
+ None
+
+**Returns**
+
+ Fail address were fixable or unfixable error occured in FLEXRAM memory.
 
 ---
 
-## FLEXRAMECC_TestModeReadEnable
-```C
+### FLEXRAMECC_TestModeReadEnable
+
+```c
 void FLEXRAMECC_TestModeReadEnable(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Enable the FLEXRAMECC peripheral test mode Read. When enabled the   
-&nbsp;&nbsp;ECC check bit value read is updated in TESTCB1 register at each FLEXRAM data read.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+ Enable the FLEXRAMECC peripheral test mode Read. When enabled the ECC check bit value read is updated in TESTCB1 register at each FLEXRAM data read.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
+
+ None
+
+**Parameters**
+
+ None
+
+**Returns**
+
+ None
 
 ---
 
-## FLEXRAMECC_TestModeReadDisable
-```C
+### FLEXRAMECC_TestModeReadDisable
+
+```c
 void FLEXRAMECC_TestModeReadDisable(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Disable the FLEXRAMECC peripheral test mode Read.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+ Disable the FLEXRAMECC peripheral test mode Read.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
+
+ None
+
+**Parameters**
+
+ None
+
+**Returns**
+
+ None
 
 ---
 
-## FLEXRAMECC_TestModeWriteEnable
-```C
+### FLEXRAMECC_TestModeWriteEnable
+
+```c
 void FLEXRAMECC_TestModeWriteEnable(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Enable the FLEXRAMECC peripheral test mode Write. When enabled the ECC check bit   
-&nbsp;&nbsp;value in TESTCB1 register is write in memory at each FLEXRAM data write instead   
-&nbsp;&nbsp;of calculated check bit.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+ Enable the FLEXRAMECC peripheral test mode Write. When enabled the ECC check bit value in TESTCB1 register is write in memory at each FLEXRAM data write instead of calculated check bit.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
+
+ None
+
+**Parameters**
+
+ None
+
+**Returns**
+
+ None
 
 ---
 
-## FLEXRAMECC_TestModeWriteDisable
-```C
+### FLEXRAMECC_TestModeWriteDisable
+
+```c
 void FLEXRAMECC_TestModeWriteDisable(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Disable the FLEXRAMECC peripheral test mode Write.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+ Disable the FLEXRAMECC peripheral test mode Write.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
+
+ None
+
+**Parameters**
+
+ None
+
+**Returns**
+
+ None
 
 ---
 
-## FLEXRAMECC_TestModeGetCbValue
-```C
+### FLEXRAMECC_TestModeGetCbValue
+
+```c
 uint8_t FLEXRAMECC_TestModeGetCbValue(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Get the FLEXRAMECC peripheral test mode check bit values.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+ Get the FLEXRAMECC peripheral test mode check bit values.
 
-**Returns**:   
-&nbsp;&nbsp;Test check bit value.
+**Preconditions**
+
+ None
+
+**Parameters**
+
+ None
+
+**Returns**
+
+ Test check bit value.
 
 ---
 
-## FLEXRAMECC_TestModeSetCbValue
-```C
+### FLEXRAMECC_TestModeSetCbValue
+
+```c
 void FLEXRAMECC_TestModeSetCbValue(uint8_t tcb1)
 ```
-**Summary**:   
-&nbsp;&nbsp;Set the FLEXRAMECC peripheral test mode check bit values.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;*tcb1*   
-&nbsp;&nbsp;&nbsp;&nbsp;Test check bit value to set.
+ Set the FLEXRAMECC peripheral test mode check bit values.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
+
+ None
+
+**Parameters**
+
+  *tcb1*
+    Test check bit value to set.
+
+**Returns**
+
+ None

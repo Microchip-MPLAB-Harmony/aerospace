@@ -1,7 +1,16 @@
-﻿# FLEXRAMECC Peripheral Library Help
+﻿---
+grand_parent: Peripheral libraries
+parent: FLEXRAMECC Peripheral Library
+title: FLEXRAMECC Peripheral Library Usage
+has_toc: true
+nav_order: 1
+---
+
+# FLEXRAMECC Peripheral Library Usage
 
 ## Configuring the library
-Configure the peripheral library using the MHC. 
+
+Configure the peripheral library using the MHC.
 
 * "Interrupt Mode" option can be enabled to add interface functions for interrupt support:
     * Interrupts are enable during system initialization
@@ -12,7 +21,7 @@ Configure the peripheral library using the MHC.
 
 If interrupts are used, the callback function should be set for expected interrupts types:
 
-```C
+```c
     /* Register Fixable errors Callback */
     FLEXRAMECC_FixCallbackRegister(FLEXRAM_FixCallback_Function, (uintptr_t)NULL);
     /* Register UnFixable errors Callback */
@@ -21,7 +30,7 @@ If interrupts are used, the callback function should be set for expected interru
 
 When an ECC error is detected and an interrupt occurs, the fail address must be read before the status in order to avoid multiple interrupts:
 
-```C
+```c
     /* Get ECC fault address */
     uint32_t* fault_pointer = (uint32_t*)(FLEXRAMECC_GetFailAddress());
 
@@ -37,7 +46,7 @@ The faulty address may then be fixed by the application if applicable.
 
 The ECC check bit value can be get when the read test mode is activated. Once this mode is activated, the check bit value for each read of data on FlexRAM memory is stored. It is possible to get the last check bit value using the function ```FLEXRAMECC_TestModeGetCbValue```.
 
-```C
+```c
     /* Enable FLEXRAM ECC Test mode Read */
     FLEXRAMECC_TestModeReadEnable();
     __DSB();
@@ -63,7 +72,7 @@ The ECC check bit value can be get when the read test mode is activated. Once th
 
 The ECC check bit value can be override when the write test mode is activated. Once this mode is activated, the check bit value for each write of data on FlexRAM memory is override by the given value instead of being calculated automatically. The check bit value used should be set using the function ```FLEXRAMECC_TestModeSetCbValue```.
 
-```C
+```c
     /* Enable FLEXRAM ECC Test mode Write */
     FLEXRAMECC_TestModeWriteEnable();
     __DSB();

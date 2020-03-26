@@ -1,43 +1,33 @@
-# IP1553 Library Interface
+---
+grand_parent: Peripheral libraries
+parent: IP1553 Peripheral Library
+title: IP1553 Peripheral Library Interface
+has_toc: true
+nav_order: 2
+---
 
-#### Data Types and Constants
-* [IP1553_INT_MASK](##-IP1553_INT_MASK)
-* [IP1553_CALLBACK](##-IP1553_CALLBACK)
-* [IP1553_OBJ](##-IP1553_OBJ)
-* [IP1553_DATA_TX_TYPE](##-IP1553_DATA_TX_TYPE)
-* [IP1553_BUS](##-IP1553_BUS)
+# Peripheral Library Interface
+{: .no_toc }
 
-#### Initialization functions
-* [IP1553_Initialize](##-IP1553_initialize)
+### Table of contents
+{: .no_toc .text-delta }
 
-#### Setup functions
-* [IP1553_BuffersConfigSet](##-IP1553_buffersconfigset)
-* [IP1553_ResetTxBuffersStatus](##-IP1553_resettxbuffersstatus)
-* [IP1553_ResetRxBuffersStatus](##-IP1553_resetrxbuffersstatus)
-* [IP1553_BcStartDataTransfer](##-IP1553_bcstartdatatransfer)
-* [IP1553_GetFirstStatusWord](##-IP1553_getfirststatusword)
-* [IP1553_GetSecondStatusWord](##-IP1553_getsecondstatusword)
-* [IP1553_BCEnableCmdSet](##-IP1553_bcenablecmdset)
-* [IP1553_SREQBitCmdSet](##-IP1553_sreqbitcmdset)
-* [IP1553_BusyBitCmdSet](##-IP1553_busybitcmdset)
-* [IP1553_SSBitCmdSet](##-IP1553_ssbitcmdset)
-* [IP1553_TRBitCmdSet](##-IP1553_trbitcmdset)
-
-#### Status functions
-* [IP1553_GetTxBuffersStatus](##-IP1553_gettxbuffersstatus)
-* [IP1553_GetRxBuffersStatus](##-IP1553_getrxbuffersstatus)
-* [IP1553_IrqStatusGet](##-IP1553_irqstatusget)
+1. TOC
+{:toc}
 
 ---
 
-## IP1553_INT_MASK
-```C
+## Data Types and Constants
+
+### IP1553_INT_MASK
+
+```c
 typedef enum
 {
     IP1553_INT_MASK_EMT = IP1553_IER_EMT_Msk,
     IP1553_INT_MASK_MTE = IP1553_IER_MTE_Msk,
     IP1553_INT_MASK_ERX = IP1553_IER_ERX_Msk,
-    IP1553_INT_MASK_ETX = IP1553_IER_ETX_Msk, 
+    IP1553_INT_MASK_ETX = IP1553_IER_ETX_Msk,
     IP1553_INT_MASK_ETRANS_MASK = IP1553_IER_ETRANS_Msk,
     IP1553_INT_MASK_TE = IP1553_IER_TE_Msk,
     IP1553_INT_MASK_TCE = IP1553_IER_TCE_Msk,
@@ -57,7 +47,7 @@ typedef enum
     IP1553_INT_MASK_RRT = IP1553_IER_RRT_Msk,
     IP1553_INT_MASK_ITF = IP1553_IER_ITF_Msk,
     IP1553_INT_MASK_OTF = IP1553_IER_OTF_Msk,
-    IP1553_INT_MASK_IPB = IP1553_IER_IPB_Msk, 
+    IP1553_INT_MASK_IPB = IP1553_IER_IPB_Msk,
     IP1553_INT_MASK_ERROR_MASK = ( IP1553_INT_MASK_MTE |
                                    IP1553_INT_MASK_TE |
                                    IP1553_INT_MASK_TCE |
@@ -72,45 +62,44 @@ typedef enum
 } IP1553_INT_MASK;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Identifies the IP1553 current interrupt status   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the IP1553 interrupt status   
+Identifies the IP1553 current interrupt status
+
+**Description**
+
+This data type identifies the IP1553 interrupt status
 
 ---
 
-## IP1553_CALLBACK
-```C
+### IP1553_CALLBACK
+
+```c
 typedef void (*IP1553_CALLBACK) (uintptr_t contextHandle);
 ```
 
-**Summary**:   
-&nbsp;&nbsp;IP1553 Callback Function Pointer.
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type defines the required function signature for the IP1553 callback function.   
-&nbsp;&nbsp;Application must register a pointer to a callback function whose function signature   
-&nbsp;&nbsp;(parameter and return value types) match the types specified by this function pointer   
-&nbsp;&nbsp;in order to receive callback from the PLIB.    
-&nbsp;&nbsp;The parameters and return values are described here and a partial example implementation is provided.
+IP1553 Callback Function Pointer.
 
-**Parameters**:   
-&nbsp;&nbsp;*contextHandle*   
-&nbsp;&nbsp;&nbsp;&nbsp;Value identifying the context of the application that registered the callback function
+**Description**
 
-**Remarks**:   
-&nbsp;&nbsp;The context parameter contains the a handle to the client context, provided   
-&nbsp;&nbsp;at the time the callback function was registered using the CallbackRegister function.   
-&nbsp;&nbsp;This context handle value is passed back to the client as the "context" parameter.   
-&nbsp;&nbsp;It can be any value (such as a pointer to the client's data) necessary to   
-&nbsp;&nbsp;identify the client context or instance of the client that made the data transfer request. 
+This data type defines the required function signature for the IP1553 callback function. Application must register a pointer to a callback function whose function signature (parameter and return value types) match the types specified by this function pointer in order to receive callback from the PLIB.
+The parameters and return values are described here and a partial example implementation is provided.
 
-&nbsp;&nbsp;The callback function executes in the PLIB's interrupt context. It is recommended   
-&nbsp;&nbsp;of the application to not perform process intensive or blocking operations with in this function.
+**Parameters**
 
-**Example**:
-```C
+*contextHandle* Value identifying the context of the application that registered the callback function
+
+**Remarks**
+
+The context parameter contains the a handle to the client context, provided at the time the callback function was registered using the CallbackRegister function. This context handle value is passed back to the client as the "context" parameter. It can be any value (such as a pointer to the client's data) necessary to identify the client context or instance of the client that made the data transfer request.
+
+The callback function executes in the PLIB's interrupt context. It is recommended of the application to not perform process intensive or blocking operations with in this function.
+
+**Example**
+
+```c
 void APP_IP1553_Handler(uintptr_t context)
 {
     //Fixable error has occurred
@@ -121,8 +110,9 @@ IP1553_CallbackRegister(&APP_IP1553_Handler, (uintptr_t)NULL);
 
 ---
 
-## IP1553_OBJ
-```C
+### IP1553_OBJ
+
+```c
 typedef struct
 {
     /* Transfer Event Callback */
@@ -133,16 +123,19 @@ typedef struct
 } IP1553_OBJ;
 ```
 
-**Summary**:   
-&nbsp;&nbsp;IP1553 PLib Object structure   
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data structure defines the IP1553 PLib Instance Object   
+IP1553 PLib Object structure
+
+**Description**
+
+This data structure defines the IP1553 PLib Instance Object
 
 ---
 
-## IP1553_DATA_TX_TYPE
-```C
+### IP1553_DATA_TX_TYPE
+
+```c
 typedef enum
 {
     IP1553_DATA_TX_TYPE_BC_TO_RT = 0,
@@ -150,360 +143,411 @@ typedef enum
     IP1553_DATA_TX_TYPE_RT_TO_RT,
 } IP1553_DATA_TX_TYPE;
 ```
-**Summary**:   
-&nbsp;&nbsp;IP1553 data transfer types   
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the data transfer type that BC initiate   
+**Summary**
+
+IP1553 data transfer types
+
+**Description**
+
+This data type identifies the data transfer type that BC initiate
 
 ---
 
-## IP1553_BUS
-```C
+### IP1553_BUS
+
+```c
 typedef enum
 {
     IP1553_BUS_A = 0,
     IP1553_BUS_B
 } IP1553_BUS;
 ```
-**Summary**:   
-&nbsp;&nbsp;IP1553 output bus selection   
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the IP1553 output bus selection   
+**Summary**
+
+IP1553 output bus selection
+
+**Description**
+
+This data type identifies the IP1553 output bus selection
 
 ---
 
-## IP1553_Initialize
-```C
+## Initialization functions
+
+### IP1553_Initialize
+
+```c
 void IP1553_Initialize(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Initializes given instance of the IP1553 peripheral   
-&nbsp;&nbsp;Set the Mode (Bus Controller or Remote Terminal) and reset the instance   
-&nbsp;&nbsp;In RT mode, set the RT Address   
-&nbsp;&nbsp;Enable all 1553 interrupt sources   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+Initializes given instance of the IP1553 peripheral Set the Mode (Bus Controller or Remote Terminal) and reset the instance. In RT mode, set the RT Address Enable all 1553 interrupt sources
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+None
 
 ---
 
-## IP1553_BuffersConfigSet
-```C
+## Setup functions
+
+### IP1553_BuffersConfigSet
+
+```c
 void IP1553_BuffersConfigSet(uint16_t* txBuffers, uint16_t* rxBuffers)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Set the memory base address for emmission and reception buffers   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Set the memory base address for emmission and reception buffers
 
-**Parameters**:   
-&nbsp;&nbsp;*txBuffers*   
-&nbsp;&nbsp;&nbsp;&nbsp;Pointer to application allocated emission buffer base address.   
-&nbsp;&nbsp;&nbsp;&nbsp;Application must allocate buffer from non-cached   
-&nbsp;&nbsp;&nbsp;&nbsp;contiguous memory and buffer size must be   
-&nbsp;&nbsp;&nbsp;&nbsp;16 bit * IP1553_BUFFERS_SIZE * IP1553_BUFFERS_NUM   
+**Preconditions**
 
-&nbsp;&nbsp;*rxBuffers*   
-&nbsp;&nbsp;&nbsp;&nbsp;Pointer to application allocated reception buffer base address.   
-&nbsp;&nbsp;&nbsp;&nbsp;Application must allocate buffer from non-cached   
-&nbsp;&nbsp;&nbsp;&nbsp;contiguous memory and buffer size must be   
-&nbsp;&nbsp;&nbsp;&nbsp;16 bit * IP1553_BUFFERS_SIZE * IP1553_BUFFERS_NUM   
+IP1553_Initialize must have been called for the IP1553 instance
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Parameters**
+
+*txBuffers* Pointer to application allocated emission buffer base address. Application must allocate buffer from non-cached contiguous memory and buffer size must be 16 bit * IP1553_BUFFERS_SIZE * IP1553_BUFFERS_NUM.
+
+*rxBuffers*
+
+Pointer to application allocated reception buffer base address. Application must allocate buffer from non-cached contiguous memory and buffer size must be 16 bit * IP1553_BUFFERS_SIZE * IP1553_BUFFERS_NUM.
+
+**Returns**
+
+None
 
 ---
 
-## IP1553_GetTxBuffersStatus
-```C
+### Status functions
+
+#### IP1553_GetTxBuffersStatus
+
+```c
 uint32_t IP1553_GetTxBuffersStatus(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Returns the transmission buffers status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Returns the transmission buffers status
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Bitfield value that indicates for each of the 32 buffers if they are   
-&nbsp;&nbsp;ready to be sent (1) or are empty (0)
+IP1553_Initialize must have been called for the IP1553 instance
+
+**Parameters**
+
+None
+
+**Returns**
+
+Bitfield value that indicates for each of the 32 buffers if they are ready to be sent (1) or are empty (0)
 
 ---
 
-## IP1553_ResetTxBuffersStatus
-```C
+#### IP1553_ResetTxBuffersStatus
+
+```c
 void IP1553_ResetTxBuffersStatus(uint32_t buffers)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Reset the transmission buffers status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Reset the transmission buffers status
 
-**Parameters**:   
-&nbsp;&nbsp;*buffers*   
-&nbsp;&nbsp;&nbsp;&nbsp;Bitfield of buffer to be reset.   
-&nbsp;&nbsp;&nbsp;&nbsp;When reset a buffer is set ready to be sent (1) in status   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+IP1553_Initialize must have been called for the IP1553 instance
+
+**Parameters**
+
+*buffers* Bitfield of buffer to be reset. When reset a buffer is set ready to be sent (1) in status.
+
+**Returns**
+
+None
 
 ---
 
-## IP1553_GetRxBuffersStatus
-```C
+#### IP1553_GetRxBuffersStatus
+
+```c
 uint32_t IP1553_GetRxBuffersStatus(void)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Returns the reception buffers status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Returns the reception buffers status
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Bitfield value that indicates for each of the 32 buffers if they are   
-&nbsp;&nbsp;free to receive data or not : empty (1) or full(0)
+IP1553_Initialize must have been called for the IP1553 instance
+
+**Parameters**
+
+None
+
+**Returns**
+
+Bitfield value that indicates for each of the 32 buffers if they are free to receive data or not : empty (1) or full(0).
 
 ---
 
-## IP1553_ResetRxBuffersStatus
-```C
+#### IP1553_ResetRxBuffersStatus
+
+```c
 void IP1553_ResetRxBuffersStatus(uint32_t buffers)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Reset the reception buffers status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Reset the reception buffers status
 
-**Parameters**:   
-&nbsp;&nbsp;*buffers*   
-&nbsp;&nbsp;&nbsp;&nbsp;Bitfield of buffer to be reset.   
-&nbsp;&nbsp;&nbsp;&nbsp;When reset a buffer is set ready to receive data (1) in status.   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+IP1553_Initialize must have been called for the IP1553 instance
+
+**Parameters**
+
+*buffers* Bitfield of buffer to be reset. When reset a buffer is set ready to receive data (1) in status.
+
+**Returns**
+
+None
 
 ---
-## IP1553_IrqStatusGet
-```C
+
+#### IP1553_IrqStatusGet
+
+```c
 IP1553_INT_MASK IP1553_IrqStatusGet( void )
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Returns the IP1553 status   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Returns the IP1553 status
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Current status of instance   
+IP1553_Initialize must have been called for the IP1553 instance
+
+**Parameters**
+
+None
+
+**Returns**
+
+Current status of instance
 
 ---
 
-## IP1553_BcStartDataTransfer
-```C
+### IP1553_BcStartDataTransfer
+
+```c
 void IP1553_BcStartDataTransfer(IP1553_DATA_TX_TYPE tranferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus )
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Start BC command for data transfer   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
-&nbsp;&nbsp;IP1553_BuffersConfigSet must have been called to set allocated buffers   
-&nbsp;&nbsp;IP1553_ResetRxBuffersStatus and IP1553_ResetTxBuffersStatus must   
-&nbsp;&nbsp;have been called for the concerned buffers (sub-address) used in the command   
+Start BC command for data transfer
 
-**Parameters**:   
-&nbsp;&nbsp;*tranferType*   
-&nbsp;&nbsp;&nbsp;&nbsp;Type of data tranfer command to issue   
-&nbsp;&nbsp;*txAddr*   
-&nbsp;&nbsp;&nbsp;&nbsp;The transmitter address : 0 if BC, RT address otherwise   
-&nbsp;&nbsp;*txSubAddr*   
-&nbsp;&nbsp;&nbsp;&nbsp;The transmitter sub-address   
-&nbsp;&nbsp;*rxAddr*   
-&nbsp;&nbsp;&nbsp;&nbsp;The receiver address : 0 if BC, RT address otherwise   
-&nbsp;&nbsp;*rxSubAddr*   
-&nbsp;&nbsp;&nbsp;&nbsp;The receiver sub-address   
-&nbsp;&nbsp;*dataWordCount*   
-&nbsp;&nbsp;&nbsp;&nbsp;Number of data word (16 bit) to read/write. 0 stand for 32 data word   
-&nbsp;&nbsp;*bus*   
-&nbsp;&nbsp;&nbsp;&nbsp;Indicate if the transfer uses physical BUS A or B   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None   
+IP1553_Initialize must have been called for the IP1553 instance IP1553_BuffersConfigSet must have been called to set allocated buffers IP1553_ResetRxBuffersStatus and IP1553_ResetTxBuffersStatus must have been called for the concerned buffers (sub-address) used in the command.
+
+**Parameters**
+
+*tranferType* Type of data tranfer command to issue
+*txAddr* The transmitter address : 0 if BC, RT address otherwise
+*txSubAddr* The transmitter sub-address
+*rxAddr* The receiver address : 0 if BC, RT address otherwise
+*rxSubAddr* The receiver sub-address
+*dataWordCount* Number of data word (16 bit) to read/write. 0 stand for 32 data word
+*bus* Indicate if the transfer uses physical BUS A or B
+
+**Returns**
+
+None
 
 ---
 
-## IP1553_GetFirstStatusWord
-```C
+### IP1553_GetFirstStatusWord
+
+```c
 uint16_t IP1553_GetFirstStatusWord( void )
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Returns the IP1553 transfer first status word   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Returns the IP1553 transfer first status word
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Value of transfer first status word   
+IP1553_Initialize must have been called for the IP1553 instance
+
+**Parameters**
+
+None
+
+**Returns**
+
+Value of transfer first status word
 
 ---
 
-## IP1553_GetSecondStatusWord
-```C
+### IP1553_GetSecondStatusWord
+
+```c
 uint16_t IP1553_GetSecondStatusWord( void )
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Returns the IP1553 transfer second status word   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Returns the IP1553 transfer second status word
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;Value of transfer second status word
+IP1553_Initialize must have been called for the IP1553 instance
+
+**Parameters**
+
+None
+
+**Returns**
+
+Value of transfer second status word
 
 ---
 
-## IP1553_BCEnableCmdSet
-```C
+### IP1553_BCEnableCmdSet
+
+```c
 void IP1553_BCEnableCmdSet(bool enable)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Enable BCEnableCmd bit to accepts or rejects the control when the terminal   
-&nbsp;&nbsp;receives a valid Dynamic Bus Control mode command. This is the value indicated   
-&nbsp;&nbsp;in the Dynamic Bus Control bit of the status word sent in response to the mode command   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Enable BCEnableCmd bit to accepts or rejects the control when the terminal receives a valid Dynamic Bus Control mode command. This is the value indicated in the Dynamic Bus Control bit of the status word sent in response to the mode command
 
-**Parameters**:   
-&nbsp;&nbsp;*enable*   
-&nbsp;&nbsp;&nbsp;&nbsp;If true, The terminal accepts the bus control. If false, the terminal reject the bus control   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+IP1553_Initialize must have been called for the IP1553 instance
+
+**Parameters**
+
+*enable* If true, The terminal accepts the bus control. If false, the terminal reject the bus control
+
+**Returns**
+
+None
 
 ---
 
-## IP1553_SREQBitCmdSet
-```C
+### IP1553_SREQBitCmdSet
+
+```c
 void IP1553_SREQBitCmdSet(bool enable)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Enable or Disable SREQBitCmd bit. Indicates the value of the Service Request   
-&nbsp;&nbsp;bit to be returned in status word transfers   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Enable or Disable SREQBitCmd bit. Indicates the value of the Service Request bit to be returned in status word transfers.
 
-**Parameters**:   
-&nbsp;&nbsp;*enable*   
-&nbsp;&nbsp;&nbsp;&nbsp;If true, Service Request bit returned in status word transfers is 1. 0 if false   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None   
+IP1553_Initialize must have been called for the IP1553 instance.
+
+**Parameters**
+
+*enable* If true, Service Request bit returned in status word transfers is 1. 0 if false.
+
+**Returns**
+
+None
 
 ---
 
-## IP1553_BusyBitCmdSet
-```C
+### IP1553_BusyBitCmdSet
+
+```c
 void IP1553_BusyBitCmdSet(bool enable)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Enable or Disable SREQBitCmd bit. Indicates the value of the busy bit to be   
-&nbsp;&nbsp;returned in status word transfers. If enabled, Inhibits the transmission of   
-&nbsp;&nbsp;the data words in response to a transmit command and its corresponding interrupt   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Enable or Disable SREQBitCmd bit. Indicates the value of the busy bit to be returned in status word transfers. If enabled, Inhibits the transmission of the data words in response to a transmit command and its corresponding interrupt.
 
-**Parameters**:   
-&nbsp;&nbsp;*enable*   
-&nbsp;&nbsp;&nbsp;&nbsp;If true, busy bit returned in status word transfers is 1. 0 if false   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+IP1553_Initialize must have been called for the IP1553 instance.
+
+**Parameters**
+
+*enable* If true, busy bit returned in status word transfers is 1. 0 if false.
+
+**Returns**
+
+None
 
 ---
 
-## IP1553_SSBitCmdSet
-```C
+### IP1553_SSBitCmdSet
+
+```c
 void IP1553_SSBitCmdSet(bool enable)
 ```
 
-**Summary**:   
-&nbsp;&nbsp;Enable or Disable SSBitCmd bit. Indicates the value of the Subsystem Flag bit   
-&nbsp;&nbsp;to be returned in status word transfers   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Enable or Disable SSBitCmd bit. Indicates the value of the Subsystem Flag bit to be returned in status word transfers.
 
-**Parameters**:   
-&nbsp;&nbsp;*enable*   
-&nbsp;&nbsp;&nbsp;&nbsp;If true, Subsystem Flag bit returned in status word transfers is 1. 0 if false   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None
+IP1553_Initialize must have been called for the IP1553 instance.
+
+**Parameters**
+
+*enable* If true, Subsystem Flag bit returned in status word transfers is 1. 0 if false.
+
+**Returns**
+
+None
 
 ---
 
-## IP1553_TRBitCmdSet
-```C
+### IP1553_TRBitCmdSet
+
+```c
 void IP1553_TRBitCmdSet(bool enable)
 ```
 
-&nbsp;&nbsp;**Summary**:   
-&nbsp;&nbsp;Enable or Disable TRBitCmd bit. Indicates the value of the T/F bit to be   
-&nbsp;&nbsp;returned in status word transfers   
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;IP1553_Initialize must have been called for the IP1553 instance   
+Enable or Disable TRBitCmd bit. Indicates the value of the T/F bit to be returned in status word transfers.
 
-**Parameters**:   
-&nbsp;&nbsp;*enable*   
-&nbsp;&nbsp;&nbsp;&nbsp;If true, T/F bit returned in status word transfers is 1. 0 if false   
+**Preconditions**
 
-**Returns**:   
-&nbsp;&nbsp;None   
+IP1553_Initialize must have been called for the IP1553 instance.
 
-**Note**:   
-&nbsp;&nbsp;After reception of a valid "Inhibit T/F Bit" command the T/F bit is maintained   
-&nbsp;&nbsp;at logic level 0   
+**Parameters**
 
+*enable* If true, T/F bit returned in status word transfers is 1. 0 if false.
+
+**Returns**
+
+None
+
+**Note**:
+
+After reception of a valid "Inhibit T/F Bit" command the T/F bit is maintained at logic level 0.

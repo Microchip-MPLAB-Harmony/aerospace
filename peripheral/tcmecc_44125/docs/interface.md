@@ -1,42 +1,38 @@
-# TCMECC Library Interface
+---
+grand_parent: Peripheral libraries
+parent: TCMECC Peripheral Library
+title: TCMECC Peripheral Library Interface
+has_toc: true
+nav_order: 2
+---
 
-#### Data Types and Constants
-* [TCMECC_STATUS](##-TCMECC_STATUS)
-* [TCMECC_CALLBACK](##-TCMECC_CALLBACK)
-* [TCMECC_OBJ](##-TCMECC_OBJ)
-#### Initialization functions
-* [TCMECC_Initialize](##-TCMECC_Initialize)
-#### Setup functions
-* [TCMECC_ResetCounters](##-TCMECC_ResetCounters)
-* [TCMECC_FixCallbackRegister](##-TCMECC_FixCallbackRegister)
-* [TCMECC_NoFixCallbackRegister](##-TCMECC_NoFixCallbackRegister)
-#### Status functions
-* [TCMECC_StatusGet](##-TCMECC_StatusGet)
-* [TCMECC_GetFailAddressITCM](##-TCMECC_GetFailAddressITCM)
-* [TCMECC_GetFailAddressDTCM](##-TCMECC_GetFailAddressDTCM)
-#### Test Mode functions
-* [TCMECC_TestModeReadEnable](##-TCMECC_TestModeReadEnable)
-* [TCMECC_TestModeReadDisable](##-TCMECC_TestModeReadDisable)
-* [TCMECC_TestModeWriteEnable](##-TCMECC_TestModeWriteEnable)
-* [TCMECC_TestModeWriteDisable](##-TCMECC_TestModeWriteDisable)
-* [TCMECC_TestModeGetCbValue](##-TCMECC_TestModeGetCbValue)
-* [TCMECC_TestModeSetCbValue](##-TCMECC_TestModeSetCbValue)
+# Peripheral Library Interface
+{: .no_toc }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 
-## TCMECC_STATUS
-```C
+## Data Types and Constants
+
+### TCMECC_STATUS
+
+```c
 typedef enum
 {
     TCMECC_STATUS_MEM_FIX_I = TCMECC_SR_MEM_FIX_I_Msk,
-    TCMECC_STATUS_MEM_FIX_D = TCMECC_SR_MEM_FIX_D_Msk, 
+    TCMECC_STATUS_MEM_FIX_D = TCMECC_SR_MEM_FIX_D_Msk,
     TCMECC_STATUS_CPT_FIX_MASK = TCMECC_SR_CPT_FIX_Msk,
     TCMECC_STATUS_OVER_FIX = TCMECC_SR_OVER_FIX_Msk,
     TCMECC_STATUS_MEM_NOFIX_I = TCMECC_SR_MEM_NOFIX_I_Msk,
     TCMECC_STATUS_MEM_NOFIX_D = TCMECC_SR_MEM_NOFIX_D_Msk,
     TCMECC_STATUS_CPT_NOFIX_MASK = TCMECC_SR_CPT_NOFIX_Msk,
     TCMECC_STATUS_OVER_NOFIX = TCMECC_SR_OVER_NOFIX_Msk,
-    TCMECC_STATUS_HES_MASK = TCMECC_SR_HES_Msk, 
+    TCMECC_STATUS_HES_MASK = TCMECC_SR_HES_Msk,
     TCMECC_STATUS_ONE = TCMECC_SR_ONE_Msk,
     TCMECC_STATUS_MEM_ID_I = TCMECC_SR_MEM_ID_I_Msk,
     TCMECC_STATUS_MEM_ID_D = TCMECC_SR_MEM_ID_D_Msk,
@@ -45,45 +41,45 @@ typedef enum
 } TCMECC_STATUS;
 ```
 
-**Summary**:
-&nbsp;&nbsp;Identifies the TCMECC current status.
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type identifies the TCMECC status.
+Identifies the TCMECC current status.
+
+**Description**
+
+This data type identifies the TCMECC status.
 
 ---
 
-## TCMECC_CALLBACK
-```C
+### TCMECC_CALLBACK
+
+```c
 typedef void (*TCMECC_CALLBACK) (uintptr_t contextHandle);
 ```
 
-**Summary**:   
-&nbsp;&nbsp;TCMECC Callback Function Pointer.
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data type defines the required function signature for the TCMECC callback function.   
-&nbsp;&nbsp;Application must register a pointer to a callback function whose function signature   
-&nbsp;&nbsp;(parameter and return value types) match the types specified by this function pointer   
-&nbsp;&nbsp;in order to receive callback from the PLIB.    
-&nbsp;&nbsp;The parameters and return values are described here and a partial example implementation is provided.
+TCMECC Callback Function Pointer.
 
-**Parameters**:   
-&nbsp;&nbsp;*contextHandle*   
-&nbsp;&nbsp;&nbsp;&nbsp;Value identifying the context of the application that registered the callback function
+**Description**
 
-**Remarks**:   
-&nbsp;&nbsp;The context parameter contains the a handle to the client context, provided   
-&nbsp;&nbsp;at the time the callback function was registered using the CallbackRegister function.   
-&nbsp;&nbsp;This context handle value is passed back to the client as the "context" parameter.   
-&nbsp;&nbsp;It can be any value (such as a pointer to the client's data) necessary to   
-&nbsp;&nbsp;identify the client context or instance of the client that made the data transfer request. 
+This data type defines the required function signature for the TCMECC callback function. Application must register a pointer to a callback function whose function signature (parameter and return value types) match the types specified by this function pointer in order to receive callback from the PLIB.
 
-&nbsp;&nbsp;The callback function executes in the PLIB's interrupt context. It is recommended   
-&nbsp;&nbsp;of the application to not perform process intensive or blocking operations with in this function.
+The parameters and return values are described here and a partial example implementation is provided.
 
-**Example**:
-```C
+**Parameters**
+
+*contextHandle* Value identifying the context of the application that registered the callback function
+
+**Remarks**
+
+The context parameter contains the a handle to the client context, provided at the time the callback function was registered using the CallbackRegister function. This context handle value is passed back to the client as the "context" parameter. It can be any value (such as a pointer to the client's data) necessary to identify the client context or instance of the client that made the data transfer request.
+
+The callback function executes in the PLIB's interrupt context. It is recommended of the application to not perform process intensive or blocking operations with in this function.
+
+**Example**
+
+```c
 void APP_TCMECC_FixHandler(uintptr_t context)
 {
     //Fixable error has occurred
@@ -95,7 +91,8 @@ TCMECC_FixCallbackRegister(&APP_TCMECC_FixHandler, (uintptr_t)NULL);
 ---
 
 ## TCMECC_OBJ
-```C
+
+```c
 typedef struct
 {
     /* Transfer Event Callback for Fixable Error interrupt*/
@@ -112,80 +109,93 @@ typedef struct
 } TCMECC_OBJ;
 ```
 
-**Summary**:
-&nbsp;&nbsp;TCMECC PLib Object structure.
+**Summary**
 
-**Description**:   
-&nbsp;&nbsp;This data structure defines the TCMECC PLib Instance Object.
+TCMECC PLib Object structure.
 
----
+**Description**
 
-## TCMECC_Initialize
-```C
+This data structure defines the TCMECC PLib Instance Object.
+
+## Initialization functions
+
+### TCMECC_Initialize
+
+```c
 void TCMECC_Initialize(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Initializes given instance of the TCMECC peripheral.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+Initializes given instance of the TCMECC peripheral.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
 
----
+None
 
-## TCMECC_ResetCounters
-```C
+**Parameters**
+
+None
+
+**Returns**
+
+None
+
+## Setup functions
+
+### TCMECC_ResetCounters
+
+```c
 void TCMECC_ResetCounters(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Reset Fix and NoFix error counters of the TCMECC peripheral.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+Reset Fix and NoFix error counters of the TCMECC peripheral.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
+
+None
+
+**Parameters**
+None
+
+**Returns**
+
+None
 
 ---
 
-## TCMECC_FixCallbackRegister
-```C
+### TCMECC_FixCallbackRegister
+
+```c
 void TCMECC_FixCallbackRegister(TCMECC_CALLBACK callback, uintptr_t context)
 ```
-**Summary**:   
-&nbsp;&nbsp;Sets the pointer to the function (and it's context) to be called when the   
-&nbsp;&nbsp;given TCMECC's Fixable interrupt events occur.
 
-**Description**:   
-&nbsp;&nbsp;This function sets the pointer to a client function to be called "back" when   
-&nbsp;&nbsp;the given TCMECC's interrupt events occur. It also passes a context value   
-&nbsp;&nbsp;(usually a pointer to a context structure) that is passed into the function   
-&nbsp;&nbsp;when it is called. The specified callback function will be called from the   
-&nbsp;&nbsp;peripheral interrupt context.
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;TCMECC_Initialize must have been called for the associated TCMECC instance.   
+Sets the pointer to the function (and it's context) to be called when the given TCMECC's Fixable interrupt events occur.
 
-**Parameters**:   
-&nbsp;&nbsp;*callback*   
-&nbsp;&nbsp;&nbsp;&nbsp;A pointer to a function with a calling signature defined by the TCMECC_CALLBACK data type.   
-&nbsp;&nbsp;&nbsp;&nbsp;Setting this to NULL disables the callback feature.   
-&nbsp;&nbsp;*contextHandle*   
-&nbsp;&nbsp;&nbsp;&nbsp;A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+**Description**
 
-**Returns**:   
-&nbsp;&nbsp;None
+This function sets the pointer to a client function to be called "back" when the given TCMECC's interrupt events occur. It also passes a context value (usually a pointer to a context structure) that is passed into the function when it is called. The specified callback function will be called from the peripheral interrupt context.
 
-**Example**: 
-```C
+**Preconditions**
+
+TCMECC_Initialize must have been called for the associated TCMECC instance.
+
+**Parameters**
+
+*callback* A pointer to a function with a calling signature defined by the TCMECC_CALLBACK data type. Setting this to NULL disables the callback feature.
+*contextHandle* A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+
+**Returns**
+
+None
+
+**Example**
+
+```c
     // Refer to the description of the TCMECC_CALLBACK data type for
     // example usage.
 ```
@@ -193,206 +203,241 @@ void TCMECC_FixCallbackRegister(TCMECC_CALLBACK callback, uintptr_t context)
 ---
 
 ## TCMECC_NoFixCallbackRegister
-```C
+
+```c
 void TCMECC_NoFixCallbackRegister(TCMECC_CALLBACK callback, uintptr_t context)
 ```
-**Summary**:   
-&nbsp;&nbsp;Sets the pointer to the function (and it's context) to be called when the   
-&nbsp;&nbsp;given TCMECC's UnFixable interrupt events occur.
 
-**Description**: 
-&nbsp;&nbsp;This function sets the pointer to a client function to be called "back" when   
-&nbsp;&nbsp;the given TCMECC's interrupt events occur. It also passes a context value   
-&nbsp;&nbsp;(usually a pointer to a context structure) that is passed into the function   
-&nbsp;&nbsp;when it is called. The specified callback function will be called from the   
-&nbsp;&nbsp;peripheral interrupt context.
+**Summary**
 
-**Precondition**:   
-&nbsp;&nbsp;TCMECC_Initialize must have been called for the associated TCMECC instance.   
+Sets the pointer to the function (and it's context) to be called when the given TCMECC's UnFixable interrupt events occur.
 
-**Parameters**:   
-&nbsp;&nbsp;*callback*   
-&nbsp;&nbsp;&nbsp;&nbsp;A pointer to a function with a calling signature defined by the TCMECC_CALLBACK data type.   
-&nbsp;&nbsp;&nbsp;&nbsp;Setting this to NULL disables the callback feature.   
-&nbsp;&nbsp;*contextHandle*   
-&nbsp;&nbsp;&nbsp;&nbsp;A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+**Description**
 
-**Returns**:   
-&nbsp;&nbsp;None
+This function sets the pointer to a client function to be called "back" when the given TCMECC's interrupt events occur. It also passes a context value (usually a pointer to a context structure) that is passed into the function when it is called. The specified callback function will be called from the peripheral interrupt context.
 
-**Example**: 
-```C
+**Preconditions**
+
+TCMECC_Initialize must have been called for the associated TCMECC instance.
+
+**Parameters**
+
+*callback* A pointer to a function with a calling signature defined by the TCMECC_CALLBACK data type. Setting this to NULL disables the callback feature.
+*contextHandle* A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+
+**Returns**
+
+None
+
+**Example**
+
+```c
     // Refer to the description of the TCMECC_CALLBACK data type for
     // example usage.
 ```
 
----
+## Status functions
 
-## TCMECC_StatusGet
-```C
+### TCMECC_StatusGet
+
+```c
 TCMECC_STATUS TCMECC_StatusGet(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Get the status of the TCMECC peripheral.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+Get the status of the TCMECC peripheral.
 
-**Returns**:   
-&nbsp;&nbsp;Current status of the TCMECC peripheral.
+**Preconditions**
+
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+Current status of the TCMECC peripheral.
 
 ---
 
-## TCMECC_GetFailAddressITCM
-```C
+### TCMECC_GetFailAddressITCM
+
+```c
 uint32_t TCMECC_GetFailAddressITCM(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Get the last fail address were ECC error occurs in Instruction TCM.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+Get the last fail address were ECC error occurs in Instruction TCM.
 
-**Returns**:   
-&nbsp;&nbsp;Fail address were fixable or unfixable error occured in ITCM.
+**Preconditions**
 
----
+None
 
-## TCMECC_GetFailAddressDTCM
-```C
+**Parameters**
+
+None
+
+**Returns**
+
+Fail address were fixable or unfixable error occured in ITCM.
+
+### TCMECC_GetFailAddressDTCM
+
+```c
 uint32_t TCMECC_GetFailAddressDTCM(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Get the last fail address were ECC error occurs in Data TCM.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+Get the last fail address were ECC error occurs in Data TCM.
 
-**Returns**:   
-&nbsp;&nbsp;Fail address were fixable or unfixable error occured in DTCM.
+**Preconditions**
 
----
+None
 
-## TCMECC_TestModeReadEnable
-```C
+**Parameters**
+
+None
+
+**Returns**
+
+Fail address were fixable or unfixable error occured in DTCM.
+
+## Test Mode functions
+
+### TCMECC_TestModeReadEnable
+
+```c
 void TCMECC_TestModeReadEnable(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Enable the TCMECC peripheral test mode Read. When enabled the   
-&nbsp;&nbsp;ECC check bit value read is updated in TESTCB1 register at each TCM data read.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+Enable the TCMECC peripheral test mode Read. When enabled the ECC check bit value read is updated in TESTCB1 register at each TCM data read.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
 
----
+None
 
-## TCMECC_TestModeReadDisable
-```C
+**Parameters**
+
+None
+
+**Returns**
+
+None
+
+### TCMECC_TestModeReadDisable
+
+```c
 void TCMECC_TestModeReadDisable(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Disable the TCMECC peripheral test mode Read.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+Disable the TCMECC peripheral test mode Read.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
 
----
+None
 
-## TCMECC_TestModeWriteEnable
-```C
+**Parameters**
+
+None
+
+**Returns**
+
+None
+
+### TCMECC_TestModeWriteEnable
+
+```c
 void TCMECC_TestModeWriteEnable(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Enable the TCMECC peripheral test mode Write. When enabled the   
-&nbsp;&nbsp;ECC check bit value in TESTCB1 register is write in memory at each   
-&nbsp;&nbsp;TCM data write instead of calculated check bit.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+Enable the TCMECC peripheral test mode Write. When enabled the ECC check bit value in TESTCB1 register is write in memory at each TCM data write instead of calculated check bit.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
 
----
+None
 
-## TCMECC_TestModeWriteDisable
-```C
+**Parameters**
+
+None
+
+**Returns**
+
+None
+
+### TCMECC_TestModeWriteDisable
+
+```c
 void TCMECC_TestModeWriteDisable(void)
 ```
-**Summary**:   
-&nbsp;&nbsp;Disable the TCMECC peripheral test mode Write.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;None   
+Disable the TCMECC peripheral test mode Write.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
 
----
+None
 
-## TCMECC_TestModeGetCbValue
-```C
+**Parameters**
+
+None
+
+**Returns**
+
+None
+
+### TCMECC_TestModeGetCbValue
+
+```c
 void TCMECC_TestModeGetCbValue(uint8_t* tcb1, uint8_t* tcb2)
 ```
-**Summary**:   
-&nbsp;&nbsp;Get the TCMECC peripheral test mode check bit values.
 
-**Precondition**:   
-&nbsp;&nbsp;None   
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;*tcb1*   
-&nbsp;&nbsp;&nbsp;&nbsp;pointer of the variable to be updated with test check bit 1 value.   
-&nbsp;&nbsp;*tcb2*   
-&nbsp;&nbsp;&nbsp;&nbsp;pointer of the variable to be updated with test check bit 2 value.
+Get the TCMECC peripheral test mode check bit values.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
 
----
+None
 
-## TCMECC_TestModeSetCbValue
-```C
+**Parameters**
+
+*tcb1* pointer of the variable to be updated with test check bit 1 value.
+*tcb2* pointer of the variable to be updated with test check bit 2 value.
+
+**Returns**
+
+None
+
+### TCMECC_TestModeSetCbValue
+
+```c
 void TCMECC_TestModeSetCbValue(uint8_t tcb1, uint8_t tcb2)
 ```
-**Summary**:   
-&nbsp;&nbsp;Set the TCMECC peripheral test mode check bit values.
 
-**Precondition**:   
-&nbsp;&nbsp;None  
+**Summary**
 
-**Parameters**:   
-&nbsp;&nbsp;*tcb1*   
-&nbsp;&nbsp;&nbsp;&nbsp;Test check bit 1 value to set.    
-&nbsp;&nbsp;*tcb2*   
-&nbsp;&nbsp;&nbsp;&nbsp;Test check bit 2 value to set.    
+Set the TCMECC peripheral test mode check bit values.
 
-**Returns**:   
-&nbsp;&nbsp;None
+**Preconditions**
+
+None
+
+**Parameters**
+
+*tcb1* Test check bit 1 value to set.
+*tcb2* Test check bit 2 value to set.
+
+**Returns**
+
+None
