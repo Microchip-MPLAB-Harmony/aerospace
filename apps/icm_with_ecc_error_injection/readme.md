@@ -1,8 +1,14 @@
-﻿# ICM with ECC error injection Example
+﻿---
+parent: Examples applications
+title: ICM with ECC error injection Example
+nav_order: 5
+---
+
+# ICM with ECC error injection Example
 
 This example shows how configure the ICM and the different ECC controllers to handler and correct if possible ECC errors. This example use the ECC test mode to inject ECC errors in the memories monitored by the ICM.
 
-## Building The Application 
+## Building The Application
 The parent folder for all the MPLAB X IDE projects for this application is given below:
 
 **Application Path** : aerospace\apps\icm_with_ecc_error_injection\firmware
@@ -12,9 +18,9 @@ To build the application, refer the below table and open the appropriate project
 | Project Name  | Description   |
 | ------------- |:-------------:|
 | sam_rh71_ek.X | SAM RH71 Evaluation Kit board  |
-	
 
-## MPLAB Harmony Configurations 
+
+## MPLAB Harmony Configurations
 
 Refer to the MHC project graph for the components used and the respective configuration options.
 
@@ -38,10 +44,11 @@ Refer to the MHC project graph for the components used and the respective config
     * Flow Control : None
 3. Build and Program the application using the MPLAB X IDE.
 4. See the following message in the console.
+
 ```
 -----------------------------------------------------------
 
-  ICM with ECC error injection example                     
+  ICM with ECC error injection example
 
 -----------------------------------------------------------
 
@@ -59,11 +66,12 @@ Current ECC error injection is selected for memory : ITCM
 
 ```
 
-5. By pressing the button you can change the memory area where ECC error are injected. When an error is injected, it display the interrupts that occurs and the ICM region mismatch if any.
+1. By pressing the button you can change the memory area where ECC error are injected. When an error is injected, it display the interrupts that occurs and the ICM region mismatch if any.
 
 For example an error injection in ITCM:
+
 ```
--> Generate fixable error on region ITCM at index : 0 
+-> Generate fixable error on region ITCM at index : 0
 
   1 new FIX interrupt on region ITCM
 ```

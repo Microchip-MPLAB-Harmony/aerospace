@@ -1,20 +1,31 @@
-﻿# IP1553 Remote Terminal operation blocking Example
+﻿---
+parent: Examples applications
+title: SpaceWire Loopback Example
+nav_order: 6
 
-This example shows how start the IP1553 module in Remote Terminal mode with RT01 address and receive data transfer commands in a blocking manner. The CPU polls the peripheral register continuously to manage the transfer. It waits for any incoming commands and display the buffer sent or the received data.
+family: SAMRH71
+function: SpaceWire
+market:
+  - aerospace
+---
 
-## Building The Application 
+# SpaceWire Loopback Example
+
+This example shows how configure the SpaceWire peripheral to send and receive multiple packets. It uses multiple receive buffer to exercise in an optimize way the 3 states (NEXT, CURRENT, PREVIOUS) for packet reception.
+
+## Building The Application
 The parent folder for all the MPLAB X IDE projects for this application is given below:
 
-**Application Path** : aerospace\apps\ip1553\ip1553_rt_operation_blocking\firmware
+**Application Path** : aerospace\apps\spw\spw_loopback\firmware
 
 To build the application, refer the below table and open the appropriate project file in MPLABX IDE.
 
 | Project Name  | Description   |
 | ------------- |:-------------:|
 | sam_rh71_ek.X | SAM RH71 Evaluation Kit board  |
-	
 
-## MPLAB Harmony Configurations 
+
+## MPLAB Harmony Configurations
 
 Refer to the MHC project graph for the components used and the respective configuration options.
 
@@ -23,13 +34,11 @@ Refer to the MHC project graph for the components used and the respective config
 1. Project sam_rh71_xult.X
     * Hardware Used
         * SAM RH71 Evaluation Kit
-        * MIL1553 Exerciser and Cables
+        * SpaceWire cable
     * Hardware Setup
-        * Connect the debugger probe to J33.
+        * Connect the debugger probe to J33
         * Connect the USB port on the board to the computer using a mini USB cable.
-        * Connect the MIL1553 exerciser on 1553_BUSA or 1553_BUSB connectors.
-    * Exerciser configuration 
-        * Configure in Bus commander to send commands to RT01.
+        * Connect the two SpaceWire link on the board to each other using a SpaceWire cable.
 
 ## Running The Application
 
@@ -42,15 +51,19 @@ Refer to the MHC project graph for the components used and the respective config
     * Flow Control : None
 3. Build and Program the application using the MPLAB X IDE.
 4. See the following message in the console.
-```
+
+```console
 -----------------------------------------------------------
 
-  IP1553 - RT mode blocking operation example              
+  SPW loopback example
 
 -----------------------------------------------------------
 
-MIL1553 RT mode, wait for BC command
+Wait for both SWP link switch to run state
+SPW Link in Run state
+TX time=2270924 us, for 25000000 bytes
+Effective rate=88 Mb/s
+Average RX process time = 76 us
+Rx sequence errors = 3695
+End of transfer
 ```
-
-5. With MIL1553 exerciser, send data transfer command to or from RT01.
-6. It will echo the buffer sent or the received data.

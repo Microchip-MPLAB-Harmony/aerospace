@@ -1,20 +1,31 @@
-﻿# SpaceWire RMAP Loopback Example
+﻿---
+parent: Examples applications
+title: SpaceWire RMAP Loopback Example
+nav_order: 7
+
+family: SAMRH71
+function: SpaceWire
+market:
+  - aerospace
+---
+
+# SpaceWire RMAP Loopback Example
 
 This example shows how configure the SpaceWire peripheral to configure the RMAP module, send an RMAP command with the packet transceiver and receive the RMAP reply with the packet receiver.
 
-## Building The Application 
+## Building The Application
 The parent folder for all the MPLAB X IDE projects for this application is given below:
 
-**Application Path** : aerospace\apps\spw\spw_rmap_loopback\firmware
+**Application Path**: aerospace\apps\spw\spw_rmap_loopback\firmware
 
 To build the application, refer the below table and open the appropriate project file in MPLABX IDE.
 
 | Project Name  | Description   |
 | ------------- |:-------------:|
 | sam_rh71_ek.X | SAM RH71 Evaluation Kit board  |
-	
 
-## MPLAB Harmony Configurations 
+
+## MPLAB Harmony Configurations
 
 Refer to the MHC project graph for the components used and the respective configuration options.
 
@@ -40,10 +51,11 @@ Refer to the MHC project graph for the components used and the respective config
     * Flow Control : None
 3. Build and Program the application using the MPLAB X IDE.
 4. See the following message in the console.
-```
+
+```console
 -----------------------------------------------------------
 
-  SPW RMAP loopback example                                
+  SPW RMAP loopback example
 
 -----------------------------------------------------------
 
@@ -59,9 +71,9 @@ Send SWP packet with RMAP command read
 Wait RMAP reply
     Receive RMAP READ reply : ID = 0xabcd, with status : 0x0
       Receive 64 bytes of data :
-        00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 0A, 0B, 0C, 0D, 0E, 0F, 
-        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 1A, 1B, 1C, 1D, 1E, 1F, 
-        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 2A, 2B, 2C, 2D, 2E, 2F, 
-        30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 3A, 3B, 3C, 3D, 3E, 3F, 
+        00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 0A, 0B, 0C, 0D, 0E, 0F,
+        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 1A, 1B, 1C, 1D, 1E, 1F,
+        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 2A, 2B, 2C, 2D, 2E, 2F,
+        30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 3A, 3B, 3C, 3D, 3E, 3F,
   RMAP read command reply with status OK
 ```
