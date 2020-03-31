@@ -8,6 +8,40 @@ nav_order: 99
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## Aerospace Release v3.0.2
+### New Features
+
+* Fix of wrong URL for online documentation.
+
+### Known Issues
+
+* No changes from v3.0.1
+
+### Development Tools
+
+* No changes from v3.0.1
+
+### Dependent Components
+
+* No changes from v3.0.1
+
+## Aerospace Release v3.0.1
+### New Features
+
+* Bring online documentation (https://microchip-mplab-harmony.github.io/aerospace/).
+
+### Known Issues
+
+* No changes from v3.0.0
+
+### Development Tools
+
+* No changes from v3.0.0
+
+### Dependent Components
+
+* No changes from v3.0.0
+
 ## Aerospace Release v3.0.0
 ### New Features
 
