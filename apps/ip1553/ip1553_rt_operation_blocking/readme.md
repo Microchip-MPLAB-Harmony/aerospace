@@ -6,7 +6,7 @@ nav_order: 3
 
 # IP1553 Remote Terminal operation blocking Example
 
-This example shows how start the IP1553 module in Remote Terminal mode with RT01 address and receive data transfer commands in a blocking manner. The CPU polls the peripheral register continuously to manage the transfer. It waits for any incoming commands and display the buffer sent or the received data.
+This example shows how to start the IP1553 module in Remote Terminal mode with RT01 address and receive data transfer commands in a blocking manner. The CPU polls the peripheral register continuously to manage the transfer. It waits for any incoming commands and display the buffer sent or the received data. The push buttons can be used to modify the RT configuration on answers to mode commands.
 
 ## Building The Application
 The parent folder for all the MPLAB X IDE projects for this application is given below:
@@ -56,8 +56,29 @@ Refer to the MHC project graph for the components used and the respective config
 
 -----------------------------------------------------------
 
+-> Set config : BCE=0, SREQ=0, Busy=0, SubSystem=0, TR=0
+
+-> Set vector word = 0xABCD and BIT word = 0xFEED
+
 MIL1553 RT mode, wait for BC command
 ```
 
-1. With MIL1553 exerciser, send data transfer command to or from RT01.
-2. It will echo the buffer sent or the received data.
+1. With MIL1553 exerciser, send data transfer command to or from RT01.   
+-> It will echo the buffer sent or the received data.
+2. With MIL1553 exerciser, send mode command to RT01.   
+-> It will print information of received mode command on RT.
+3. With the push buttons modify the RT configuration and send new mode command.
+* With push button PB0, each press will activate 1 bit in configuration register:
+```console
+-> Set config : BCE=1, SREQ=0, Busy=0, SubSystem=0, TR=0
+-> Set config : BCE=0, SREQ=1, Busy=0, SubSystem=0, TR=0
+-> Set config : BCE=0, SREQ=0, Busy=1, SubSystem=0, TR=0
+-> Set config : BCE=0, SREQ=0, Busy=0, SubSystem=1, TR=0
+-> Set config : BCE=0, SREQ=0, Busy=0, SubSystem=0, TR=1
+-> Set config : BCE=0, SREQ=0, Busy=0, SubSystem=0, TR=0
+```
+* With push button PB1, each press will switch the values of bit word and vector word:
+```console
+-> Set vector word = 0x1234 and BIT word = 0xCAFE
+-> Set vector word = 0xABCD and BIT word = 0xFEED
+```

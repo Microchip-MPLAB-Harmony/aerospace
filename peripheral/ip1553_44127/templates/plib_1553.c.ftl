@@ -290,6 +290,51 @@ void ${IP1553_INSTANCE_NAME}_BcStartDataTransfer(IP1553_DATA_TX_TYPE tranferType
 
 // *****************************************************************************
 /* Function:
+    void ${IP1553_INSTANCE_NAME}_BcModeCommandTransfer(uint8_t rtAddr, IP1553_MODE_CMD modeCommand, uint16_t cmdParameter, IP1553_BUS bus)
+
+   Summary:
+    Start BC mode command transfer.
+
+   Precondition:
+    ${IP1553_INSTANCE_NAME}_Initialize must have been called for the ${IP1553_INSTANCE_NAME} instance.
+    ${IP1553_INSTANCE_NAME}_BuffersConfigSet must have been called to set allocated buffers.
+
+   Parameters:
+    rtAddr         - The remote terminal address or 0x1F for broadcast.
+    modeCommand    - The mode command code.
+    cmdParameter   - Optional command parameter for applicable commande code.
+    bus            - Indicate if the transfer uses physical BUS A or B. 
+
+   Returns:
+    None.
+*/
+void ${IP1553_INSTANCE_NAME}_BcModeCommandTransfer(uint8_t rtAddr, IP1553_MODE_CMD modeCommand, uint16_t cmdParameter, IP1553_BUS bus)
+{
+    uint8_t cmdr1Tr = 1;
+    uint32_t cmdr2 = 0;
+
+    /* Check if mode command contains data parameter */
+    if ( modeCommand == IP1553_MODE_CMD_SYNCHRONIZE_WITH_DATA )
+    {
+        cmdr1Tr = 0;
+        cmdr2 = cmdParameter;
+    }
+
+    // Mode command
+    IP1553_REGS->IP1553_CMDR1 = \
+            IP1553_CMDR1_RTADDRESS(rtAddr) | \
+            IP1553_CMDR1_RTSUBADDRESS(0) | \
+            IP1553_CMDR1_T_R(cmdr1Tr) | \
+            IP1553_CMDR1_DATAWORDCOUNT(modeCommand) ;
+
+    // Parameter for applicable commands
+    IP1553_REGS->IP1553_CMDR2 = cmdr2;
+
+    IP1553_REGS->IP1553_CMDR3 = IP1553_CMDR3_BUS(bus) | IP1553_CMDR3_ER(1);
+}
+</#if>
+// *****************************************************************************
+/* Function:
     uint16_t ${IP1553_INSTANCE_NAME}_GetFirstStatusWord( void )
 
    Summary:
@@ -309,6 +354,7 @@ uint16_t ${IP1553_INSTANCE_NAME}_GetFirstStatusWord( void )
     return ( ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CTRL1 & IP1553_CTRL1_IP1553DATA1_Msk ) >> IP1553_CTRL1_IP1553DATA1_Pos );
 }
 
+<#if IP1553_MODE == "BC">
 // *****************************************************************************
 /* Function:
     uint16_t ${IP1553_INSTANCE_NAME}_GetSecondStatusWord( void )
@@ -330,7 +376,6 @@ uint16_t ${IP1553_INSTANCE_NAME}_GetSecondStatusWord( void )
     return ( ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CTRL1 & IP1553_CTRL1_IP1553DATA2_Msk) >> IP1553_CTRL1_IP1553DATA2_Pos );
 }
 </#if>
-
 <#if IP1553_MODE == "RT">
 // *****************************************************************************
 /* Function:
@@ -356,6 +401,7 @@ void ${IP1553_INSTANCE_NAME}_BCEnableCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_BEC(1);
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
 }
 
 // *****************************************************************************
@@ -381,6 +427,7 @@ void ${IP1553_INSTANCE_NAME}_SREQBitCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_SRC(1);
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
 }
 
 // *****************************************************************************
@@ -407,6 +454,7 @@ void ${IP1553_INSTANCE_NAME}_BusyBitCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_BC(1);
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
 }
 
 // *****************************************************************************
@@ -432,6 +480,7 @@ void ${IP1553_INSTANCE_NAME}_SSBitCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_SC(1);
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
 }
 
 // *****************************************************************************
@@ -461,6 +510,51 @@ void ${IP1553_INSTANCE_NAME}_TRBitCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_TC(1);
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
+}
+
+// *****************************************************************************
+/* Function:
+    void ${IP1553_INSTANCE_NAME}_BitWordSet(uint16_t bitWord)
+
+   Summary:
+    Set the built-in self test results in BIT register. This value is sent by
+    the terminal in response to a "Transmit Built-In Test".
+
+   Precondition:
+    ${IP1553_INSTANCE_NAME}_Initialize must have been called for the ${IP1553_INSTANCE_NAME} instance.
+
+   Parameters:
+    bitWord - Built-in self test results value.
+
+   Returns:
+    None
+*/
+void ${IP1553_INSTANCE_NAME}_BitWordSet(uint16_t bitWord)
+{
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_BITR = ( bitWord & 0xFFFF );
+}
+
+// *****************************************************************************
+/* Function:
+    void ${IP1553_INSTANCE_NAME}_VectorWordSet(uint16_t vectorWord)
+
+   Summary:
+    Set the Vector Word value to be sent by the terminal in response to
+    a "Transmit Vector Word" command.
+
+   Precondition:
+    ${IP1553_INSTANCE_NAME}_Initialize must have been called for the ${IP1553_INSTANCE_NAME} instance.
+
+   Parameters:
+    vectorWord - Vector Word value to be sent by the terminal.
+
+   Returns:
+    None
+*/
+void ${IP1553_INSTANCE_NAME}_VectorWordSet(uint16_t vectorWord)
+{
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_VWR = ( vectorWord & 0xFFFF );
 }
 </#if>
 

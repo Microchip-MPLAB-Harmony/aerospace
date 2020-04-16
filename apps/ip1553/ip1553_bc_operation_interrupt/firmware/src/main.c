@@ -101,7 +101,7 @@ volatile uint32_t activeRxBuffers = 0;
 volatile bool isTransferEnded = false;
 
 /* Boolean to check if the status word interrupt occurred */
-volatile bool hasStatusWord = false;
+volatile uint8_t hasStatusWord = 0;
 
 /* Bit field of status containing the error interrupts that were triggered during transfer */
 volatile uint32_t transferErrors = 0;
@@ -117,8 +117,11 @@ void print_menu(void)
     printf(" Press '1' to send one data from TX buffer %u to RT1, on Bus A \r\n", gBcSubAddrData);
     printf(" Press '2' to receive one data in buffer 3 from RT1, on bus A \r\n");
     printf(" Press '3' to broadcast for RTs, from buffer 1, on bus A \r\n");
+    printf(" Press '4' to initiate mode command transfer to RT1 on bus A \r\n");
+    printf(" Press '5' to initiate broadcast mode command transfer on bus A \r\n");
 }
 
+// *****************************************************************************
 /* void APP_IP1553_Print_Errors(uint32_t errors)
 
  Summary:
@@ -157,6 +160,126 @@ void APP_IP1553_Print_Errors(uint32_t errors)
 }
 
 // *****************************************************************************
+/* void APP_IP1553_print_mc_list(bool broadcastOnly)
+
+ Summary:
+   Print 1553 mode command list and their code value.
+
+ Description:
+   Print 1553 mode command list and their code value.
+
+ Parameters:
+   broadcastOnly - Display only command values that are applicable to broadcast.
+
+ Remarks:
+   None.
+ */
+static void APP_IP1553_print_mc_list(bool broadcastOnly)
+{
+    if (broadcastOnly == false)
+        printf(" '0x%02X' : DYNAMIC_BUS_CONTROL\r\n",IP1553_MODE_CMD_DYNAMIC_BUS_CONTROL);
+    printf(" '0x%02X' : SYNCHRONIZE_WITHOUT_DATA\r\n",IP1553_MODE_CMD_SYNCHRONIZE_WITHOUT_DATA);
+    if (broadcastOnly == false)
+        printf(" '0x%02X' : TRANSMIT_STATUS_WORD\r\n",IP1553_MODE_CMD_TRANSMIT_STATUS_WORD);
+    printf(" '0x%02X' : INITIATE_SELF_TEST\r\n",IP1553_MODE_CMD_INITIATE_SELF_TEST);
+    printf(" '0x%02X' : TRANSMITTER_SHUTDOWN\r\n",IP1553_MODE_CMD_TRANSMITTER_SHUTDOWN);
+    printf(" '0x%02X' : OVERRIDE_TRANSMITTER_SHUTDOWN\r\n",IP1553_MODE_CMD_OVERRIDE_TRANSMITTER_SHUTDOWN);
+    printf(" '0x%02X' : INHIBIT_TERMINAL_FLAG_BIT\r\n",IP1553_MODE_CMD_INHIBIT_TERMINAL_FLAG_BIT);
+    printf(" '0x%02X' : OVERRIDE_INHIBIT_TERMINAL_FLAG_BIT\r\n",IP1553_MODE_CMD_OVERRIDE_INHIBIT_TERMINAL_FLAG_BIT);
+    printf(" '0x%02X' : RESET_REMOTE_TERMINAL\r\n",IP1553_MODE_CMD_RESET_REMOTE_TERMINAL);
+    if (broadcastOnly == false)
+        printf(" '0x%02X' : TRANSMIT_VECTOR_WORD\r\n",IP1553_MODE_CMD_TRANSMIT_VECTOR_WORD);
+    printf(" '0x%02X' : SYNCHRONIZE_WITH_DATA\r\n",IP1553_MODE_CMD_SYNCHRONIZE_WITH_DATA);
+    if (broadcastOnly == false)
+        printf(" '0x%02X' : TRANSMIT_LAST_COMMAND\r\n",IP1553_MODE_CMD_TRANSMIT_LAST_COMMAND);
+    if (broadcastOnly == false)
+        printf(" '0x%02X' : TRANSMIT_BIT_WORD\r\n",IP1553_MODE_CMD_TRANSMIT_BIT_WORD);
+}
+
+// *****************************************************************************
+/* void APP_IP1553_InitiateModeCommand(uint8_t rtAddress)
+
+ Summary:
+   Prompt user and send mode command to given RT address or broadcast address.
+
+ Description:
+   Prompt for mode command selection and custom data and send it to given
+   RT address or broadcast address.
+
+ Parameters:
+   rtAddress - RT address or 0x1F for broadcast.
+
+ Remarks:
+   None.
+ */
+static void APP_IP1553_InitiateModeCommand(uint8_t rtAddress)
+{
+    uint16_t transferStatusWord = 0;
+    char cmdChar[3] = {0};
+    char cmdDataChar[5] = {0};
+    uint16_t cmd = 0;
+    uint16_t cmdData = 0;
+    
+    transferErrors = 0;
+    hasStatusWord = 0;
+
+    if (rtAddress == IP1553_RT_ADDRESS_BROADCAST_MODE)
+        APP_IP1553_print_mc_list(true);
+    else
+        APP_IP1553_print_mc_list(false);
+
+    printf("\r\nEnter mode command (2 character) >> 0x_ _\r\n");
+    scanf(" %2c", (char *)&cmdChar[0]);
+    cmd = (int)strtol(&cmdChar[0], NULL, 16);
+
+    if ( ( (cmd >= IP1553_MODE_CMD_DYNAMIC_BUS_CONTROL) && (cmd <= IP1553_MODE_CMD_RESET_REMOTE_TERMINAL) ) ||
+         ( (cmd >= IP1553_MODE_CMD_TRANSMIT_VECTOR_WORD) && (cmd <= IP1553_MODE_CMD_TRANSMIT_BIT_WORD) ) )
+    {
+        if ( cmd == IP1553_MODE_CMD_SYNCHRONIZE_WITH_DATA )
+        {
+            printf("\r\nEnter command data (4 character) >> 0x_ _ _ _\r\n");
+            scanf(" %4c", (char *)&cmdDataChar[0]);
+            cmdData = (int)strtol(&cmdDataChar[0], NULL, 16);
+        }
+
+        printf("Send Mode command 0x%02X", (unsigned int)cmd);
+        if (cmdData != 0)
+            printf(" with parameter data 0x%04X", (unsigned int)cmdData);
+        printf(" on bus A\r\n");
+
+        IP1553_BcModeCommandTransfer(
+                rtAddress,
+                cmd,
+                cmdData,
+                IP1553_BUS_A);
+
+        /* Wait end of transfer */
+        if (rtAddress != IP1553_RT_ADDRESS_BROADCAST_MODE)
+        {
+            while ( (hasStatusWord == 0) && (transferErrors == 0) );
+
+            /* Check if there was error during transfer */
+            if (transferErrors)
+            {
+                APP_IP1553_Print_Errors(transferErrors);
+            }
+            else
+            {
+                /* Print Transfer Status Word */
+                transferStatusWord = IP1553_GetFirstStatusWord();
+                printf("Transfer Status Word = 0x%04X\n", transferStatusWord);
+
+                if (hasStatusWord == 2)
+                {
+                    transferStatusWord = IP1553_GetSecondStatusWord();
+                    printf("Transfer Data Word = 0x%04X\n", transferStatusWord);
+                }
+            }
+        }
+    }
+}
+
+// *****************************************************************************
 /* void APP_IP1553_Callback(uintptr_t context)
 
  Summary:
@@ -190,7 +313,7 @@ void APP_IP1553_Callback(uintptr_t context)
 
     if ( (readStatus & IP1553_INT_MASK_ETRANS_MASK) != 0 )
     {
-        hasStatusWord = true;
+        hasStatusWord = IP1553_INT_MASK_GET_ETRANS(readStatus) ;
     }
 
     if ( (readStatus & IP1553_INT_MASK_ERROR_MASK) != 0 )
@@ -276,7 +399,7 @@ int main(void)
             case '1':
                 printf("  > Send one data from TX buffer %u to RT1, on Bus A: \r\n", gBcSubAddrData);
                 isTransferEnded = false;
-                hasStatusWord = false;
+                hasStatusWord = 0;
                 transferErrors = 0;
                 IP1553_BcStartDataTransfer(
                     IP1553_DATA_TX_TYPE_BC_TO_RT,
@@ -288,7 +411,7 @@ int main(void)
                     IP1553_BUS_A);
 
                 /* Wait end of transfer */
-                while ( (transferErrors == 0) && (!isTransferEnded || !hasStatusWord) );
+                while ( (transferErrors == 0) && ( (isTransferEnded == false) || (hasStatusWord == 0) ) );
 
                 /* Check if there was error during transfer */
                 if (transferErrors)
@@ -311,7 +434,7 @@ int main(void)
             case '2':
                 printf("  > Receive one data in buffer 3 from RT1, on bus A: \r\n");
                 isTransferEnded = false;
-                hasStatusWord = false;
+                hasStatusWord = 0;
                 transferErrors = 0;
                 IP1553_BcStartDataTransfer(
                     IP1553_DATA_TX_TYPE_RT_TO_BC,
@@ -323,7 +446,7 @@ int main(void)
                     IP1553_BUS_A);
 
                 /* Wait end of transfer */
-                while ( (transferErrors == 0) && (!isTransferEnded || !hasStatusWord) );
+                while ( (transferErrors == 0) && ( (isTransferEnded == false) || (hasStatusWord == 0) ) );
 
                 /* Check if there was error during transfer */
                 if (transferErrors)
@@ -332,6 +455,10 @@ int main(void)
                 }
                 else
                 {
+                    /* Print Transfer Status Word */
+                    uint16_t transferStatusWord = IP1553_GetFirstStatusWord();
+                    printf("Transfer Status Word = 0x%04X\n", transferStatusWord);
+
                     /* Print and reset Rx buffers*/
                     uint32_t lastActiveBuffers = activeRxBuffers;
                     uint32_t buffer = 0;
@@ -388,6 +515,16 @@ int main(void)
                 {
                     APP_IP1553_Print_Errors(transferErrors);
                 }
+            break;
+
+            case '4':
+                printf("  > Initiate mode command transfer to RT1 on bus A : \r\n");
+                APP_IP1553_InitiateModeCommand(APP_IP1553_RT_ADDR);
+            break;
+
+            case '5':
+                printf("  > Initiate broadcast mode command transfer on bus A : \r\n");
+                APP_IP1553_InitiateModeCommand(IP1553_RT_ADDRESS_BROADCAST_MODE);
             break;
 
             default:

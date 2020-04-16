@@ -228,6 +228,26 @@ IP1553_INT_MASK IP1553_IrqStatusGet( void )
     return (IP1553_INT_MASK)(IP1553_REGS->IP1553_ISR);
 }
 
+// *****************************************************************************
+/* Function:
+    uint16_t IP1553_GetFirstStatusWord( void )
+
+   Summary:
+    Returns the IP1553 transfer first status word.
+
+   Precondition:
+    IP1553_Initialize must have been called for the IP1553 instance.
+
+   Parameters:
+    None.
+
+   Returns:
+    Value of transfer first status word.
+*/
+uint16_t IP1553_GetFirstStatusWord( void )
+{
+    return ( ( IP1553_REGS->IP1553_CTRL1 & IP1553_CTRL1_IP1553DATA1_Msk ) >> IP1553_CTRL1_IP1553DATA1_Pos );
+}
 
 // *****************************************************************************
 /* Function:
@@ -253,6 +273,7 @@ void IP1553_BCEnableCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_BEC(1);
     IP1553_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
 }
 
 // *****************************************************************************
@@ -278,6 +299,7 @@ void IP1553_SREQBitCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_SRC(1);
     IP1553_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
 }
 
 // *****************************************************************************
@@ -304,6 +326,7 @@ void IP1553_BusyBitCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_BC(1);
     IP1553_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
 }
 
 // *****************************************************************************
@@ -329,6 +352,7 @@ void IP1553_SSBitCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_SC(1);
     IP1553_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
 }
 
 // *****************************************************************************
@@ -358,6 +382,51 @@ void IP1553_TRBitCmdSet(bool enable)
     if (enable == true)
         crReg |= IP1553_CR_TC(1);
     IP1553_REGS->IP1553_CR = crReg;
+    while (IP1553_REGS->IP1553_CR != crReg);
+}
+
+// *****************************************************************************
+/* Function:
+    void IP1553_BitWordSet(uint16_t bitWord)
+
+   Summary:
+    Set the built-in self test results in BIT register. This value is sent by
+    the terminal in response to a ?Transmit Built-In Test?.
+
+   Precondition:
+    IP1553_Initialize must have been called for the IP1553 instance.
+
+   Parameters:
+    bitWord - Built-in self test results value.
+
+   Returns:
+    None
+*/
+void IP1553_BitWordSet(uint16_t bitWord)
+{
+    IP1553_REGS->IP1553_BITR = ( bitWord & 0xFFFF );
+}
+
+// *****************************************************************************
+/* Function:
+    void IP1553_VectorWordSet(uint16_t vectorWord)
+
+   Summary:
+    Set the Vector Word value to be sent by the terminal in response to
+    a ?Transmit Vector Word? command.
+
+   Precondition:
+    IP1553_Initialize must have been called for the IP1553 instance.
+
+   Parameters:
+    vectorWord - Vector Word value to be sent by the terminal.
+
+   Returns:
+    None
+*/
+void IP1553_VectorWordSet(uint16_t vectorWord)
+{
+    IP1553_REGS->IP1553_VWR = ( vectorWord & 0xFFFF );
 }
 
 // *****************************************************************************

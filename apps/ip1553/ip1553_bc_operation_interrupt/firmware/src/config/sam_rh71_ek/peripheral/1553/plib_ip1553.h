@@ -78,6 +78,9 @@
 /* IP1553 RT address value for broadcast mode */
 #define IP1553_RT_ADDRESS_BROADCAST_MODE                 (0x1F)
 
+/* Return ETRANS field value in IP1553 interrupt mask. */
+#define IP1553_INT_MASK_GET_ETRANS(status) ( (status & IP1553_INT_MASK_ETRANS_MASK) >> IP1553_IER_ETRANS_Pos ) 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: IP1553 Types
@@ -202,6 +205,35 @@ typedef enum
 } IP1553_BUS;
 
 // *****************************************************************************
+/* IP1553 Bus Controller Mode Command code
+
+   Summary:
+    IP1553 Mode Command code.
+
+   Description:
+    This data type identifies the 1553 protocol Mode Command code values.
+
+   Remarks:
+    None.
+*/
+typedef enum
+{
+    IP1553_MODE_CMD_DYNAMIC_BUS_CONTROL = 0,
+    IP1553_MODE_CMD_SYNCHRONIZE_WITHOUT_DATA = 1,
+    IP1553_MODE_CMD_TRANSMIT_STATUS_WORD = 2,
+    IP1553_MODE_CMD_INITIATE_SELF_TEST = 3,
+    IP1553_MODE_CMD_TRANSMITTER_SHUTDOWN = 4,
+    IP1553_MODE_CMD_OVERRIDE_TRANSMITTER_SHUTDOWN = 5,
+    IP1553_MODE_CMD_INHIBIT_TERMINAL_FLAG_BIT = 6,
+    IP1553_MODE_CMD_OVERRIDE_INHIBIT_TERMINAL_FLAG_BIT = 7,
+    IP1553_MODE_CMD_RESET_REMOTE_TERMINAL = 8,
+    IP1553_MODE_CMD_TRANSMIT_VECTOR_WORD = 16,
+    IP1553_MODE_CMD_SYNCHRONIZE_WITH_DATA = 17,
+    IP1553_MODE_CMD_TRANSMIT_LAST_COMMAND = 18,
+    IP1553_MODE_CMD_TRANSMIT_BIT_WORD = 19,
+} IP1553_MODE_CMD;
+
+// *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines
 // *****************************************************************************
@@ -225,10 +257,11 @@ uint32_t IP1553_GetRxBuffersStatus(void);
 void IP1553_ResetRxBuffersStatus(uint32_t buffers);
 
 IP1553_INT_MASK IP1553_IrqStatusGet( void );
+
 void IP1553_BcStartDataTransfer(IP1553_DATA_TX_TYPE tranferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus );
 
+void IP1553_BcModeCommandTransfer(uint8_t rtAddr, IP1553_MODE_CMD modeCommand, uint16_t cmdParameter, IP1553_BUS bus);
 uint16_t IP1553_GetFirstStatusWord( void );
-
 uint16_t IP1553_GetSecondStatusWord( void );
 void IP1553_CallbackRegister(IP1553_CALLBACK callback, uintptr_t contextHandle);
 

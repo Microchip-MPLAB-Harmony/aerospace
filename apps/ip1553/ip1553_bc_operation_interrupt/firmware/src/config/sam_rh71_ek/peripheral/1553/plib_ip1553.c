@@ -238,7 +238,7 @@ IP1553_INT_MASK IP1553_IrqStatusGet( void )
    Precondition:
     IP1553_Initialize must have been called for the IP1553 instance.
     IP1553_BuffersConfigSet must have been called to set allocated buffers.
-    IP1553_ResetRxBuffersStatus and IP1553_ResetTxBuffersStatus must 
+    IP1553_ResetRxBuffersStatus and IP1553_ResetTxBuffersStatus must
     have been called for the concerned buffers (sub-address) used in the command.
 
    Parameters:
@@ -248,7 +248,7 @@ IP1553_INT_MASK IP1553_IrqStatusGet( void )
     rxAddr         - The receiver address : 0 if BC, RT address otherwise.
     rxSubAddr      - The receiver sub-address.
     dataWordCount  - Number of data word (16 bit) to read/write. 0 stand for 32 data word.
-    bus            - Indicate if the transfer uses physical BUS A or B. 
+    bus            - Indicate if the transfer uses physical BUS A or B.
 
    Returns:
     None.
@@ -278,6 +278,51 @@ void IP1553_BcStartDataTransfer(IP1553_DATA_TX_TYPE tranferType, uint8_t txAddr,
         cmdr3 |= IP1553_CMDR3_BCR(1);
     }
     IP1553_REGS->IP1553_CMDR3 = cmdr3;
+}
+
+// *****************************************************************************
+/* Function:
+    void IP1553_BcModeCommandTransfer(uint8_t rtAddr, IP1553_MODE_CMD modeCommand, uint16_t cmdParameter, IP1553_BUS bus)
+
+   Summary:
+    Start BC mode command transfer.
+
+   Precondition:
+    IP1553_Initialize must have been called for the IP1553 instance.
+    IP1553_BuffersConfigSet must have been called to set allocated buffers.
+
+   Parameters:
+    rtAddr         - The remote terminal address or 0x1F for broadcast.
+    modeCommand    - The mode command code.
+    cmdParameter   - Optional command parameter for applicable commande code.
+    bus            - Indicate if the transfer uses physical BUS A or B.
+
+   Returns:
+    None.
+*/
+void IP1553_BcModeCommandTransfer(uint8_t rtAddr, IP1553_MODE_CMD modeCommand, uint16_t cmdParameter, IP1553_BUS bus)
+{
+    uint8_t cmdr1Tr = 1;
+    uint32_t cmdr2 = 0;
+
+    /* Check if mode command contains data parameter */
+    if ( modeCommand == IP1553_MODE_CMD_SYNCHRONIZE_WITH_DATA )
+    {
+        cmdr1Tr = 0;
+        cmdr2 = cmdParameter;
+    }
+
+    // Mode command
+    IP1553_REGS->IP1553_CMDR1 = \
+            IP1553_CMDR1_RTADDRESS(rtAddr) | \
+            IP1553_CMDR1_RTSUBADDRESS(0) | \
+            IP1553_CMDR1_T_R(cmdr1Tr) | \
+            IP1553_CMDR1_DATAWORDCOUNT(modeCommand) ;
+
+    // Parameter for applicable commands
+    IP1553_REGS->IP1553_CMDR2 = cmdr2;
+
+    IP1553_REGS->IP1553_CMDR3 = IP1553_CMDR3_BUS(bus) | IP1553_CMDR3_ER(1);
 }
 
 // *****************************************************************************

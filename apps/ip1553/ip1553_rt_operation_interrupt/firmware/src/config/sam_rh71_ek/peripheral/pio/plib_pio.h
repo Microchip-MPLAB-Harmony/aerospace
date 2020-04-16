@@ -74,6 +74,66 @@
 
 
 
+/*** Macros for SWITCH0 pin ***/
+#define SWITCH0_Set()               (PIOC_REGS->PIO_SODR = (1<<29))
+#define SWITCH0_Clear()             (PIOC_REGS->PIO_CODR = (1<<29))
+#define SWITCH0_Toggle()            do {\
+                                            PIOC_REGS->PIO_MSKR = (1<<29); \
+                                            PIOC_REGS->PIO_ODSR ^= (1<<29);\
+                                        } while (0)
+#define SWITCH0_Get()               ((PIOC_REGS->PIO_PDSR >> 29) & 0x1)
+#define SWITCH0_OutputEnable()      do {\
+                                            PIOC_REGS->PIO_MSKR = (1<<29); \
+										     PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                        }while(0)
+#define SWITCH0_InputEnable()       do { \
+                                            PIOC_REGS->PIO_MSKR = (1<<29); \
+										     PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                        } while (0)
+#define SWITCH0_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<29))
+#define SWITCH0_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<29))
+#define SWITCH0_PIN                  PIO_PIN_PC29
+
+/*** Macros for SWITCH1 pin ***/
+#define SWITCH1_Set()               (PIOC_REGS->PIO_SODR = (1<<30))
+#define SWITCH1_Clear()             (PIOC_REGS->PIO_CODR = (1<<30))
+#define SWITCH1_Toggle()            do {\
+                                            PIOC_REGS->PIO_MSKR = (1<<30); \
+                                            PIOC_REGS->PIO_ODSR ^= (1<<30);\
+                                        } while (0)
+#define SWITCH1_Get()               ((PIOC_REGS->PIO_PDSR >> 30) & 0x1)
+#define SWITCH1_OutputEnable()      do {\
+                                            PIOC_REGS->PIO_MSKR = (1<<30); \
+										     PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                        }while(0)
+#define SWITCH1_InputEnable()       do { \
+                                            PIOC_REGS->PIO_MSKR = (1<<30); \
+										     PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                        } while (0)
+#define SWITCH1_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<30))
+#define SWITCH1_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<30))
+#define SWITCH1_PIN                  PIO_PIN_PC30
+
+/*** Macros for SWITCH2 pin ***/
+#define SWITCH2_Set()               (PIOC_REGS->PIO_SODR = (1<<31))
+#define SWITCH2_Clear()             (PIOC_REGS->PIO_CODR = (1<<31))
+#define SWITCH2_Toggle()            do {\
+                                            PIOC_REGS->PIO_MSKR = (1<<31); \
+                                            PIOC_REGS->PIO_ODSR ^= (1<<31);\
+                                        } while (0)
+#define SWITCH2_Get()               ((PIOC_REGS->PIO_PDSR >> 31) & 0x1)
+#define SWITCH2_OutputEnable()      do {\
+                                            PIOC_REGS->PIO_MSKR = (1<<31); \
+										     PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                        }while(0)
+#define SWITCH2_InputEnable()       do { \
+                                            PIOC_REGS->PIO_MSKR = (1<<31); \
+										     PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                        } while (0)
+#define SWITCH2_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<31))
+#define SWITCH2_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<31))
+#define SWITCH2_PIN                  PIO_PIN_PC31
+
 
 // *****************************************************************************
 /* PIO Port
@@ -337,6 +397,57 @@ typedef enum
 
 } PIO_PIN;
 
+// *****************************************************************************
+/* PIO Pin-Event Handler Function Pointer
+
+   Summary:
+    Pointer to a PIO Pin-Event handler function.
+
+   Description:
+    This data type defines the required function signature for the
+    PIO pin-event handling callback function.  The client must register
+    a pointer to an event handling function whose function signature (parameter
+    and return value types) match the types specified by this function pointer
+    in order to receive calls back from the PLIB when a configured pin event
+    occurs.
+
+    The parameters and return values are described here and a partial example
+    implementation is provided.
+
+  Parameters:
+    context         - Value identifying the context of the client that
+                      registered the event handling function
+
+  Returns:
+    None.
+
+  Example:
+    A function matching this signature:
+    <code>
+    void APP_PinEventHandler(PIN_NAME pin, uintptr_t context)
+    {
+        // Do Something
+    }
+    </code>
+    Is registered as follows:
+    <code>
+    PIO_PinInterruptCallbackRegister(PIO_PIN_PA5, &APP_PinEventHandler, NULL);
+    </code>
+    <code>
+
+  Remarks:
+    The context parameter contains the a handle to the client context,
+    provided at the time the event handling function was  registered using the
+    PIO_PinInterruptCallbackRegister function. This context handle value is
+    passed back to the client as the "context" parameter.  It can be any value
+    (such as a pointer to the client's data) necessary to identify the client
+    context.
+
+    The event handler function executes in the PLIB's interrupt
+    context. It is recommended of the application to not perform process
+    intensive or blocking operations with in this function.
+*/
+typedef  void (*PIO_PIN_CALLBACK) ( PIO_PIN pin, uintptr_t context);
 // *****************************************************************************
 // *****************************************************************************
 // Section: Generated API based on pin configurations done in Pin Manager
@@ -765,6 +876,38 @@ void PIO_PortInterruptEnable(PIO_PORT port, uint32_t mask);
 */
 void PIO_PortInterruptDisable(PIO_PORT port, uint32_t mask);
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Local Data types and Prototypes
+// *****************************************************************************
+// *****************************************************************************
+
+// *****************************************************************************
+/* PIO Pin Callback Object
+
+  Summary:
+    Structure to hold callback related details
+
+  Description:
+    This structure is used internally by the PIO PLIB to hold pin specific
+    callback details.
+
+  Remarks:
+    None.
+*/
+typedef struct {
+
+    /* target pin */
+    PIO_PIN                 pin;
+
+    /* Callback for event on target pin*/
+    PIO_PIN_CALLBACK        callback;
+
+    /* Callback Context */
+    uintptr_t               context;
+
+} PIO_PIN_CALLBACK_OBJ;
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -1055,6 +1198,128 @@ static inline void PIO_PinOutputEnable(PIO_PIN pin)
     PIO_PortOutputEnable((PIO_PORT)(PIO_BASE_ADDRESS + (0x40 * (pin>>5))), 0x1 << (pin & 0x1F));
 }
 
+// *****************************************************************************
+/* Function:
+    void PIO_PinInterruptEnable(PIO_PIN pin)
+
+  Summary:
+    Enables IO interrupt on selected IO pin.
+
+  Description:
+    This function enables interrupt on selected IO pin.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pin           - One of the IO pins from the enum PIO_PIN
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+
+    PIO_PinInterruptEnable(PIO_PIN_PB3);
+
+    </code>
+
+  Remarks:
+    None.
+*/
+static inline void PIO_PinInterruptEnable(PIO_PIN pin)
+{
+    PIO_PortInterruptEnable((PIO_PORT)(PIO_BASE_ADDRESS + (0x40 * (pin>>5))), 0x1 << (pin & 0x1F));
+}
+
+
+// *****************************************************************************
+/* Function:
+    void PIO_PinInterruptDisable(PIO_PIN pin)
+
+  Summary:
+    Disables IO interrupt on selected IO pin.
+
+  Description:
+    This function disables IO interrupt on selected IO pin.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pin       - One of the IO pins from the enum PIO_PIN
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+
+    PIO_PinInterruptDisable(PIO_PIN_PB3);
+
+    </code>
+
+  Remarks:
+    None.
+*/
+static inline void PIO_PinInterruptDisable(PIO_PIN pin)
+{
+    PIO_PortInterruptDisable((PIO_PORT)(PIO_BASE_ADDRESS + (0x40 * (pin>>5))), 0x1 << (pin & 0x1F));
+}
+
+// *****************************************************************************
+/* Function:
+    bool PIO_PinInterruptCallbackRegister(
+        PIO_PIN pin,
+        const PIO_PIN_CALLBACK callBack,
+        uintptr_t context
+    );
+
+  Summary:
+    Allows application to register callback for every pin.
+
+  Description:
+    This function allows application to register an event handling function
+    for the PLIB to call back when I/O interrupt occurs on the selected pin.
+
+    At any point if application wants to stop the callback, it can call this
+    function with "eventHandler" value as NULL.
+
+    If a pin is not configured for interrupt in Pin Manager and yet its callback
+    registration is attempted using this API, then registration doesn't happen
+    and API returns false indicating the same.    
+
+  Precondition:
+    The PIO_Initialize function must have been called.
+
+  Parameters:
+    pin          - One of the IO pins from the enum PIO_PIN
+    eventHandler - Pointer to the event handler function implemented by the user
+
+    context      - The value of parameter will be passed back to the application
+                   unchanged, when the eventHandler function is called. It can
+                   be used to identify any application specific value.
+
+  Returns:
+    Callback registration status:
+    - true: Callback was successfully registered
+    - false: Callback was not registered
+
+  Example:
+    <code>
+
+    PIO_PinInterruptCallbackRegister(PIO_PIN_PB3, &APP_PinHandler, NULL);
+
+    </code>
+
+  Remarks:
+    None.
+*/
+bool PIO_PinInterruptCallbackRegister(
+    PIO_PIN pin,
+    const   PIO_PIN_CALLBACK callBack,
+    uintptr_t context
+);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

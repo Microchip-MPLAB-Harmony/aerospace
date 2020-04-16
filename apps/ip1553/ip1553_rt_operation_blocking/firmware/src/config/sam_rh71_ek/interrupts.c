@@ -92,7 +92,7 @@ void FLEXCOM1_InterruptHandler  ( void ) __attribute__((weak, alias("Dummy_Handl
 void NMIC_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void PIOA_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void PIOB_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
-void PIOC_Handler               ( void ) __attribute__((weak, alias("Dummy_Handler")));
+void PIOC_InterruptHandler      ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void FLEXCOM2_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void FLEXCOM3_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
 void FLEXCOM4_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -187,7 +187,7 @@ const DeviceVectors exception_table=
     .pfnNMIC_Handler               = ( void * ) NMIC_Handler,
     .pfnPIOA_Handler               = ( void * ) PIOA_Handler,
     .pfnPIOB_Handler               = ( void * ) PIOB_Handler,
-    .pfnPIOC_Handler               = ( void * ) PIOC_Handler,
+    .pfnPIOC_Handler               = ( void * ) PIOC_InterruptHandler,
     .pfnFLEXCOM2_Handler           = ( void * ) FLEXCOM2_Handler,
     .pfnFLEXCOM3_Handler           = ( void * ) FLEXCOM3_Handler,
     .pfnFLEXCOM4_Handler           = ( void * ) FLEXCOM4_Handler,

@@ -174,6 +174,37 @@ This data type identifies the IP1553 output bus selection
 
 ---
 
+### IP1553_MODE_CMD
+
+```c
+typedef enum
+{
+    IP1553_MODE_CMD_DYNAMIC_BUS_CONTROL = 0,
+    IP1553_MODE_CMD_SYNCHRONIZE_WITHOUT_DATA = 1,
+    IP1553_MODE_CMD_TRANSMIT_STATUS_WORD = 2,
+    IP1553_MODE_CMD_INITIATE_SELF_TEST = 3,
+    IP1553_MODE_CMD_TRANSMITTER_SHUTDOWN = 4,
+    IP1553_MODE_CMD_OVERRIDE_TRANSMITTER_SHUTDOWN = 5,
+    IP1553_MODE_CMD_INHIBIT_TERMINAL_FLAG_BIT = 6,
+    IP1553_MODE_CMD_OVERRIDE_INHIBIT_TERMINAL_FLAG_BIT = 7,
+    IP1553_MODE_CMD_RESET_REMOTE_TERMINAL = 8,
+    IP1553_MODE_CMD_TRANSMIT_VECTOR_WORD = 16,
+    IP1553_MODE_CMD_SYNCHRONIZE_WITH_DATA = 17,
+    IP1553_MODE_CMD_TRANSMIT_LAST_COMMAND = 18,
+    IP1553_MODE_CMD_TRANSMIT_BIT_WORD = 19,
+} IP1553_MODE_CMD;
+```
+
+**Summary**
+
+IP1553 Mode Command code
+
+**Description**
+
+This data type identifies the 1553 protocol Mode Command code values
+
+---
+
 ## Initialization functions
 
 ### IP1553_Initialize
@@ -382,6 +413,34 @@ None
 
 ---
 
+### IP1553_BcModeCommandTransfer
+
+```c
+void IP1553_BcModeCommandTransfer(uint8_t rtAddr, IP1553_MODE_CMD modeCommand, uint16_t cmdParameter, IP1553_BUS bus )
+```
+
+**Summary**
+
+Start BC mode command transfer.
+
+**Preconditions**
+
+IP1553_Initialize must have been called for the IP1553 instance.
+IP1553_BuffersConfigSet must have been called to set allocated buffers.
+
+**Parameters**
+
+*rtAddr* The remote terminal address or 0x1F for broadcast.
+*modeCommand* The mode command code.
+*cmdParameter* Optional command parameter for applicable commande code.
+*bus* Indicate if the transfer uses physical BUS A or B.
+
+**Returns**
+
+None
+
+---
+
 ### IP1553_GetFirstStatusWord
 
 ```c
@@ -486,7 +545,7 @@ void IP1553_BusyBitCmdSet(bool enable)
 
 **Summary**
 
-Enable or Disable SREQBitCmd bit. Indicates the value of the busy bit to be returned in status word transfers. If enabled, Inhibits the transmission of the data words in response to a transmit command and its corresponding interrupt.
+Enable or Disable BusyBitCmd bit. Indicates the value of the busy bit to be returned in status word transfers. If enabled, Inhibits the transmission of the data words in response to a transmit command and its corresponding interrupt.
 
 **Preconditions**
 
@@ -551,3 +610,51 @@ None
 **Note**:
 
 After reception of a valid "Inhibit T/F Bit" command the T/F bit is maintained at logic level 0.
+
+---
+
+### IP1553_BitWordSet
+
+```c
+void IP1553_BitWordSet(uint16_t bitWord)
+```
+
+**Summary**
+
+Set the built-in self test results in BIT register. This value is sent by the terminal in response to a "Transmit Built-In Test".
+
+**Preconditions**
+
+IP1553_Initialize must have been called for the IP1553 instance.
+
+**Parameters**
+
+*bitWord* Built-in self test results value.
+
+**Returns**
+
+None
+
+---
+
+### IP1553_VectorWordSet
+
+```c
+void IP1553_VectorWordSet(uint16_t vectorWord)
+```
+
+**Summary**
+
+Set the Vector Word value to be sent by the terminal in response to a "Transmit Vector Word" command.
+
+**Preconditions**
+
+IP1553_Initialize must have been called for the IP1553 instance.
+
+**Parameters**
+
+*vectorWord* Vector Word value to be sent by the terminal.
+
+**Returns**
+
+None
