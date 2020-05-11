@@ -259,7 +259,7 @@ void ${IP1553_INSTANCE_NAME}_ResetRxBuffersStatus(uint32_t buffers);
 IP1553_INT_MASK ${IP1553_INSTANCE_NAME}_IrqStatusGet( void );
 
 <#if IP1553_MODE == "BC">
-void ${IP1553_INSTANCE_NAME}_BcStartDataTransfer(IP1553_DATA_TX_TYPE tranferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus );
+void ${IP1553_INSTANCE_NAME}_BcStartDataTransfer(IP1553_DATA_TX_TYPE transferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus );
 
 void ${IP1553_INSTANCE_NAME}_BcModeCommandTransfer(uint8_t rtAddr, IP1553_MODE_CMD modeCommand, uint16_t cmdParameter, IP1553_BUS bus);
 </#if>

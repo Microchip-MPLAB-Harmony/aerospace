@@ -163,7 +163,7 @@ static volatile uint8_t buttonStatus = 0;
   void APP_IP1553_Print_Errors(uint32_t errors)
 
  Summary:
-  Function called by application to print the description of the errors that
+  Function called by the application to print the description of the errors that
   occurred during transfer.
 
  Description:
@@ -207,7 +207,7 @@ void APP_IP1553_Print_Errors(uint32_t errors)
   bit field.
 
  Description:
-  Function called by application to print the description of the mode
+  Function called by the application to print the description of the mode
   command interrupt informations that occurred.
 
  Parameters:

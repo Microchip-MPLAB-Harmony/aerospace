@@ -89,7 +89,7 @@ The parameters and return values are described here and a partial example implem
 
 **Parameters**
 
-*contextHandle* Value identifying the context of the application that registered the callback function
+* *contextHandle* - Value identifying the context of the application that registered the callback function
 
 **Remarks**
 
@@ -249,11 +249,8 @@ IP1553_Initialize must have been called for the IP1553 instance
 
 **Parameters**
 
-*txBuffers* Pointer to application allocated emission buffer base address. Application must allocate buffer from non-cached contiguous memory and buffer size must be 16 bit * IP1553_BUFFERS_SIZE * IP1553_BUFFERS_NUM.
-
-*rxBuffers*
-
-Pointer to application allocated reception buffer base address. Application must allocate buffer from non-cached contiguous memory and buffer size must be 16 bit * IP1553_BUFFERS_SIZE * IP1553_BUFFERS_NUM.
+* *txBuffers* - Pointer to application allocated emission buffer base address. Application must allocate buffer from non-cached contiguous memory and buffer size must be 16 bit * IP1553_BUFFERS_SIZE * IP1553_BUFFERS_NUM.
+* *rxBuffers* - Pointer to application allocated reception buffer base address. Application must allocate buffer from non-cached contiguous memory and buffer size must be 16 bit * IP1553_BUFFERS_SIZE * IP1553_BUFFERS_NUM.
 
 **Returns**
 
@@ -303,7 +300,7 @@ IP1553_Initialize must have been called for the IP1553 instance
 
 **Parameters**
 
-*buffers* Bitfield of buffer to be reset. When reset a buffer is set ready to be sent (1) in status.
+* *buffers* - Bitfield of buffer to be reset. When reset a buffer is set ready to be sent (1) in status.
 
 **Returns**
 
@@ -351,7 +348,7 @@ IP1553_Initialize must have been called for the IP1553 instance
 
 **Parameters**
 
-*buffers* Bitfield of buffer to be reset. When reset a buffer is set ready to receive data (1) in status.
+* *buffers* - Bitfield of buffer to be reset. When reset a buffer is set ready to receive data (1) in status.
 
 **Returns**
 
@@ -386,7 +383,7 @@ Current status of instance
 ### IP1553_BcStartDataTransfer
 
 ```c
-void IP1553_BcStartDataTransfer(IP1553_DATA_TX_TYPE tranferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus )
+void IP1553_BcStartDataTransfer(IP1553_DATA_TX_TYPE transferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus )
 ```
 
 **Summary**
@@ -399,13 +396,13 @@ IP1553_Initialize must have been called for the IP1553 instance IP1553_BuffersCo
 
 **Parameters**
 
-*tranferType* Type of data tranfer command to issue
-*txAddr* The transmitter address : 0 if BC, RT address otherwise
-*txSubAddr* The transmitter sub-address
-*rxAddr* The receiver address : 0 if BC, RT address otherwise
-*rxSubAddr* The receiver sub-address
-*dataWordCount* Number of data word (16 bit) to read/write. 0 stand for 32 data word
-*bus* Indicate if the transfer uses physical BUS A or B
+* *transferType* - Type of data transfer command to issue
+* *txAddr* - The transmitter address : 0 if BC, RT address otherwise
+* *txSubAddr* - The transmitter sub-address
+* *rxAddr* - The receiver address : 0 if BC, RT address otherwise
+* *rxSubAddr* - The receiver sub-address
+* *dataWordCount* - Number of data word (16 bit) to read/write. 0 stand for 32 data word
+* *bus* - Indicate if the transfer uses physical BUS A or B
 
 **Returns**
 
@@ -430,10 +427,10 @@ IP1553_BuffersConfigSet must have been called to set allocated buffers.
 
 **Parameters**
 
-*rtAddr* The remote terminal address or 0x1F for broadcast.
-*modeCommand* The mode command code.
-*cmdParameter* Optional command parameter for applicable commande code.
-*bus* Indicate if the transfer uses physical BUS A or B.
+* *rtAddr* - The remote terminal address or 0x1F for broadcast.
+* *modeCommand* - The mode command code.
+* *cmdParameter* - Optional command parameter for applicable commande code.
+* *bus* - Indicate if the transfer uses physical BUS A or B.
 
 **Returns**
 
@@ -505,7 +502,7 @@ IP1553_Initialize must have been called for the IP1553 instance
 
 **Parameters**
 
-*enable* If true, The terminal accepts the bus control. If false, the terminal reject the bus control
+* *enable* - If true, The terminal accepts the bus control. If false, the terminal reject the bus control
 
 **Returns**
 
@@ -529,7 +526,7 @@ IP1553_Initialize must have been called for the IP1553 instance.
 
 **Parameters**
 
-*enable* If true, Service Request bit returned in status word transfers is 1. 0 if false.
+* *enable* - If true, Service Request bit returned in status word transfers is 1. 0 if false.
 
 **Returns**
 
@@ -553,7 +550,7 @@ IP1553_Initialize must have been called for the IP1553 instance.
 
 **Parameters**
 
-*enable* If true, busy bit returned in status word transfers is 1. 0 if false.
+* *enable* - If true, busy bit returned in status word transfers is 1. 0 if false.
 
 **Returns**
 
@@ -577,7 +574,7 @@ IP1553_Initialize must have been called for the IP1553 instance.
 
 **Parameters**
 
-*enable* If true, Subsystem Flag bit returned in status word transfers is 1. 0 if false.
+* *enable* - If true, Subsystem Flag bit returned in status word transfers is 1. 0 if false.
 
 **Returns**
 
@@ -601,7 +598,7 @@ IP1553_Initialize must have been called for the IP1553 instance.
 
 **Parameters**
 
-*enable* If true, T/F bit returned in status word transfers is 1. 0 if false.
+* *enable* - If true, T/F bit returned in status word transfers is 1. 0 if false.
 
 **Returns**
 
@@ -629,7 +626,7 @@ IP1553_Initialize must have been called for the IP1553 instance.
 
 **Parameters**
 
-*bitWord* Built-in self test results value.
+* *bitWord* - Built-in self test results value.
 
 **Returns**
 
@@ -653,7 +650,7 @@ IP1553_Initialize must have been called for the IP1553 instance.
 
 **Parameters**
 
-*vectorWord* Vector Word value to be sent by the terminal.
+* *vectorWord* - Vector Word value to be sent by the terminal.
 
 **Returns**
 

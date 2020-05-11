@@ -133,7 +133,7 @@ This data type defines the required function signature for the ICM callback func
 
 **Parameters**
 
-*contextHandle* Value identifying the context of the application that registered the callback function
+* *contextHandle* - Value identifying the context of the application that registered the callback function
 
 **Remarks**
 
@@ -227,8 +227,7 @@ None
 
 **Parameters**
 
-*addr*
-The address of the ICM Hash memory location.
+* *addr* - The address of the ICM Hash memory location.
 
 **Returns**
 
@@ -257,8 +256,7 @@ None
 
 **Parameters**
 
-*disable*
-If true, End of Monitoring is disabled. Enabled if false.
+* *disable* - If true, End of Monitoring is disabled. Enabled if false.
 
 **Returns**
 None
@@ -277,8 +275,8 @@ Disables/enables the ICM Write Back Configuration.
 None
 
 **Parameters**
-*disable*
-If true, Write Back is disabled. Enabled if false.
+
+* *disable* - If true, Write Back is disabled. Enabled if false.
 
 **Returns**
 None
@@ -323,8 +321,7 @@ None
 
 **Parameters**
 
-*addr*
-The address of the ICM list descriptor.
+* *addr* - The address of the ICM list descriptor.
 
 **Returns**
 
@@ -400,7 +397,7 @@ Region monitoring should be disabled.
 
 **Parameters**
 
-*region* The regions for which the digest will be re-computed.
+* *region* - The regions for which the digest will be re-computed.
 
 **Returns**
 
@@ -424,7 +421,7 @@ None
 
 **Parameters**
 
-*region* The regions for which the monitoring will be enabled.
+* *region* - The regions for which the monitoring will be enabled.
 
 **Returns**
 
@@ -448,7 +445,7 @@ None
 
 **Parameters**
 
-*region* The regions for which the monitoring will be disabled.
+* *region* - The regions for which the monitoring will be disabled.
 
 **Returns**
 
@@ -472,7 +469,7 @@ ICM_Initialize must have been called for the associated ICM instance.
 
 **Parameters**
 
-*interruptMask* Interrupt to be enabled.
+* *interruptMask* - Interrupt to be enabled.
 
 **Returns**
 
@@ -496,7 +493,7 @@ ICM_Initialize must have been called for the associated ICM instance.
 
 **Parameters**
 
-*interruptMask* Interrupt to be disabled.
+* *interruptMask* - Interrupt to be disabled.
 
 **Returns**
 
@@ -524,9 +521,8 @@ ICM_Initialize must have been called for the associated ICM instance.
 
 **Parameters**
 
-*callback* A pointer to a function with a calling signature defined by the ICM_CALLBACK data type. Setting this to NULL disables the callback feature.
-
-*contextHandle* A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+* *callback* - A pointer to a function with a calling signature defined by the ICM_CALLBACK data type. Setting this to NULL disables the callback feature.
+* *contextHandle* - A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
 
 **Returns**
 

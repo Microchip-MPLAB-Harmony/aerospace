@@ -160,7 +160,7 @@ uint32_t app_rx_seq_error = 0;
 /* void APP_SPW_PrintInterruptErrors(uint32_t errors)
 
   Summary:
-    Function called by application to print the description of the link
+    Function called by the application to print the description of the link
     interrupt errors .
 
   Description:

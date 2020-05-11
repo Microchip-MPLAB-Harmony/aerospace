@@ -18,7 +18,7 @@ The parent folder for all the MPLAB X IDE projects for this application is given
 
 **Application Path**: aerospace\apps\spw\spw_rmap_loopback\firmware
 
-To build the application, refer the below table and open the appropriate project file in MPLABX IDE.
+To build the application, refer to the table below and open the appropriate project file in MPLABX IDE.
 
 | Project Name  | Description   |
 | ------------- |:-------------:|
@@ -31,7 +31,7 @@ Refer to the MHC project graph for the components used and the respective config
 
 ## Hardware Setup
 
-1. Project sam_rh71_xult.X
+1. Project sam_rh71_ek.X
     * Hardware Used
         * SAM RH71 Evaluation Kit
         * SpaceWire cable
@@ -43,7 +43,7 @@ Refer to the MHC project graph for the components used and the respective config
 ## Running The Application
 
 1. Open the Terminal application (Ex.:Tera term) on the computer.
-2. Connect to the EDBG Virtual COM port and configure the serial settings as follows:
+2. Connect to the Virtual COM port and configure the serial settings as follows:
     * Baud : 115200
     * Data : 8 Bits
     * Parity : None

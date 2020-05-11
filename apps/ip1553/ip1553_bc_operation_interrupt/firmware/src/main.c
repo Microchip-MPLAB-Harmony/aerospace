@@ -125,7 +125,7 @@ void print_menu(void)
 /* void APP_IP1553_Print_Errors(uint32_t errors)
 
  Summary:
- Function called by application to print the description of the errors that
+ Function called by the application to print the description of the errors that
  occurred during transfer.
 
  Description:

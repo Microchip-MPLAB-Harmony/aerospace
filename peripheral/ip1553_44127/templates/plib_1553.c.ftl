@@ -238,7 +238,7 @@ IP1553_INT_MASK ${IP1553_INSTANCE_NAME}_IrqStatusGet( void )
 <#if IP1553_MODE == "BC">
 // *****************************************************************************
 /* Function:
-    void ${IP1553_INSTANCE_NAME}_BcStartDataTransfer(IP1553_DATA_TX_TYPE tranferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus )
+    void ${IP1553_INSTANCE_NAME}_BcStartDataTransfer(IP1553_DATA_TX_TYPE transferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus )
 
    Summary:
     Start BC command for data transfer.
@@ -250,7 +250,7 @@ IP1553_INT_MASK ${IP1553_INSTANCE_NAME}_IrqStatusGet( void )
     have been called for the concerned buffers (sub-address) used in the command.
 
    Parameters:
-    tranferType    - Type of data tranfer command to issue.
+    transferType   - Type of data tranfer command to issue.
     txAddr         - The transmitter address : 0 if BC, RT address otherwise.
     txSubAddr      - The transmitter sub-address.
     rxAddr         - The receiver address : 0 if BC, RT address otherwise.
@@ -261,7 +261,7 @@ IP1553_INT_MASK ${IP1553_INSTANCE_NAME}_IrqStatusGet( void )
    Returns:
     None.
 */
-void ${IP1553_INSTANCE_NAME}_BcStartDataTransfer(IP1553_DATA_TX_TYPE tranferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus )
+void ${IP1553_INSTANCE_NAME}_BcStartDataTransfer(IP1553_DATA_TX_TYPE transferType, uint8_t txAddr, uint8_t txSubAddr, uint8_t rxAddr, uint8_t rxSubAddr, uint8_t dataWordCount, IP1553_BUS bus )
 {
     // Receiver terminal
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CMDR1 = \
@@ -277,11 +277,11 @@ void ${IP1553_INSTANCE_NAME}_BcStartDataTransfer(IP1553_DATA_TX_TYPE tranferType
             IP1553_CMDR2_DATAWORDCOUNT(dataWordCount) ;
 
     uint32_t cmdr3 = IP1553_CMDR3_BUS(bus);
-    if (tranferType == IP1553_DATA_TX_TYPE_BC_TO_RT)
+    if (transferType == IP1553_DATA_TX_TYPE_BC_TO_RT)
     {
         cmdr3 |= IP1553_CMDR3_BCE(1);
     }
-    else if (tranferType == IP1553_DATA_TX_TYPE_RT_TO_BC)
+    else if (transferType == IP1553_DATA_TX_TYPE_RT_TO_BC)
     {
         cmdr3 |= IP1553_CMDR3_BCR(1);
     }

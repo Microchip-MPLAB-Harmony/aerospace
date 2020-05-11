@@ -129,7 +129,7 @@ uint32_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram
 /* void APP_SPW_PrintInterruptErrors(uint32_t errors)
 
   Summary:
-    Function called by application to print the description of the link
+    Function called by the application to print the description of the link
     interrupt errors .
 
   Description:
@@ -226,7 +226,7 @@ static void APP_SPW_InitRx(uint8_t expectedDataSize)
     Generate RMAP header to read or write data at the given memory address.
     Send SpaceWire RMAP packet using packet transmitter.
     The router bytes are used to send the packet thought
-    specified link and then to route to RMAP router port.
+    a specified link and then to route to the RMAP router port.
 
    Parameters:
     link - Link ID to route the transmitted message.

@@ -123,7 +123,7 @@ SPW_LINK_STATUS ${SPW_INSTANCE_NAME}_LINK_StatusGet(SPW_LINK link)
     SPW_LINK_INT_MASK ${SPW_INSTANCE_NAME}_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link);
 
    Summary:
-    Get the SPW LINK interrupt status for masked interrupt and clear them for the
+    Get the SPW LINK interrupt status for masked interrupts and clear them for the
     selected link interface.
 
    Precondition:
@@ -156,7 +156,7 @@ SPW_LINK_INT_MASK ${SPW_INSTANCE_NAME}_LINK_IrqStatusGetMaskedAndClear(SPW_LINK 
     void ${SPW_INSTANCE_NAME}_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 
    Summary:
-    Enables SPW LINK Interrupt for given link interface.
+    Enables SPW LINK Interrupt for a given link interface.
 
    Precondition:
     ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
@@ -185,7 +185,7 @@ void ${SPW_INSTANCE_NAME}_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK 
     void ${SPW_INSTANCE_NAME}_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 
    Summary:
-    Disables SPW LINK Interrupt for given link interface.
+    Disables SPW LINK Interrupt for a given link interface.
 
    Precondition:
     ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.

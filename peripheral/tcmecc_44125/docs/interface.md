@@ -69,7 +69,7 @@ The parameters and return values are described here and a partial example implem
 
 **Parameters**
 
-*contextHandle* Value identifying the context of the application that registered the callback function
+* *contextHandle* - Value identifying the context of the application that registered the callback function
 
 **Remarks**
 
@@ -186,8 +186,8 @@ TCMECC_Initialize must have been called for the associated TCMECC instance.
 
 **Parameters**
 
-*callback* A pointer to a function with a calling signature defined by the TCMECC_CALLBACK data type. Setting this to NULL disables the callback feature.
-*contextHandle* A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+* *callback* - A pointer to a function with a calling signature defined by the TCMECC_CALLBACK data type. Setting this to NULL disables the callback feature.
+* *contextHandle* - A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
 
 **Returns**
 
@@ -222,8 +222,8 @@ TCMECC_Initialize must have been called for the associated TCMECC instance.
 
 **Parameters**
 
-*callback* A pointer to a function with a calling signature defined by the TCMECC_CALLBACK data type. Setting this to NULL disables the callback feature.
-*contextHandle* A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+* *callback* - A pointer to a function with a calling signature defined by the TCMECC_CALLBACK data type. Setting this to NULL disables the callback feature.
+* *contextHandle* - A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
 
 **Returns**
 
@@ -412,8 +412,8 @@ None
 
 **Parameters**
 
-*tcb1* pointer of the variable to be updated with test check bit 1 value.
-*tcb2* pointer of the variable to be updated with test check bit 2 value.
+* *tcb1* - Pointer of the variable to be updated with test check bit 1 value.
+* *tcb2* - Pointer of the variable to be updated with test check bit 2 value.
 
 **Returns**
 
@@ -435,8 +435,8 @@ None
 
 **Parameters**
 
-*tcb1* Test check bit 1 value to set.
-*tcb2* Test check bit 2 value to set.
+* *tcb1* - Test check bit 1 value to set.
+* *tcb2* - Test check bit 2 value to set.
 
 **Returns**
 

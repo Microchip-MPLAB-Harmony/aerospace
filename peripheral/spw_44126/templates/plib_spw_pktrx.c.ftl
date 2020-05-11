@@ -163,7 +163,7 @@ SPW_PKTRX_STATUS ${SPW_INSTANCE_NAME}_PKTRX_StatusGet(void)
     SPW_PKTRX_INT_MASK ${SPW_INSTANCE_NAME}_PKTRX_IrqStatusGetMaskedAndClear(void);
 
    Summary:
-    Get the SPW packet RX module interrupt status for masked interrupt and clear them.
+    Get the SPW packet RX module interrupt status for masked interrupts and clear them.
 
    Precondition:
     None.

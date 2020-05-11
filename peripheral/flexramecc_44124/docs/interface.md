@@ -65,7 +65,7 @@ The parameters and return values are described here and a partial example implem
 
 **Parameters**
 
-*contextHandle* Value identifying the context of the application that registered the callback function
+* *contextHandle* - Value identifying the context of the application that registered the callback function
 
 **Remarks**
 
@@ -189,11 +189,8 @@ void FLEXRAMECC_FixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t cont
 
 **Parameters**
 
-  *callback*
-    A pointer to a function with a calling signature defined by the FLEXRAMECC_CALLBACK data type.
-    Setting this to NULL disables the callback feature.
-  *contextHandle*
-    A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+* *callback* - A pointer to a function with a calling signature defined by the FLEXRAMECC_CALLBACK data type. Setting this to NULL disables the callback feature.
+* *contextHandle* - A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
 
 **Returns**
 
@@ -225,11 +222,8 @@ void FLEXRAMECC_NoFixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t co
 
 **Parameters**
 
-  *callback*
-    A pointer to a function with a calling signature defined by the FLEXRAMECC_CALLBACK data type.
-    Setting this to NULL disables the callback feature.
-  *contextHandle*
-    A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
+* *callback* - A pointer to a function with a calling signature defined by the FLEXRAMECC_CALLBACK data type. Setting this to NULL disables the callback feature.
+* *contextHandle* - A value (usually a pointer) passed (unused) into the function identified by the callback parameter.
 
 **Returns**
 
@@ -427,8 +421,7 @@ void FLEXRAMECC_TestModeSetCbValue(uint8_t tcb1)
 
 **Parameters**
 
-  *tcb1*
-    Test check bit value to set.
+* *tcb1* - Test check bit value to set.
 
 **Returns**
 
