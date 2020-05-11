@@ -62,6 +62,51 @@ Example for waiting both links to be in ```Run``` state:
             (spwLink2Status != SPW_LINK_STATE_RUN) );
 ```
 
+### Link Distributed interrupts
+
+For both link, distributed interrupt and distributed interrupt acknowledge can be enabled and disable using functions:
+
+* ```SPW_LINK_DistInterruptEnable``` and ```SPW_LINK_DistInterruptDisable``` for distributed interrupt.
+* ```SPW_LINK_DistAckInterruptEnable``` and ```SPW_LINK_DistAckInterruptDisable``` for distributed interrupt acknowledge.
+
+If interrupts are used, the callback function should be set and expected interrupts enabled.
+
+```c
+    /* Enable Link 1 distributed interrupt for values 2 and 8 */
+    SPW_LINK_DistInterruptEnable(SPW_LINK_1, SPW_LINK_DIST_ACK_MASK_D2 | SPW_LINK_DIST_ACK_MASK_D8);
+    /* Enable Link 2 distributed interrupt for values 2 and 8 */
+    SPW_LINK_DistInterruptEnable(SPW_LINK_2, SPW_LINK_DIST_ACK_MASK_D2 | SPW_LINK_DIST_ACK_MASK_D8);
+    /* Enable Link 1 distributed interrupt acknowledge for values 2 and 8 */
+    SPW_LINK_DistAckInterruptEnable(SPW_LINK_1, SPW_LINK_DIST_ACK_MASK_D2 | SPW_LINK_DIST_ACK_MASK_D8);
+    /* Enable Link 2 distributed interrupt acknowledge for values 2 and 8 */
+    SPW_LINK_DistAckInterruptEnable(SPW_LINK_2, SPW_LINK_DIST_ACK_MASK_D2 | SPW_LINK_DIST_ACK_MASK_D8);
+```
+
+The interrupt status can be read and clear using the functions:
+
+* ```SPW_LINK_DistIrqStatusGetMaskedAndClear``` for distributed interrupt.
+* ```SPW_LINK_DistAckIrqStatusGetMaskedAndClear``` for distributed interrupt acknowledge.
+
+### Link escape character matching events
+
+For each link, two escape character matching event can be configured using ```SPW_LINK_EscapeCharEvent1Set``` and ```SPW_LINK_EscapeCharEvent2Set``` functions.
+
+```c
+    /* Set link 2 escape character match event 1 for time code 0x22 */
+    SPW_LINK_EscapeCharEvent1Set(SPW_LINK_2, true, 0xFF, 0x22);
+```
+
+Matching event generate an interrupt. The matching escape character can then be read using the functions ```SPW_LINK_LastRecvEscapeCharEvent1Get``` or ```SPW_LINK_LastRecvEscapeCharEvent2Get```.
+
+### Link transmit escape character
+
+Escape character can be transmit from both link using the function ```SPW_LINK_TransmitEscapeChar```
+
+```c
+    /* Transmit escape character (time code 0x22) on link 1 */
+    SPW_LINK_TransmitEscapeChar(SPW_LINK_1, 0x22);
+```
+
 ### Router configuration and status
 
 The router configuration is done during system initialization and it can be also modified by the application:
@@ -226,3 +271,81 @@ RMAP status can be check with ```SPW_RMAP_StatusGetAndClear``` function. It can 
     /* Get ERROR code */
     SPW_RMAP_ERRCODE error_code = SPW_RMAP_STATUS_GET_ERRCODE(status);
 ```
+
+### Time Code Handler
+
+The time code handler (TCH) receives and transmits time codes over multiple SpaceWire interfaces. It operates
+either in Master mode where it is the source of time codes, or in Slave mode where it is driven by incoming time
+codes.
+
+#### configure Sender and Listener links
+
+To select interfaces were time code should be transmitted to or received from using the functions ```SPW_TCH_LinkListenerSet``` and ```SPW_TCH_LinkSenderSet```
+
+```c
+    /* Configure TCH to send Time Code on Link 1 */
+    SPW_TCH_LinkSenderSet(SPW_TCH_SEL_LINK_MASK_L1);
+```
+
+#### configure Event Source
+
+The event source that drives the time codes is configured using the function ```SPW_TCH_ConfigureEvent```
+
+```c
+    /* Configure TCH event source on RTCOUT0 event */
+    SPW_TCH_ConfigureEvent(SPW_SYNC_EVENT_MASK_RTCOUT0);
+```
+
+#### TCH Restart
+
+The ```SPW_TCH_ConfigureRestart``` function can be used to restart the current value of the Time Code, restart value can be configured to be set either :
+* Only once to set a value on next input source event.
+* Periodically at each input source event.
+
+```c
+    /* Configure TCH restart at 0 on each PPS event (1 pulse per second) */
+    SPW_TCH_ConfigureRestart(0, false, SPW_TCH_CFG_RESTART_IN_PPS, 0);
+```
+
+#### Time Code Event notification
+
+To react on any valid time code, the time code event interrupt can be used. The function ```SPW_TCH_ConfigureTcEvent``` can be used to set the mask and values. To trigger an interrupt, for any bit set in the mask the corresponding bit in the time code and the value must be equal.
+
+```c
+    /* Configure Time Code Event to match time code '0x10' */
+    SPW_TCH_ConfigureTcEvent(0xFF, 0x10);
+```
+
+#### Time Code Watchdog
+
+A watchdog notification can be set up to detect whether a time code arrives in the expected time window. This is
+typically only used in Slave mode. Early and late watchdog indications can be programmed with the function ```SPW_TCH_ConfigureWatchdog```.
+They both works independently and will trigger dedicated interrupt when:
+* If a time code arrives before the programmed number of ticks of TimeTick clock.
+* If no time code arrives before the programmed number of ticks of TimeTick clock.
+
+#### Get or select Time Code
+
+The last Time Code distributed value can be read using the function ```SPW_TCH_LastTimeCodeGet```
+
+The next Time Code value to distribute can be set manually : To select Time Code N to be transmitted, write N-1 with the function ```SPW_TCH_LastTimeCodeSet``` before the configured event.
+
+To run Master mode manually from software without an event source, the function ```SPW_TCH_LastTimeCodeSet``` can be used with the parameter ```now``` to ```true``` each time a time code should be sent.
+
+```c
+    /* Manually send time code '0x04' now */
+    SPW_TCH_LastTimeCodeSet(0x04, true);
+```
+
+#### Time Code Interrupts
+
+TCH interrupts can be enabled and disable using functions ```SPW_TCH_InterruptEnable``` and ```SPW_TCH_InterruptDisable```
+
+If interrupts are used, the callback function should be set and expected interrupts enabled.
+
+```c
+    /* Enable SPW TCH interrupts */
+    SPW_TCH_InterruptEnable(SPW_TCH_INT_MASK_TCEVENT | SPW_TCH_INT_MASK_TIMECODE);
+```
+
+The TCH interrupt status can be read and clear using the function ```SPW_TCH_IrqStatusGetMaskedAndClear```

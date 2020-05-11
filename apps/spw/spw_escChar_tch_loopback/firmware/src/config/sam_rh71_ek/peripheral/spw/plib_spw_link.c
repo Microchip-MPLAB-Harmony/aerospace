@@ -6,13 +6,13 @@
     Microchip Technology Inc.
 
   File Name:
-    plib_${SPW_INSTANCE_NAME?lower_case}_link.c
+    plib_spw_link.c
 
   Summary:
-    ${SPW_INSTANCE_NAME} PLIB Implementation file
+    SPW PLIB Implementation file
 
   Description:
-    This file defines the interface to the ${SPW_INSTANCE_NAME} peripheral library.
+    This file defines the interface to the SPW peripheral library.
     This library provides access to and control of the associated peripheral
     instance.
 
@@ -49,20 +49,20 @@
 // *****************************************************************************
 
 #include "device.h"
-#include "plib_${SPW_INSTANCE_NAME?lower_case}_link.h"
+#include "plib_spw_link.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// ${SPW_INSTANCE_NAME} PLib Interface Routines
+// SPW PLib Interface Routines
 // *****************************************************************************
 // *****************************************************************************
 // *****************************************************************************
 
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_Initialize(void)
+    void SPW_LINK_Initialize(void)
 
    Summary:
-    Initialize LINK modules of the ${SPW_INSTANCE_NAME} peripheral.
+    Initialize LINK modules of the SPW peripheral.
 
    Precondition:
     None.
@@ -73,26 +73,26 @@
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_Initialize(void)
+void SPW_LINK_Initialize(void)
 {
-    <#list 1..2 as i>
-    <#assign LINK_INIT_DIV = "SPW_LINK" + i + "_INIT_DIV" >
-    <#assign LINK_OPER_DIV = "SPW_LINK" + i + "_OPER_DIV" >
-    <#assign LINK_CMD = "SPW_LINK" + i + "_CMD" >
-    /* Initialize link ${i} clock divisor */
-    SPW_REGS->SPW_LINK${i}_CLKDIV = SPW_LINK${i}_CLKDIV_TXINITDIV(${.vars[LINK_INIT_DIV]}) | SPW_LINK${i}_CLKDIV_TXOPERDIV(${.vars[LINK_OPER_DIV]});
+    /* Initialize link 1 clock divisor */
+    SPW_REGS->SPW_LINK1_CLKDIV = SPW_LINK1_CLKDIV_TXINITDIV(19) | SPW_LINK1_CLKDIV_TXOPERDIV(0);
 
-    /* Set link ${i} configuration command */
-    SPW_REGS->SPW_LINK${i}_CFG = SPW_LINK${i}_CFG_COMMAND(${.vars[LINK_CMD]});
-    </#list>
+    /* Set link 1 configuration command */
+    SPW_REGS->SPW_LINK1_CFG = SPW_LINK1_CFG_COMMAND(3);
+    /* Initialize link 2 clock divisor */
+    SPW_REGS->SPW_LINK2_CLKDIV = SPW_LINK2_CLKDIV_TXINITDIV(19) | SPW_LINK2_CLKDIV_TXOPERDIV(0);
+
+    /* Set link 2 configuration command */
+    SPW_REGS->SPW_LINK2_CFG = SPW_LINK2_CFG_COMMAND(2);
 }
 
 // *****************************************************************************
 /* Function:
-    SPW_LINK_STATUS ${SPW_INSTANCE_NAME}_LINK_StatusGet(SPW_LINK link)
+    SPW_LINK_STATUS SPW_LINK_StatusGet(SPW_LINK link)
 
    Summary:
-    Get the SPW LINK status of the given ${SPW_INSTANCE_NAME} link.
+    Get the SPW LINK status of the given SPW link.
 
    Precondition:
     None.
@@ -101,9 +101,9 @@ void ${SPW_INSTANCE_NAME}_LINK_Initialize(void)
     link - the selected link ID.
 
    Returns:
-    Current status of the selected ${SPW_INSTANCE_NAME} link.
+    Current status of the selected SPW link.
 */
-SPW_LINK_STATUS ${SPW_INSTANCE_NAME}_LINK_StatusGet(SPW_LINK link)
+SPW_LINK_STATUS SPW_LINK_StatusGet(SPW_LINK link)
 {
     uint32_t status = 0;
     if ( link == SPW_LINK_1 )
@@ -117,13 +117,12 @@ SPW_LINK_STATUS ${SPW_INSTANCE_NAME}_LINK_StatusGet(SPW_LINK link)
     return (SPW_LINK_STATUS)(status);
 }
 
-<#if INTERRUPT_MODE == true>
 // *****************************************************************************
 /* Function:
-    SPW_LINK_INT_MASK ${SPW_INSTANCE_NAME}_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link);
+    SPW_LINK_INT_MASK SPW_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link);
 
    Summary:
-    Get the SPW LINK interrupt status for masked interrupt and clear them for the
+    Get the SPW LINK interrupt status for masked interrupts and clear them for the
     selected link interface.
 
    Precondition:
@@ -135,7 +134,7 @@ SPW_LINK_STATUS ${SPW_INSTANCE_NAME}_LINK_StatusGet(SPW_LINK link)
    Returns:
     Current interrupt status of the selected link.
 */
-SPW_LINK_INT_MASK ${SPW_INSTANCE_NAME}_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link)
+SPW_LINK_INT_MASK SPW_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link)
 {
     uint32_t pendingMaskedIrq = 0;
     if (link == SPW_LINK_1)
@@ -153,13 +152,13 @@ SPW_LINK_INT_MASK ${SPW_INSTANCE_NAME}_LINK_IrqStatusGetMaskedAndClear(SPW_LINK 
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
+    void SPW_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 
    Summary:
-    Enables SPW LINK Interrupt for given link interface.
+    Enables SPW LINK Interrupt for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -168,7 +167,7 @@ SPW_LINK_INT_MASK ${SPW_INSTANCE_NAME}_LINK_IrqStatusGetMaskedAndClear(SPW_LINK 
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
+void SPW_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 {
     if ( link == SPW_LINK_1 )
     {
@@ -182,13 +181,13 @@ void ${SPW_INSTANCE_NAME}_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK 
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
+    void SPW_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 
    Summary:
-    Disables SPW LINK Interrupt for given link interface.
+    Disables SPW LINK Interrupt for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -197,7 +196,7 @@ void ${SPW_INSTANCE_NAME}_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK 
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
+void SPW_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 {
     if ( link == SPW_LINK_1 )
     {
@@ -211,7 +210,7 @@ void ${SPW_INSTANCE_NAME}_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK
 
 // *****************************************************************************
 /* Function:
-    SPW_LINK_DIST_INT_MASK ${SPW_INSTANCE_NAME}_LINK_DistIrqStatusGetMaskedAndClear(SPW_LINK link)
+    SPW_LINK_DIST_INT_MASK SPW_LINK_DistIrqStatusGetMaskedAndClear(SPW_LINK link)
 
    Summary:
     Get the SPW LINK Distributed interrupts status for masked interrupts and clear them for the
@@ -226,7 +225,7 @@ void ${SPW_INSTANCE_NAME}_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK
    Returns:
     Current distributed interrupts status of the selected link.
 */
-SPW_LINK_DIST_INT_MASK ${SPW_INSTANCE_NAME}_LINK_DistIrqStatusGetMaskedAndClear(SPW_LINK link)
+SPW_LINK_DIST_INT_MASK SPW_LINK_DistIrqStatusGetMaskedAndClear(SPW_LINK link)
 {
     uint32_t pendingMaskedIrq = 0;
     if (link == SPW_LINK_1)
@@ -244,13 +243,13 @@ SPW_LINK_DIST_INT_MASK ${SPW_INSTANCE_NAME}_LINK_DistIrqStatusGetMaskedAndClear(
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
+    void SPW_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
 
    Summary:
     Enables SPW LINK Distributed Interrupts for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -259,7 +258,7 @@ SPW_LINK_DIST_INT_MASK ${SPW_INSTANCE_NAME}_LINK_DistIrqStatusGetMaskedAndClear(
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
+void SPW_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
 {
     if ( link == SPW_LINK_1 )
     {
@@ -273,13 +272,13 @@ void ${SPW_INSTANCE_NAME}_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
+    void SPW_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
 
    Summary:
     Disables SPW LINK Distributed Interrupts for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -288,7 +287,7 @@ void ${SPW_INSTANCE_NAME}_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
+void SPW_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
 {
     if ( link == SPW_LINK_1 )
     {
@@ -302,7 +301,7 @@ void ${SPW_INSTANCE_NAME}_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST
 
 // *****************************************************************************
 /* Function:
-    SPW_LINK_DIST_ACK_MASK ${SPW_INSTANCE_NAME}_LINK_DistAckIrqStatusGetMaskedAndClear(SPW_LINK link)
+    SPW_LINK_DIST_ACK_MASK SPW_LINK_DistAckIrqStatusGetMaskedAndClear(SPW_LINK link)
 
    Summary:
     Get the SPW LINK Distributed acknowledge interrupts status for masked interrupts and clear them for the
@@ -317,7 +316,7 @@ void ${SPW_INSTANCE_NAME}_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST
    Returns:
     Current distributed acknowledge interrupts status of the selected link.
 */
-SPW_LINK_DIST_ACK_MASK ${SPW_INSTANCE_NAME}_LINK_DistAckIrqStatusGetMaskedAndClear(SPW_LINK link)
+SPW_LINK_DIST_ACK_MASK SPW_LINK_DistAckIrqStatusGetMaskedAndClear(SPW_LINK link)
 {
     uint32_t pendingMaskedIrq = 0;
     if (link == SPW_LINK_1)
@@ -335,13 +334,13 @@ SPW_LINK_DIST_ACK_MASK ${SPW_INSTANCE_NAME}_LINK_DistAckIrqStatusGetMaskedAndCle
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
+    void SPW_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
 
    Summary:
     Enables SPW LINK Distributed Acknowledge Interrupts for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -350,7 +349,7 @@ SPW_LINK_DIST_ACK_MASK ${SPW_INSTANCE_NAME}_LINK_DistAckIrqStatusGetMaskedAndCle
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask)
+void SPW_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask)
 {
     if ( link == SPW_LINK_1 )
     {
@@ -364,13 +363,13 @@ void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DI
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
+    void SPW_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
 
    Summary:
     Disables SPW LINK Distributed Acknowledge Interrupts for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -379,7 +378,7 @@ void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DI
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask)
+void SPW_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask)
 {
     if ( link == SPW_LINK_1 )
     {
@@ -393,13 +392,13 @@ void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_D
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
+    void SPW_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
 
    Summary:
     Set SPW LINK Escape Character match event 1 for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -410,7 +409,7 @@ void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_D
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
+void SPW_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
 {
     if ( link == SPW_LINK_1 )
     {
@@ -430,13 +429,13 @@ void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, u
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
+    void SPW_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
 
    Summary:
     Set SPW LINK Escape Character match event 2 for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -447,7 +446,7 @@ void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, u
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
+void SPW_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
 {
     if ( link == SPW_LINK_1 )
     {
@@ -467,13 +466,13 @@ void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, u
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEventGet(SPW_LINK link)
+    void SPW_LINK_LastRecvEscapeCharEventGet(SPW_LINK link)
 
    Summary:
     Get SPW LINK latest received Escape Character matching event 1 for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -481,7 +480,7 @@ void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, u
    Returns:
     Latest received escape character matching event 1.
 */
-uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent1Get(SPW_LINK link)
+uint8_t SPW_LINK_LastRecvEscapeCharEvent1Get(SPW_LINK link)
 {
     uint8_t charEvent1 = 0;
     if ( link == SPW_LINK_1 )
@@ -497,13 +496,13 @@ uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent1Get(SPW_LINK link)
 
 // *****************************************************************************
 /* Function:
-    uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link)
+    uint8_t SPW_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link)
 
    Summary:
     Get SPW LINK latest received Escape Character matching event 2 for a given link interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -511,7 +510,7 @@ uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent1Get(SPW_LINK link)
    Returns:
     Latest received escape character matching event 2
 */
-uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link)
+uint8_t SPW_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link)
 {
     uint8_t charEvent2 = 0;
     if ( link == SPW_LINK_1 )
@@ -527,13 +526,13 @@ uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link)
 
 // *****************************************************************************
 /* Function:
-    void ${SPW_INSTANCE_NAME}_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t char)
+    void SPW_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t char)
 
    Summary:
     Transmit escape character on the given SPW LINK interface.
 
    Precondition:
-    ${SPW_INSTANCE_NAME}_Initialize must have been called for the associated SPW instance.
+    SPW_Initialize must have been called for the associated SPW instance.
 
    Parameters:
     link - the selected link ID.
@@ -542,7 +541,7 @@ uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link)
    Returns:
     None
 */
-void ${SPW_INSTANCE_NAME}_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t escChar)
+void SPW_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t escChar)
 {
     if ( link == SPW_LINK_1 )
     {
@@ -554,4 +553,3 @@ void ${SPW_INSTANCE_NAME}_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t escChar
     }
 }
 
-</#if>

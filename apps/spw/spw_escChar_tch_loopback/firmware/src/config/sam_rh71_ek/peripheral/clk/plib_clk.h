@@ -1,5 +1,3 @@
-<#--
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
@@ -22,14 +20,59 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
--->
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_link.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_router.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pktrx.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pkttx.h"
-<#if .vars["${SPW_INSTANCE_NAME}_RMAP_EN"] == true>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_rmap.h"
-</#if>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_tch.h"
+
+#ifndef PLIB_CLK_H
+#define PLIB_CLK_H
+
+#include <stddef.h>
+
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
+ 
+// *****************************************************************************
+// *****************************************************************************
+// Section: CLOCK Module System Interface Routines
+// *****************************************************************************
+// *****************************************************************************
+
+// *****************************************************************************
+/* Function:
+    void CLOCK_Initialize ( void )
+
+  Summary:
+    Initializes hardware of the System Clock and Peripheral Clock.
+    
+  Description:
+    This function initializes the hardware of System Clock and Peripheral Clocks.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    //Example 1: Do not alter the configuration bit settings
+    CLOCK_Initialize ( );
+
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void CLOCK_Initialize ( void );
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif //PLIB_CLK_H
+

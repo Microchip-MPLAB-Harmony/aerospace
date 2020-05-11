@@ -6,13 +6,13 @@
     Microchip Technology Inc.
 
   File Name:
-    plib_${SPW_INSTANCE_NAME?lower_case}_link.h
+    plib_spw_link.h
 
   Summary:
-    ${SPW_INSTANCE_NAME} PLIB LINK Header file
+    SPW PLIB LINK Header file
 
   Description:
-    This file defines the interface to the ${SPW_INSTANCE_NAME} peripheral 
+    This file defines the interface to the SPW peripheral 
     library. This library provides access to and control of the associated 
     peripheral instance.
 *******************************************************************************/
@@ -41,8 +41,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef PLIB_${SPW_INSTANCE_NAME}_LINK_H
-#define PLIB_${SPW_INSTANCE_NAME}_LINK_H
+#ifndef PLIB_SPW_LINK_H
+#define PLIB_SPW_LINK_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -62,7 +62,7 @@
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: ${SPW_INSTANCE_NAME} defines
+// Section: SPW defines
 // *****************************************************************************
 // *****************************************************************************
 
@@ -71,7 +71,7 @@
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: ${SPW_INSTANCE_NAME} Types
+// Section: SPW Types
 // *****************************************************************************
 // *****************************************************************************
 
@@ -262,40 +262,38 @@ typedef enum
  * this interface.
  */
 
-void ${SPW_INSTANCE_NAME}_LINK_Initialize(void);
+void SPW_LINK_Initialize(void);
 
-SPW_LINK_STATUS ${SPW_INSTANCE_NAME}_LINK_StatusGet(SPW_LINK link);
+SPW_LINK_STATUS SPW_LINK_StatusGet(SPW_LINK link);
 
-<#if INTERRUPT_MODE == true>
-SPW_LINK_INT_MASK ${SPW_INSTANCE_NAME}_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link);
+SPW_LINK_INT_MASK SPW_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link);
 
-void ${SPW_INSTANCE_NAME}_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask);
+void SPW_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask);
 
-void ${SPW_INSTANCE_NAME}_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask);
+void SPW_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask);
 
-SPW_LINK_DIST_INT_MASK ${SPW_INSTANCE_NAME}_LINK_DistIrqStatusGetMaskedAndClear(SPW_LINK link);
+SPW_LINK_DIST_INT_MASK SPW_LINK_DistIrqStatusGetMaskedAndClear(SPW_LINK link);
 
-void ${SPW_INSTANCE_NAME}_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask);
+void SPW_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask);
 
-void ${SPW_INSTANCE_NAME}_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask);
+void SPW_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask);
 
-SPW_LINK_DIST_ACK_MASK ${SPW_INSTANCE_NAME}_LINK_DistAckIrqStatusGetMaskedAndClear(SPW_LINK link);
+SPW_LINK_DIST_ACK_MASK SPW_LINK_DistAckIrqStatusGetMaskedAndClear(SPW_LINK link);
 
-void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask);
+void SPW_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask);
 
-void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask);
+void SPW_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask);
 
-void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value);
+void SPW_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value);
 
-void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value);
+void SPW_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value);
 
-uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent1Get(SPW_LINK link);
+uint8_t SPW_LINK_LastRecvEscapeCharEvent1Get(SPW_LINK link);
 
-uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link);
+uint8_t SPW_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link);
 
-void ${SPW_INSTANCE_NAME}_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t escChar);
+void SPW_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t escChar);
 
-</#if>
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -303,4 +301,4 @@ void ${SPW_INSTANCE_NAME}_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t escChar
 #endif
 // DOM-IGNORE-END
 
-#endif /* PLIB_${SPW_INSTANCE_NAME}_LINK_H */
+#endif /* PLIB_SPW_LINK_H */

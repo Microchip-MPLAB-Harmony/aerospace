@@ -1,5 +1,3 @@
-<#--
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
@@ -22,14 +20,19 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-// DOM-IGNORE-END
--->
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_link.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_router.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pktrx.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pkttx.h"
-<#if .vars["${SPW_INSTANCE_NAME}_RMAP_EN"] == true>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_rmap.h"
-</#if>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_tch.h"
+
+#ifndef TOOLCHAIN_SPECIFICS_H
+#define TOOLCHAIN_SPECIFICS_H
+
+
+#include "cmsis_compiler.h"
+#include <sys/types.h>
+#define NO_INIT        __attribute__((section(".no_init")))
+#define SECTION(a)     __attribute__((__section__(a)))
+
+#define CACHE_LINE_SIZE    (32u)
+#define CACHE_ALIGN        __ALIGNED(CACHE_LINE_SIZE)
+
+
+#endif // end of header
+

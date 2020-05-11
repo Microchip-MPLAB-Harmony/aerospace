@@ -1,7 +1,22 @@
-<#--
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+  NVIC PLIB Header
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    plib_nvic.h
+
+  Summary:
+    NVIC PLIB Header File
+
+  Description:
+    None
+
+*******************************************************************************/
+
+/*******************************************************************************
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -22,14 +37,31 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+
+#ifndef PLIB_NVIC_H
+#define PLIB_NVIC_H
+
+#include <stddef.h>
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
 // DOM-IGNORE-END
--->
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_link.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_router.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pktrx.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pkttx.h"
-<#if .vars["${SPW_INSTANCE_NAME}_RMAP_EN"] == true>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_rmap.h"
-</#if>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_tch.h"
+
+
+/***************************** NVIC Inline *******************************/
+
+void NVIC_Initialize( void );
+
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    }
+
+#endif
+// DOM-IGNORE-END
+#endif // PLIB_NVIC_H

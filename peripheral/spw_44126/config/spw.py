@@ -410,6 +410,22 @@ def instantiateComponent(spwComponent):
     else:
         spwRmapSourceFile.setEnabled(False)
 
+    spwTchHeaderFile = spwComponent.createFileSymbol("SPW_TCH_HEADER", None)
+    spwTchHeaderFile.setSourcePath("/peripheral/spw_44126/templates/plib_spw_tch.h.ftl")
+    spwTchHeaderFile.setOutputName("plib_" + spwInstanceName.getValue().lower() + "_tch.h")
+    spwTchHeaderFile.setDestPath("peripheral/spw/")
+    spwTchHeaderFile.setProjectPath("config/" + configName +"/peripheral/spw/")
+    spwTchHeaderFile.setType("HEADER")
+    spwTchHeaderFile.setMarkup(True)
+
+    spwTchSourceFile = spwComponent.createFileSymbol("SPW_TCH_SOURCE", None)
+    spwTchSourceFile.setSourcePath("/peripheral/spw_44126/templates/plib_spw_tch.c.ftl")
+    spwTchSourceFile.setOutputName("plib_" + spwInstanceName.getValue().lower() + "_tch.c")
+    spwTchSourceFile.setDestPath("peripheral/spw/")
+    spwTchSourceFile.setProjectPath("config/" + configName +"/peripheral/spw/")
+    spwTchSourceFile.setType("SOURCE")
+    spwTchSourceFile.setMarkup(True)
+
     spwSystemInitFile = spwComponent.createFileSymbol("SPW_INIT", None)
     spwSystemInitFile.setType("STRING")
     spwSystemInitFile.setOutputName("core.LIST_SYSTEM_INIT_C_SYS_INITIALIZE_PERIPHERALS")

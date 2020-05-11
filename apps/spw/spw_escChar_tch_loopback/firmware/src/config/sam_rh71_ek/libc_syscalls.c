@@ -1,7 +1,6 @@
-<#--
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -23,13 +22,35 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 // DOM-IGNORE-END
--->
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_link.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_router.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pktrx.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pkttx.h"
-<#if .vars["${SPW_INSTANCE_NAME}_RMAP_EN"] == true>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_rmap.h"
-</#if>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_tch.h"
+
+#include <stdio.h>
+#include <stdarg.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <device.h> /* for ARM CMSIS __BKPT() */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Harmony specific
+ * We implement only the syscalls we want over the stubs provided by libpic32c
+ */
+extern void _exit(int status);
+
+extern void _exit(int status)
+{
+    /* Software breakpoint */
+#ifdef __DEBUG
+    __BKPT(0);
+#endif
+
+    /* halt CPU */
+    while (1)
+    {
+    }
+}
+
+#ifdef __cplusplus
+}
+#endif

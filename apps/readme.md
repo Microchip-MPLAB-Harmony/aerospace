@@ -25,3 +25,4 @@ The following applications are provided to demonstrate the typical or interestin
 ## SpaceWire Examples
 * [SpaceWire Loopback](./spw/spw_loopback/readme.md)
 * [SpaceWire RMAP Loopback](./spw/spw_rmap_loopback/readme.md)
+* [SpaceWire Escape Character and Time Code Handler Loopback](./spw/spw_escChar_tch_loopback/readme.md)

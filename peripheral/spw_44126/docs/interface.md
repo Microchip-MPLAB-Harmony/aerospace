@@ -50,6 +50,28 @@ This data type identifies the SPW IRQ lines that have pending interrupt
 
 ---
 
+### SPW synchronization events mask
+
+```c
+typedef enum
+{
+    SPW_SYNC_EVENT_MASK_RTCOUT0 = 0x01,
+    SPW_SYNC_EVENT_MASK_RTCOUT1 = 0x02,
+    /* Force the compiler to reserve 32-bit memory for enum */
+    SPW_SYNC_EVENT_MASK_INVALID = 0xFFFFFFFF
+} SPW_SYNC_EVENT_MASK;
+```
+
+**Summary**
+
+Identifies the SPW synchronization events mask
+
+**Description**
+
+This data type identifies the SPW synchronization events mask
+
+---
+
 ### SPW Callback
 
 ```c
@@ -67,8 +89,8 @@ The parameters and return values are described here and a partial example implem
 
 **Parameters**
 
-*irqStatus* The IRQ interrupt type value.
-*contextHandle* Value identifying the context of the application that registered the callback function
+* *irqStatus* - The IRQ interrupt type value.
+* *contextHandle* - Value identifying the context of the application that registered the callback function
 
 **Remarks**
 
@@ -219,6 +241,108 @@ Identifies the SPW LINK IRQ event that have pending interrupt
 **Description**
 
 This data type identifies the SPW LINK IRQ event that have pending interrupt
+
+---
+
+### SPW LINK Distributed interrupts mask
+
+```c
+typedef enum
+{
+    SPW_LINK_DIST_INT_MASK_D0 = SPW_LINK1_DISTINTPI_RM_DI0_Msk,
+    SPW_LINK_DIST_INT_MASK_D1 = SPW_LINK1_DISTINTPI_RM_DI1_Msk,
+    SPW_LINK_DIST_INT_MASK_D2 = SPW_LINK1_DISTINTPI_RM_DI2_Msk,
+    SPW_LINK_DIST_INT_MASK_D3 = SPW_LINK1_DISTINTPI_RM_DI3_Msk,
+    SPW_LINK_DIST_INT_MASK_D4 = SPW_LINK1_DISTINTPI_RM_DI4_Msk,
+    SPW_LINK_DIST_INT_MASK_D5 = SPW_LINK1_DISTINTPI_RM_DI5_Msk,
+    SPW_LINK_DIST_INT_MASK_D6 = SPW_LINK1_DISTINTPI_RM_DI6_Msk,
+    SPW_LINK_DIST_INT_MASK_D7 = SPW_LINK1_DISTINTPI_RM_DI7_Msk,
+    SPW_LINK_DIST_INT_MASK_D8 = SPW_LINK1_DISTINTPI_RM_DI8_Msk,
+    SPW_LINK_DIST_INT_MASK_D9 = SPW_LINK1_DISTINTPI_RM_DI9_Msk,
+    SPW_LINK_DIST_INT_MASK_D10 = SPW_LINK1_DISTINTPI_RM_DI10_Msk,
+    SPW_LINK_DIST_INT_MASK_D11 = SPW_LINK1_DISTINTPI_RM_DI11_Msk,
+    SPW_LINK_DIST_INT_MASK_D12 = SPW_LINK1_DISTINTPI_RM_DI12_Msk,
+    SPW_LINK_DIST_INT_MASK_D13 = SPW_LINK1_DISTINTPI_RM_DI13_Msk,
+    SPW_LINK_DIST_INT_MASK_D14 = SPW_LINK1_DISTINTPI_RM_DI14_Msk,
+    SPW_LINK_DIST_INT_MASK_D15 = SPW_LINK1_DISTINTPI_RM_DI15_Msk,
+    SPW_LINK_DIST_INT_MASK_D16 = SPW_LINK1_DISTINTPI_RM_DI16_Msk,
+    SPW_LINK_DIST_INT_MASK_D17 = SPW_LINK1_DISTINTPI_RM_DI17_Msk,
+    SPW_LINK_DIST_INT_MASK_D18 = SPW_LINK1_DISTINTPI_RM_DI18_Msk,
+    SPW_LINK_DIST_INT_MASK_D19 = SPW_LINK1_DISTINTPI_RM_DI19_Msk,
+    SPW_LINK_DIST_INT_MASK_D20 = SPW_LINK1_DISTINTPI_RM_DI20_Msk,
+    SPW_LINK_DIST_INT_MASK_D21 = SPW_LINK1_DISTINTPI_RM_DI21_Msk,
+    SPW_LINK_DIST_INT_MASK_D22 = SPW_LINK1_DISTINTPI_RM_DI22_Msk,
+    SPW_LINK_DIST_INT_MASK_D23 = SPW_LINK1_DISTINTPI_RM_DI23_Msk,
+    SPW_LINK_DIST_INT_MASK_D24 = SPW_LINK1_DISTINTPI_RM_DI24_Msk,
+    SPW_LINK_DIST_INT_MASK_D25 = SPW_LINK1_DISTINTPI_RM_DI25_Msk,
+    SPW_LINK_DIST_INT_MASK_D26 = SPW_LINK1_DISTINTPI_RM_DI26_Msk,
+    SPW_LINK_DIST_INT_MASK_D27 = SPW_LINK1_DISTINTPI_RM_DI27_Msk,
+    SPW_LINK_DIST_INT_MASK_D28 = SPW_LINK1_DISTINTPI_RM_DI28_Msk,
+    SPW_LINK_DIST_INT_MASK_D29 = SPW_LINK1_DISTINTPI_RM_DI29_Msk,
+    SPW_LINK_DIST_INT_MASK_D30 = SPW_LINK1_DISTINTPI_RM_DI30_Msk,
+    SPW_LINK_DIST_INT_MASK_D31 = SPW_LINK1_DISTINTPI_RM_DI31_Msk,
+    SPW_LINK_DIST_INT_MASK_ALL = SPW_LINK1_DISTINTPI_RM_Msk
+} SPW_LINK_DIST_INT_MASK;
+```
+
+**Summary**
+
+Identifies the SPW LINK Distributed interrupts fields.
+
+**Description**
+
+This data type identifies the SPW LINK Distributed interrupts fields.
+
+---
+
+### SPW LINK Distributed Acknowledge interrupts
+
+```c
+typedef enum
+{
+    SPW_LINK_DIST_ACK_MASK_D0 = SPW_LINK1_DISTACKPI_RM_DA0_Msk,
+    SPW_LINK_DIST_ACK_MASK_D1 = SPW_LINK1_DISTACKPI_RM_DA1_Msk,
+    SPW_LINK_DIST_ACK_MASK_D2 = SPW_LINK1_DISTACKPI_RM_DA2_Msk,
+    SPW_LINK_DIST_ACK_MASK_D3 = SPW_LINK1_DISTACKPI_RM_DA3_Msk,
+    SPW_LINK_DIST_ACK_MASK_D4 = SPW_LINK1_DISTACKPI_RM_DA4_Msk,
+    SPW_LINK_DIST_ACK_MASK_D5 = SPW_LINK1_DISTACKPI_RM_DA5_Msk,
+    SPW_LINK_DIST_ACK_MASK_D6 = SPW_LINK1_DISTACKPI_RM_DA6_Msk,
+    SPW_LINK_DIST_ACK_MASK_D7 = SPW_LINK1_DISTACKPI_RM_DA7_Msk,
+    SPW_LINK_DIST_ACK_MASK_D8 = SPW_LINK1_DISTACKPI_RM_DA8_Msk,
+    SPW_LINK_DIST_ACK_MASK_D9 = SPW_LINK1_DISTACKPI_RM_DA9_Msk,
+    SPW_LINK_DIST_ACK_MASK_D10 = SPW_LINK1_DISTACKPI_RM_DA10_Msk,
+    SPW_LINK_DIST_ACK_MASK_D11 = SPW_LINK1_DISTACKPI_RM_DA11_Msk,
+    SPW_LINK_DIST_ACK_MASK_D12 = SPW_LINK1_DISTACKPI_RM_DA12_Msk,
+    SPW_LINK_DIST_ACK_MASK_D13 = SPW_LINK1_DISTACKPI_RM_DA13_Msk,
+    SPW_LINK_DIST_ACK_MASK_D14 = SPW_LINK1_DISTACKPI_RM_DA14_Msk,
+    SPW_LINK_DIST_ACK_MASK_D15 = SPW_LINK1_DISTACKPI_RM_DA15_Msk,
+    SPW_LINK_DIST_ACK_MASK_D16 = SPW_LINK1_DISTACKPI_RM_DA16_Msk,
+    SPW_LINK_DIST_ACK_MASK_D17 = SPW_LINK1_DISTACKPI_RM_DA17_Msk,
+    SPW_LINK_DIST_ACK_MASK_D18 = SPW_LINK1_DISTACKPI_RM_DA18_Msk,
+    SPW_LINK_DIST_ACK_MASK_D19 = SPW_LINK1_DISTACKPI_RM_DA19_Msk,
+    SPW_LINK_DIST_ACK_MASK_D20 = SPW_LINK1_DISTACKPI_RM_DA20_Msk,
+    SPW_LINK_DIST_ACK_MASK_D21 = SPW_LINK1_DISTACKPI_RM_DA21_Msk,
+    SPW_LINK_DIST_ACK_MASK_D22 = SPW_LINK1_DISTACKPI_RM_DA22_Msk,
+    SPW_LINK_DIST_ACK_MASK_D23 = SPW_LINK1_DISTACKPI_RM_DA23_Msk,
+    SPW_LINK_DIST_ACK_MASK_D24 = SPW_LINK1_DISTACKPI_RM_DA24_Msk,
+    SPW_LINK_DIST_ACK_MASK_D25 = SPW_LINK1_DISTACKPI_RM_DA25_Msk,
+    SPW_LINK_DIST_ACK_MASK_D26 = SPW_LINK1_DISTACKPI_RM_DA26_Msk,
+    SPW_LINK_DIST_ACK_MASK_D27 = SPW_LINK1_DISTACKPI_RM_DA27_Msk,
+    SPW_LINK_DIST_ACK_MASK_D28 = SPW_LINK1_DISTACKPI_RM_DA28_Msk,
+    SPW_LINK_DIST_ACK_MASK_D29 = SPW_LINK1_DISTACKPI_RM_DA29_Msk,
+    SPW_LINK_DIST_ACK_MASK_D30 = SPW_LINK1_DISTACKPI_RM_DA30_Msk,
+    SPW_LINK_DIST_ACK_MASK_D31 = SPW_LINK1_DISTACKPI_RM_DA31_Msk,
+    SPW_LINK_DIST_ACK_MASK_ALL = SPW_LINK1_DISTACKPI_RM_Msk
+} SPW_LINK_DIST_ACK_MASK;
+```
+
+**Summary**
+
+Identifies the SPW LINK Distributed Acknowledge interrupts fields.
+
+**Description**
+
+This data type identifies the SPW LINK Distributed Acknowledge interrupts fields.
 
 ---
 
@@ -658,6 +782,75 @@ This data type identifies the SPW ROUTER Timeout status
 
 ---
 
+### SPW TCH Interrupt status mask 
+
+```c
+typedef enum
+{
+    SPW_TCH_INT_MASK_TCEVENT = SPW_TCH_PI_RM_TCEVENT_Msk,
+    SPW_TCH_INT_MASK_TIMECODE = SPW_TCH_PI_RM_TIMECODE_Msk,
+    SPW_TCH_INT_MASK_ANYTIMECODE = SPW_TCH_PI_RM_ANYTIMECODE_Msk,
+    SPW_TCH_INT_MASK_LATEWD = SPW_TCH_PI_RM_LATEWD_Msk,
+    SPW_TCH_INT_MASK_EARLYWD = SPW_TCH_PI_RM_EARLYWD_Msk,
+    /* Force the compiler to reserve 32-bit memory for enum */
+    SPW_TCH_INT_MASK_INVALID = 0xFFFFFFFF
+} SPW_TCH_INT_MASK;
+```
+
+**Summary**
+
+Identifies the SPW TCH Interrupt status mask.
+
+**Description**
+
+This data type identifies the SPW TCH Interrupt status mask.
+
+---
+
+### SPW TCH Configure restart input 
+
+```c
+typedef enum
+{
+    SPW_TCH_CFG_RESTART_IN_PPS = 0,
+    SPW_TCH_CFG_RESTART_IN_EVENT = 1,
+    /* Force the compiler to reserve 32-bit memory for enum */
+    SPW_TCH_CFG_RESTART_IN_INVALID = 0xFFFFFFFF
+} SPW_TCH_CFG_RESTART_IN;
+```
+
+**Summary**
+
+Identifies the SPW TCH Configure restart input.
+
+**Description**
+
+This data type identifies the SPW TCH Configure restart input event.
+
+---
+
+### SPW TCH Selected link for sender or listener 
+
+```c
+typedef enum
+{
+    SPW_TCH_SEL_LINK_MASK_L1 = 0x01,
+    SPW_TCH_SEL_LINK_MASK_L2 = 0x02,
+    /* Force the compiler to reserve 32-bit memory for enum */
+    SPW_TCH_SEL_LINK_MASK_INVALID = 0xFFFFFFFF
+} SPW_TCH_SEL_LINK_MASK;
+```
+
+**Summary**
+
+Identifies the SPW TCH Selected link for sender or listener.
+
+**Description**
+
+This data type identifies the SPW TCH Selected link for sender or listener.
+
+---
+
 ## Initialization functions
 
 ### SPW_Initialize
@@ -778,8 +971,8 @@ SPW_Initialize must have been called for the associated SPW instance
 
 **Parameters**
 
-*callback* A pointer to a function with a calling signature defined by the SPW_CALLBACK data type. Setting this to NULL disables the callback feature
-*contextHandle* A value (usually a pointer) passed (unused) into the function identified by the callback parameter
+* *callback* - A pointer to a function with a calling signature defined by the SPW_CALLBACK data type. Setting this to NULL disables the callback feature
+* *contextHandle* - A value (usually a pointer) passed (unused) into the function identified by the callback parameter
 
 **Returns**
 
@@ -799,7 +992,7 @@ void SPW_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 
 **Summary**
 
-Enables SPW LINK Interrupt for given link interface
+Enables SPW LINK Interrupt for a given link interface
 
 **Preconditions**
 
@@ -807,8 +1000,8 @@ SPW_Initialize must have been called for the associated SPW instance
 
 **Parameters**
 
-*link* The selected link ID
-*interruptMask* Interrupt to be enabled
+* *link* - The selected link ID
+* *interruptMask* - Interrupt to be enabled
 
 **Returns**
 
@@ -824,7 +1017,7 @@ void SPW_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK interruptMask)
 
 **Summary**
 
-Disables SPW LINK Interrupt for given link interface
+Disables SPW LINK Interrupt for a given link interface
 
 **Preconditions**
 
@@ -832,8 +1025,187 @@ SPW_Initialize must have been called for the associated SPW instance
 
 **Parameters**
 
-*link* The selected link ID
-*InterruptMask* Interrupt to be disabled
+* *link* - The selected link ID
+* *InterruptMask* - Interrupt to be disabled
+
+**Returns**
+
+None
+
+---
+
+### SPW_LINK_DistInterruptEnable
+
+```c
+void SPW_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
+```
+
+**Summary**
+
+Enables SPW LINK Distributed Interrupts for a given link interface.
+
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance.
+
+**Parameters**
+
+* *link* - The selected link ID
+* *interruptMask* - Distributed Interrupts to be enabled
+
+**Returns**
+
+None
+
+---
+
+### SPW_LINK_DistInterruptDisable
+
+```c
+void SPW_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST_INT_MASK interruptMask)
+```
+
+**Summary**
+
+Disables SPW LINK Distributed Interrupts for a given link interface.
+
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance.
+
+**Parameters**
+
+* *link* - The selected link ID
+* *interruptMask* - Distributed Interrupts to be disabled
+
+**Returns**
+
+None
+
+---
+
+### SPW_LINK_DistAckInterruptEnable
+
+```c
+void SPW_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask)
+```
+
+**Summary**
+
+Enables SPW LINK Distributed Acknowledge Interrupts for a given link interface.
+
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance.
+
+**Parameters**
+
+* *link* - The selected link ID
+* *interruptMask* - Distributed Acknowledge Interrupts to be enabled
+
+**Returns**
+
+None
+
+---
+
+### SPW_LINK_DistAckInterruptDisable
+
+```c
+void SPW_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_DIST_ACK_MASK interruptMask)
+```
+
+**Summary**
+
+Disables SPW LINK Distributed Acknowledge Interrupts for a given link interface.
+
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance.
+
+**Parameters**
+
+* *link* - The selected link ID
+* *interruptMask* - Distributed Acknowledge Interrupts to be disabled
+
+**Returns**
+
+None
+
+---
+
+### SPW_LINK_EscapeCharEvent1Set
+
+```c
+void SPW_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
+```
+
+**Summary**
+
+Set SPW LINK Escape Character match event 1 for a given link interface.
+
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance.
+
+**Parameters**
+
+* *link* - The selected link ID
+* *active* - True is the match event 1 is active, False otherwise
+* *mask* - Bits mask of incoming escape character to check
+* *value* - Value to check in incoming escape character
+
+**Returns**
+
+None
+
+---
+
+### SPW_LINK_EscapeCharEvent2Set
+
+```c
+void SPW_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, uint8_t mask, uint8_t value)
+```
+
+**Summary**
+
+Set SPW LINK Escape Character match event 2 for a given link interface.
+
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance.
+
+**Parameters**
+
+* *link* - The selected link ID
+* *active* - True is the match event 2 is active, False otherwise
+* *mask* - Bits mask of incoming escape character to check
+* *value* - Value to check in incoming escape character
+
+**Returns**
+
+None
+
+---
+
+### SPW_LINK_TransmitEscapeChar
+
+```c
+void SPW_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t char)
+```
+
+**Summary**
+
+Transmit escape character on the given SPW LINK interface.
+
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance.
+
+**Parameters**
+
+* *link* - The selected link ID
+* *char* - Escape Character to transmit
 
 **Returns**
 
@@ -857,7 +1229,7 @@ None
 
 **Parameters**
 
-*discard* True for discard mode, false for stall mode
+* *discard* - True for discard mode, false for stall mode
 
 **Returns**
 
@@ -893,13 +1265,13 @@ None
 
 **Parameters**
 
-*dataAddress* pointer to data buffer address
-*dataLengthBytes* length in byte of the data buffer address
-*packetInfoAddress* pointer to the packet info type address were packet information will be stored
-*pckCount* maximum number of entries in packet info buffer
-*split* set to True if any ongoing packet should be split when the start condition is met
-*startMode* receive buffer start mode condition
-*startValue* Matching value for event start condition
+* *dataAddress* - Pointer to data buffer address
+* *dataLengthBytes* - Length in byte of the data buffer address
+* *packetInfoAddress* - Pointer to the packet info type address were packet information will be stored
+* *pckCount* - Maximum number of entries in packet info buffer
+* *split* - Set to True if any ongoing packet should be split when the start condition is met
+* *startMode* - Receive buffer start mode condition
+* *startValue* - Matching value for event start condition
 
 **Returns**
 
@@ -923,7 +1295,7 @@ SPW_Initialize must have been called for the associated SPW instance
 
 **Parameters**
 
-*interruptMask* Interrupt to be enabled
+* *interruptMask* - Interrupt to be enabled
 
 **Returns**
 
@@ -947,7 +1319,7 @@ SPW_Initialize must have been called for the associated SPW instance
 
 **Parameters**
 
-*interruptMask* Interrupt to be disabled
+* *interruptMask* - Interrupt to be disabled
 
 **Returns**
 
@@ -1019,7 +1391,7 @@ SPW_Initialize must have been called for the associated SPW instance
 
 **Parameters**
 
-*interruptMask* Interrupt to be enabled
+* *interruptMask* - Interrupt to be enabled
 
 **Returns**
 
@@ -1043,7 +1415,7 @@ SPW_Initialize must have been called for the associated SPW instance
 
 **Parameters**
 
-*interruptMask* Interrupt to be disabled
+* *interruptMask* - Interrupt to be disabled
 
 **Returns**
 
@@ -1072,12 +1444,12 @@ None
 
 **Parameters**
 
-*routerBytesTable* Table of 4 router bytes to prepend (if non-zero) to each packets in the send list. All bytes are set to 0 if this pointer is NULL
-*sendListAddress* Pointer to the send list type object that will be transmitted
-*length* Number of entries in send list
-*abort* Set to True if any ongoing send list should be abort when this send list wants to start
-*startMode* Send list start mode condition
-*startValue* Matching value for event start condition
+* *routerBytesTable* - Table of 4 router bytes to prepend (if non-zero) to each packets in the send list. All bytes are set to 0 if this pointer is NULL
+* *sendListAddress* - Pointer to the send list type object that will be transmitted
+* *length* - Number of entries in send list
+* *abort* - Set to True if any ongoing send list should be abort when this send list wants to start
+* *startMode* - Send list start mode condition
+* *startValue* - Matching value for event start condition
 
 **Returns**
 
@@ -1125,7 +1497,7 @@ None
 
 **Parameters**
 
-*disable* if true, Router timeout event is disabled. Enabled if false
+* *disable* - If true, Router timeout event is disabled. Enabled if false
 
 **Returns**
 
@@ -1149,7 +1521,7 @@ None
 
 **Parameters**
 
-*enable* if true, Router Logical Address Routing is enable. Disabled if false
+* *enable* - If true, Router Logical Address Routing is enable. Disabled if false
 
 **Returns**
 
@@ -1173,7 +1545,7 @@ None
 
 **Parameters**
 
-*enable* if true, Router Fallback is enable. Disabled if false
+* *enable* - If true, Router Fallback is enable. Disabled if false
 
 **Returns**
 
@@ -1197,13 +1569,238 @@ None
 
 **Parameters**
 
-*logicalAddress* Logical address entry to configure between 32 to 255
-*delHeader* if true, discard router byte for this logical address
-*physicalAddress* The physical address were incoming packet will be routed
+* *logicalAddress* - Logical address entry to configure between 32 to 255
+* *delHeader* - If true, discard router byte for this logical address
+* *physicalAddress* - The physical address were incoming packet will be routed
 
 **Returns**
 
 None
+
+---
+
+### SPW_TCH_LinkListenerSet
+
+```c
+void SPW_TCH_LinkListenerSet(SPW_TCH_SEL_LINK_MASK links)
+```
+
+**Summary**
+
+Set SPW TCH listener links
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *links* - Bitfield value that indicates for each link if they are listener (1) or not
+
+**Returns**
+
+None
+
+---
+
+### SPW_TCH_LinkSenderSet
+
+```c
+void SPW_TCH_LinkSenderSet(SPW_TCH_SEL_LINK_MASK links)
+```
+
+**Summary**
+
+Set SPW TCH sender links
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *links* - Bitfield value that indicates for each link if they are sender (1) or not
+
+**Returns**
+
+None
+
+---
+
+### SPW_TCH_ConfigureEvent
+
+```c
+void SPW_TCH_ConfigureEvent(SPW_SYNC_EVENT_MASK eventMask)
+```
+
+**Summary**
+
+Set the SPW TCH event source that drives the time codes
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *eventMask* - Selected event source that drives the time codes
+
+**Returns**
+
+None
+
+---
+
+### SPW_TCH_ConfigureRestart
+
+```c
+void SPW_TCH_ConfigureRestart(uint8_t timeCodeValue, bool oneshot, SPW_TCH_CFG_RESTART_IN inputEvent, SPW_SYNC_EVENT_MASK eventMask)
+```
+
+**Summary**
+
+Set SPW TCH restart configuration to set up once or regularly the time code value
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *timeCodeValue* - Time code value set at restart event
+* *oneshot* - Clears restart configuration register after restart event
+* *inputEvent* - Select restart input source
+* *eventMask* - If input source is syncronization event, selected the event source
+
+**Returns**
+
+None
+
+---
+
+### SPW_TCH_ConfigureTcEvent
+
+```c
+void SPW_TCH_ConfigureTcEvent(uint8_t timeCodeMask, uint8_t timeCodeValue)
+```
+
+**Summary**
+
+Set SPW TCH Time Code event configuration
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *timeCodeMask* - Bits of new Time Code to check
+* *timeCodeValue* - Value used to check the new Time Code
+
+**Returns**
+
+None
+
+---
+
+### SPW_TCH_ConfigureWatchdog
+
+```c
+void SPW_TCH_ConfigureWatchdog(uint16_t earlyNumTick, uint16_t lateNumTick)
+```
+
+**Summary**
+
+Set SPW TCH watchdog configuration for early and late watchdog interrupts
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *earlyNumTick* - Trigger watchdog if new Time Code before this number of tick (TimeTick clock)
+* *lateNumTick* - Trigger watchdog if No new Time Code is received before this number of tick (TimeTick clock)
+
+**Returns**
+
+None
+
+---
+
+### SPW_TCH_LastTimeCodeSet
+
+```c
+void SPW_TCH_LastTimeCodeSet(uint8_t timeCode, bool now)
+```
+
+**Summary**
+
+Set the SPW TCH Time Code Value. If send now condition is set, send the written time code.
+Otherwise send the written time code incremented by one at next event.
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *timeCode* - Next Time Code N-1 to be distributed on next event.
+* *now* - Distribute the written time code now.
+
+**Returns**
+
+None
+
+---
+
+### SPW_TCH_InterruptEnable
+
+```c
+void SPW_TCH_InterruptEnable(SPW_TCH_INT_MASK interruptMask)
+```
+
+**Summary**
+
+Enable SPW TCH interrupts
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *interruptMask* - Interrupts to be enabled
+
+**Returns**
+
+None
+
+---
+
+### SPW_TCH_InterruptDisable
+
+```c
+void SPW_TCH_InterruptDisable(SPW_TCH_INT_MASK interruptMask)
+```
+
+**Summary**
+
+Disable SPW TCH interrupts.
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *interruptMask* - Interrupts to be disabled
+
+**Returns**
+
+None
+
+---
 
 ## Status functions
 
@@ -1223,7 +1820,7 @@ None
 
 **Parameters**
 
-*link* the selected link ID
+* *link* - The selected link ID
 
 **Returns**
 Current status of the selected SPW link
@@ -1238,7 +1835,7 @@ SPW_LINK_INT_MASK SPW_LINK_IrqStatusGetMaskedAndClear(SPW_LINK link)
 
 **Summary**
 
-Get the SPW LINK interrupt status for masked interrupt and clear them for the
+Get the SPW LINK interrupt status for masked interrupts and clear them for the
 selected link interface
 
 **Preconditions**
@@ -1247,12 +1844,109 @@ None
 
 **Parameters**
 
-*link*
-The selected link ID
+* *link* - The selected link ID
 
 **Returns**
 
 Current interrupt status of the selected link
+
+---
+
+### SPW_LINK_DistIrqStatusGetMaskedAndClear
+
+```c
+SPW_LINK_DIST_INT_MASK SPW_LINK_DistIrqStatusGetMaskedAndClear(SPW_LINK link)
+```
+
+**Summary**
+
+Get the SPW LINK Distributed interrupts status for masked interrupts and clear them for the   
+selected link interface.
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *link* - The selected link ID
+
+**Returns**
+
+Current distributed interrupts status of the selected link.
+
+---
+
+### SPW_LINK_DistAckIrqStatusGetMaskedAndClear
+
+```c
+SPW_LINK_DIST_ACK_MASK SPW_LINK_DistAckIrqStatusGetMaskedAndClear(SPW_LINK link)
+```
+
+**Summary**
+
+Get the SPW LINK Distributed acknowledge interrupts status for masked interrupts and clear them for the
+selected link interface.
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+* *link* - The selected link ID
+
+**Returns**
+
+Current distributed acknowledge interrupts status of the selected link.
+
+---
+
+### SPW_LINK_LastRecvEscapeCharEvent1Get
+
+```c
+uint8_t SPW_LINK_LastRecvEscapeCharEvent1Get(SPW_LINK link)
+```
+
+**Summary**
+
+Get SPW LINK latest received Escape Character matching event 1 for a given link interface.
+
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance.
+
+**Parameters**
+
+* *link* - The selected link ID
+
+**Returns**
+
+Latest received escape character matching event 1.
+
+---
+
+### SPW_LINK_LastRecvEscapeCharEvent2Get
+
+```c
+uint8_t SPW_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link)
+```
+
+**Summary**
+Get SPW LINK latest received Escape Character matching event 2 for a given link interface.
+
+
+**Preconditions**
+
+SPW_Initialize must have been called for the associated SPW instance.
+
+**Parameters**
+
+* *link* - The selected link ID
+
+**Returns**
+
+Latest received escape character matching event 2
 
 ---
 
@@ -1288,7 +1982,7 @@ SPW_PKTRX_INT_MASK SPW_PKTRX_IrqStatusGetMaskedAndClear(void)
 
 **Summary**
 
-Get the SPW packet RX module interrupt status for masked interrupt and clear them
+Get the SPW packet RX module interrupt status for masked interrupts and clear them
 
 **Preconditions**
 
@@ -1360,7 +2054,7 @@ SPW_PKTTX_INT_MASK SPW_PKTTX_IrqStatusGetMaskedAndClear(void);
 
 **Summary**
 
-Get the SPW packet TX module interrupt status for masked interrupt and clear them
+Get the SPW packet TX module interrupt status for masked interrupts and clear them
 
 **Preconditions**
 
@@ -1445,3 +2139,51 @@ None
 **Returns**
 
 SPW ROUTER Timeout Status
+
+---
+
+### SPW_TCH_LastTimeCodeGet
+
+```c
+uint8_t SPW_TCH_LastTimeCodeGet(void)
+```
+
+**Summary**
+
+Get last SPW TCH Time Code distributed
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+Last Time Code distributed
+
+---
+
+### SPW_TCH_IrqStatusGetMaskedAndClear
+
+```c
+SPW_TCH_INT_MASK SPW_TCH_IrqStatusGetMaskedAndClear(void)
+```
+
+**Summary**
+
+Get the SPW TCH interrupt status for masked interrupts and clear them
+
+**Preconditions**
+
+None
+
+**Parameters**
+
+None
+
+**Returns**
+
+Current SPW TCH interrupt status

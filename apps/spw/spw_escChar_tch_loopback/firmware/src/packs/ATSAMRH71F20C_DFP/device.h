@@ -1,7 +1,24 @@
-<#--
+/*******************************************************************************
+  Device Header File
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    device.h
+
+  Summary:
+    This file includes the selected device from within the project.
+    The device will provide access to respective device packs.
+
+  Description:
+    None
+
+*******************************************************************************/
+
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -23,13 +40,8 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 // DOM-IGNORE-END
--->
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_link.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_router.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pktrx.h"
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_pkttx.h"
-<#if .vars["${SPW_INSTANCE_NAME}_RMAP_EN"] == true>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_rmap.h"
-</#if>
-#include "peripheral/spw/plib_${SPW_INSTANCE_NAME?lower_case}_tch.h"
+
+#include "atsamrh71f20c.h"
+#include "device_cache.h"
+#include "toolchain_specifics.h"
+

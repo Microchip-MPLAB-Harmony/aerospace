@@ -6,10 +6,10 @@
     Microchip Technology Inc.
 
   File Name:
-    plib_${SPW_INSTANCE_NAME?lower_case}.h
+    plib_${SPW_INSTANCE_NAME?lower_case}_tch.h
 
   Summary:
-    ${SPW_INSTANCE_NAME} PLIB Header file
+    ${SPW_INSTANCE_NAME} PLIB TCH Header file
 
   Description:
     This file defines the interface to the ${SPW_INSTANCE_NAME} peripheral 
@@ -18,7 +18,7 @@
 *******************************************************************************/
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -41,8 +41,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef PLIB_${SPW_INSTANCE_NAME}_H
-#define PLIB_${SPW_INSTANCE_NAME}_H
+#ifndef PLIB_${SPW_INSTANCE_NAME}_TCH_H
+#define PLIB_${SPW_INSTANCE_NAME}_TCH_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -51,7 +51,9 @@
 // *****************************************************************************
 /* This section lists the other files that are included in this file.
 */
+#include <stdbool.h>
 #include "device.h"
+#include "plib_${SPW_INSTANCE_NAME?lower_case}.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus // Provide C++ Compatibility
@@ -65,106 +67,93 @@
 // *****************************************************************************
 // *****************************************************************************
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: ${SPW_INSTANCE_NAME} Types
 // *****************************************************************************
 // *****************************************************************************
-/* SPW IRQ status
+/* SPW TCH Interrupt status mask
    Summary:
-    Identifies the SPW IRQ lines that have pending interrupt
+    Identifies the SPW TCH Interrupt status mask.
 
    Description:
-    This data type identifies the SPW IRQ lines that have pending interrupt
+    This data type identifies the SPW TCH Interrupt status mask.
 */
 typedef enum
 {
-    SPW_INT_MASK_NONE = 0,
-    SPW_INT_MASK_PKTRX1 = ( 1 << 0),
-    SPW_INT_MASK_PKTTX1 = ( 1 << 1),
-    SPW_INT_MASK_TCH = ( 1 << 2),
-    SPW_INT_MASK_LINK2 = ( 1 << 3),
-    SPW_INT_MASK_DIA2 = ( 1 << 4),
-    SPW_INT_MASK_DI2 = ( 1 << 5),
-    SPW_INT_MASK_LINK1 = ( 1 << 6),
-    SPW_INT_MASK_DIA1 = ( 1 << 7),
-    SPW_INT_MASK_DI1 = ( 1 << 8),
+    SPW_TCH_INT_MASK_TCEVENT = SPW_TCH_PI_RM_TCEVENT_Msk,
+    SPW_TCH_INT_MASK_TIMECODE = SPW_TCH_PI_RM_TIMECODE_Msk,
+    SPW_TCH_INT_MASK_ANYTIMECODE = SPW_TCH_PI_RM_ANYTIMECODE_Msk,
+    SPW_TCH_INT_MASK_LATEWD = SPW_TCH_PI_RM_LATEWD_Msk,
+    SPW_TCH_INT_MASK_EARLYWD = SPW_TCH_PI_RM_EARLYWD_Msk,
     /* Force the compiler to reserve 32-bit memory for enum */
-    SPW_INT_MASK_INVALID = 0xFFFFFFFF
-} SPW_INT_MASK;
+    SPW_TCH_INT_MASK_INVALID = 0xFFFFFFFF
+} SPW_TCH_INT_MASK;
 
 // *****************************************************************************
-/* SPW Synchronization events mask
+/* SPW TCH Selected link for sender or listener
    Summary:
-    Identifies the SPW synchronization events mask
+    Identifies the SPW TCH Selected link for sender or listener.
 
    Description:
-    This data type identifies the SPW synchronization events mask
+    This data type identifies the SPW TCH Selected link for sender or listener.
 */
 typedef enum
 {
-    SPW_SYNC_EVENT_MASK_RTCOUT0 = 0x01,
-    SPW_SYNC_EVENT_MASK_RTCOUT1 = 0x02,
+    SPW_TCH_SEL_LINK_MASK_L1 = 0x01,
+    SPW_TCH_SEL_LINK_MASK_L2 = 0x02,
     /* Force the compiler to reserve 32-bit memory for enum */
-    SPW_SYNC_EVENT_MASK_INVALID = 0xFFFFFFFF
-} SPW_SYNC_EVENT_MASK;
-
-<#if INTERRUPT_MODE == true>
-// *****************************************************************************
-/* SPW Callback
-
-   Summary:
-    SPW Callback Function Pointer.
-
-   Description:
-    This data type defines the SPW Callback Function Pointer.
-
-   Remarks:
-    None.
-*/
-typedef void (*SPW_CALLBACK) (SPW_INT_MASK irqStatus, uintptr_t contextHandle);
+    SPW_TCH_SEL_LINK_MASK_INVALID = 0xFFFFFFFF
+} SPW_TCH_SEL_LINK_MASK;
 
 // *****************************************************************************
-
-/* SPW PLib Instance Object
-
+/* SPW TCH Configure restart input
    Summary:
-    SPW PLib Object structure.
+    Identifies the SPW TCH Configure restart input.
 
    Description:
-    This data structure defines the SPW PLib Instance Object.
-
-   Remarks:
-    None.
+    This data type identifies the SPW TCH Configure restart input event.
 */
-typedef struct
+typedef enum
 {
-    /* Transfer Event Callback for interrupt*/
-    SPW_CALLBACK callback;
-
-    /* Transfer Event Callback Context for interrupt*/
-    uintptr_t context;
-} SPW_OBJ;
-</#if>
+    SPW_TCH_CFG_RESTART_IN_PPS = 0,
+    SPW_TCH_CFG_RESTART_IN_EVENT = 1,
+    /* Force the compiler to reserve 32-bit memory for enum */
+    SPW_TCH_CFG_RESTART_IN_INVALID = 0xFFFFFFFF
+} SPW_TCH_CFG_RESTART_IN;
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines
 // *****************************************************************************
 // *****************************************************************************
-
 /*
  * The following functions make up the methods (set of possible operations) of
  * this interface.
  */
 
-void ${SPW_INSTANCE_NAME}_Initialize(void);
+void ${SPW_INSTANCE_NAME}_TCH_LinkListenerSet(SPW_TCH_SEL_LINK_MASK links);
 
-<#if INTERRUPT_MODE == true>
-void SPW_CallbackRegister(SPW_CALLBACK callback, uintptr_t contextHandle);
+void ${SPW_INSTANCE_NAME}_TCH_LinkSenderSet(SPW_TCH_SEL_LINK_MASK links);
 
-void ${SPW_INSTANCE_NAME}_InterruptHandler(void);
-</#if>
+void ${SPW_INSTANCE_NAME}_TCH_ConfigureEvent(SPW_SYNC_EVENT_MASK eventMask);
+
+void ${SPW_INSTANCE_NAME}_TCH_ConfigureRestart(uint8_t timeCodeValue, bool oneshot, SPW_TCH_CFG_RESTART_IN inputEvent, SPW_SYNC_EVENT_MASK eventMask);
+
+void ${SPW_INSTANCE_NAME}_TCH_ConfigureTcEvent(uint8_t timeCodeMask, uint8_t timeCodeValue);
+
+void ${SPW_INSTANCE_NAME}_TCH_ConfigureWatchdog(uint16_t earlyNumTick, uint16_t lateNumTick);
+
+void ${SPW_INSTANCE_NAME}_TCH_LastTimeCodeSet(uint8_t timeCode, bool now);
+
+uint8_t ${SPW_INSTANCE_NAME}_TCH_LastTimeCodeGet(void);
+
+SPW_TCH_INT_MASK ${SPW_INSTANCE_NAME}_TCH_IrqStatusGetMaskedAndClear(void);
+
+void ${SPW_INSTANCE_NAME}_TCH_InterruptEnable(SPW_TCH_INT_MASK interruptMask);
+
+void ${SPW_INSTANCE_NAME}_TCH_InterruptDisable(SPW_TCH_INT_MASK interruptMask);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -172,4 +161,4 @@ void ${SPW_INSTANCE_NAME}_InterruptHandler(void);
 #endif
 // DOM-IGNORE-END
 
-#endif /* PLIB_${SPW_INSTANCE_NAME}_H */
+#endif /* PLIB_${SPW_INSTANCE_NAME}_TCH_H */

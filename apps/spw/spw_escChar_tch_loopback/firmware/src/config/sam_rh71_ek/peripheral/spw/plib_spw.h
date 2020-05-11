@@ -6,13 +6,13 @@
     Microchip Technology Inc.
 
   File Name:
-    plib_${SPW_INSTANCE_NAME?lower_case}.h
+    plib_spw.h
 
   Summary:
-    ${SPW_INSTANCE_NAME} PLIB Header file
+    SPW PLIB Header file
 
   Description:
-    This file defines the interface to the ${SPW_INSTANCE_NAME} peripheral 
+    This file defines the interface to the SPW peripheral 
     library. This library provides access to and control of the associated 
     peripheral instance.
 *******************************************************************************/
@@ -41,8 +41,8 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef PLIB_${SPW_INSTANCE_NAME}_H
-#define PLIB_${SPW_INSTANCE_NAME}_H
+#ifndef PLIB_SPW_H
+#define PLIB_SPW_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -61,13 +61,13 @@
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: ${SPW_INSTANCE_NAME} defines
+// Section: SPW defines
 // *****************************************************************************
 // *****************************************************************************
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: ${SPW_INSTANCE_NAME} Types
+// Section: SPW Types
 // *****************************************************************************
 // *****************************************************************************
 /* SPW IRQ status
@@ -109,7 +109,6 @@ typedef enum
     SPW_SYNC_EVENT_MASK_INVALID = 0xFFFFFFFF
 } SPW_SYNC_EVENT_MASK;
 
-<#if INTERRUPT_MODE == true>
 // *****************************************************************************
 /* SPW Callback
 
@@ -145,7 +144,6 @@ typedef struct
     /* Transfer Event Callback Context for interrupt*/
     uintptr_t context;
 } SPW_OBJ;
-</#if>
 
 // *****************************************************************************
 // *****************************************************************************
@@ -158,13 +156,11 @@ typedef struct
  * this interface.
  */
 
-void ${SPW_INSTANCE_NAME}_Initialize(void);
+void SPW_Initialize(void);
 
-<#if INTERRUPT_MODE == true>
 void SPW_CallbackRegister(SPW_CALLBACK callback, uintptr_t contextHandle);
 
-void ${SPW_INSTANCE_NAME}_InterruptHandler(void);
-</#if>
+void SPW_InterruptHandler(void);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -172,4 +168,4 @@ void ${SPW_INSTANCE_NAME}_InterruptHandler(void);
 #endif
 // DOM-IGNORE-END
 
-#endif /* PLIB_${SPW_INSTANCE_NAME}_H */
+#endif /* PLIB_SPW_H */
