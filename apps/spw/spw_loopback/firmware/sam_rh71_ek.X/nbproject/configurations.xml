@@ -107,7 +107,7 @@
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
-      <itemPath>../src/config/sam_rh71_ek/ATSAMRH71F20B.ld</itemPath>
+      <itemPath>../src/config/sam_rh71_ek/ATSAMRH71F20C.ld</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -337,7 +337,7 @@
         <property key="symbol-stripping" value=""/>
         <property key="trace-symbols" value=""/>
         <property key="warn-section-align" value="false"/>
-        <appendMe value="-T ../src/config/sam_rh71_ek/ATSAMRH71F20B.ld"/>
+        <appendMe value="-T ../src/config/sam_rh71_ek/ATSAMRH71F20C.ld"/>
       </C32-LD>
       <C32CPP>
         <property key="additional-warnings" value="false"/>
@@ -379,7 +379,6 @@
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
-        <appendMe value="-T ../src/config/sam_rh71_ek/ATSAMRH71F20B.ld"/>
       </C32Global>
       <ICD4Tool>
         <property key="AutoSelectMemRanges" value="auto"/>

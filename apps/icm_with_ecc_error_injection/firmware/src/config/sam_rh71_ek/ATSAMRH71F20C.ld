@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------------
- * MPLAB XC32 Compiler -  ATSAMRH71F20B linker script
+ * MPLAB XC32 Compiler -  ATSAMRH71F20C linker script
  * 
- * Copyright (c) 2019, Microchip Technology Inc. and its subsidiaries ("Microchip")
+ * Copyright (c) 2020, Microchip Technology Inc. and its subsidiaries ("Microchip")
  * All rights reserved.
  * 
  * This software is developed by Microchip Technology Inc. and its
@@ -74,21 +74,16 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
 #endif
 #ifndef RAM_LENGTH
 #  define RAM_LENGTH 0xB0000
-#  define RAM_NO_CACHE_LENGTH 0x10000
+#  define RAM_DATA_LENGTH 0x10000
 #elif (RAM_LENGTH > 0xc0000)
 #  error RAM_LENGTH is greater than the max size of 0xc0000
 #endif
-  
-#ifndef ITCM_ORIGIN
-#  define ITCM_ORIGIN 0x0
-#endif
-#ifndef __XC32_ITCM_LENGTH
-#  define __XC32_ITCM_LENGTH 0x0
-#elif (defined(__XC32_ITCM_LENGTH)  && __XC32_ITCM_LENGTH != 0x20000)
-#  warning Non-standard ITCM length, using default 0x20000
-#  undef __XC32_ITCM_LENGTH
-#  define __XC32_ITCM_LENGTH 0x20000
-#endif
+
+/* Custom ITCM configuration to split for Data buffer injection */
+#define ITCM_ORIGIN 0x0
+#define ITCM_DATA_ORIGIN 0x10000
+#define ITCM_LENGTH 0x10000
+#define ITCM_DATA_LENGTH 0x10000
 
 #ifndef DTCM_ORIGIN
 #  define DTCM_ORIGIN 0x20000000
@@ -96,11 +91,14 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
 #ifndef __XC32_DTCM_LENGTH
 #  define __XC32_DTCM_LENGTH 0x0
 #elif (defined(__XC32_DTCM_LENGTH)  && __XC32_DTCM_LENGTH != 0x40000)
-#  warning Non-standard DTCM length, using default 0x20000
+#  warning Non-standard DTCM length, using default 0x40000
 #  undef __XC32_DTCM_LENGTH
-#  define __XC32_DTCM_LENGTH 0x20000
+#  define __XC32_DTCM_LENGTH 0x40000
 #endif
 
+/* Custom External SRAM configuration for Data buffer injection */
+#define EXT_SDRAM_ORIGIN 0x64000000
+#define EXT_SDRAM_LENGTH 0x100000
 
 /*************************************************************************
  * Memory-Region Definitions
@@ -112,12 +110,12 @@ MEMORY
   rom (LRX) : ORIGIN = ROM_ORIGIN, LENGTH = ROM_LENGTH
   ram (WX!R) : ORIGIN = RAM_ORIGIN, LENGTH = RAM_LENGTH
   itcm (WX) : ORIGIN = ITCM_ORIGIN, LENGTH = __XC32_ITCM_LENGTH
+  itcm_data (WX) : ORIGIN = ITCM_DATA_ORIGIN, LENGTH = ITCM_DATA_LENGTH
   dtcm (WX!R) : ORIGIN = DTCM_ORIGIN, LENGTH = __XC32_DTCM_LENGTH
-  ram_nocache (WX!R) : ORIGIN = RAM_ORIGIN+RAM_LENGTH, LENGTH = RAM_NO_CACHE_LENGTH
   config_D0000000 : ORIGIN = 0xD0000000, LENGTH = 0x4
   config_D0000004 : ORIGIN = 0xD0000004, LENGTH = 0x4
-  config_D0000008 : ORIGIN = 0xD0000008, LENGTH = 0x4
-  config_D000000C : ORIGIN = 0xD000000C, LENGTH = 0x4
+  ext_sdram (WX!R) : ORIGIN = EXT_SDRAM_ORIGIN, LENGTH = EXT_SDRAM_LENGTH
+  ram_data (WX!R) : ORIGIN = RAM_ORIGIN+RAM_LENGTH, LENGTH = RAM_DATA_LENGTH
 }
 
 /*************************************************************************
@@ -159,12 +157,6 @@ SECTIONS
     .config_D0000004 : {
       KEEP(*(.config_D0000004))
     } > config_D0000004
-    .config_D0000008 : {
-      KEEP(*(.config_D0000008))
-    } > config_D0000008
-    .config_D000000C : {
-      KEEP(*(.config_D000000C))
-    } > config_D000000C
 
     /*
      * The linker moves the .vectors section into itcm when itcm is
@@ -244,25 +236,6 @@ SECTIONS
     . = ALIGN(4);
     _etext = .;
 
-    .ram_nocache (NOLOAD):
-    {
-    . = ALIGN(4);
-    _s_ram_nocache = .;
-    *(.ram_nocache)
-    . = ALIGN(4);
-    _e_ram_nocache = .;
-    } > ram_nocache
-
-    .ram_nocache_data : AT (_etext)
-    {
-    . = ALIGN(4);
-    _s_ram_nocache_vma = .;
-    _s_ram_nocache_lma = LOADADDR(.ram_nocache_data);
-    *(.ram_nocache_data)
-    . = ALIGN(4);
-    _e_ram_nocache_vma = .;
-    } > ram_nocache
-
     /*
      *  Align here to ensure that the .bss section occupies space up to
      *  _end.  Align after .bss to ensure correct alignment even if the
@@ -288,6 +261,28 @@ SECTIONS
     . = ALIGN(4);
     _end = . ;
     _ram_end_ = ORIGIN(ram) + LENGTH(ram) -1 ;
+    
+    .itcm_data : {
+      KEEP(*(.itcm_data))
+    } > itcm_data
+
+    .ext_sdram (NOLOAD):
+    {
+    . = ALIGN(4);
+    _s_ext_sdram = .;
+    *(.ext_sdram)
+    . = ALIGN(4);
+    _e_ext_sdram = .;
+    } > ext_sdram
+
+    .ram_data (NOLOAD):
+    {
+    . = ALIGN(4);
+    _s_ram_data = .;
+    *(.ram_data)
+    . = ALIGN(4);
+    _e_ram_data = .;
+    } > ram_data
     
 }
 

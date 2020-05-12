@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------------
- * MPLAB XC32 Compiler -  ATSAMRH71F20B linker script
+ * MPLAB XC32 Compiler -  ATSAMRH71F20C linker script
  * 
- * Copyright (c) 2019, Microchip Technology Inc. and its subsidiaries ("Microchip")
+ * Copyright (c) 2020, Microchip Technology Inc. and its subsidiaries ("Microchip")
  * All rights reserved.
  * 
  * This software is developed by Microchip Technology Inc. and its
@@ -73,8 +73,8 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
 #  define RAM_ORIGIN 0x21000000
 #endif
 #ifndef RAM_LENGTH
-#  define RAM_LENGTH 0x80000
-#  define RAM_NO_CACHE_LENGTH 0x40000
+#  define RAM_LENGTH 0xB0000
+#  define RAM_NO_CACHE_LENGTH 0x10000
 #elif (RAM_LENGTH > 0xc0000)
 #  error RAM_LENGTH is greater than the max size of 0xc0000
 #endif
@@ -96,9 +96,9 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
 #ifndef __XC32_DTCM_LENGTH
 #  define __XC32_DTCM_LENGTH 0x0
 #elif (defined(__XC32_DTCM_LENGTH)  && __XC32_DTCM_LENGTH != 0x40000)
-#  warning Non-standard DTCM length, using default 0x20000
+#  warning Non-standard DTCM length, using default 0x40000
 #  undef __XC32_DTCM_LENGTH
-#  define __XC32_DTCM_LENGTH 0x20000
+#  define __XC32_DTCM_LENGTH 0x40000
 #endif
 
 
