@@ -8,6 +8,39 @@ nav_order: 99
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## Aerospace Release v3.1.0
+### New Features
+
+* **Development kit and demo application support** - The following table provides number of peripheral library application available for different development kits
+
+    | Development Kits                                                                                                  | Number of applications |
+    | ---                                                                                                               | --- |
+    | [SAMRH71 Evaluation Kit](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/SAMRH71F20-EK)          | 8 |
+
+* Add SpaceWire Link Escape Character and TCH support in peripheral libraries and add and example.
+* Update 1553 peripheral libraries and upgrade examples (BC and RT) for mode command transfer examples.
+* Fix of MISRA warnings.
+* Fix ICM calculated value for TRSIZE field when size multiple of 64
+* Fix handler name in TCMECC component
+* Fix faulty wait condition in SpaceWire RMAP Example and set stall mode in RX initialization
+* Fix documentation rendering and typo.
+
+### Known Issues
+
+* No known issues.
+
+### Development Tools
+
+* [MPLAB® X IDE v5.35 or above](https://www.microchip.com/mplab/mplab-x-ide)
+* [MPLAB® XC32 C/C++ Compiler v2.40](https://www.microchip.com/mplab/compilers)
+* MPLAB® X IDE plug-ins:
+    * MPLAB® Harmony Configurator (MHC) v3.4.2 and above.
+
+### Dependent Components
+
+* [CSP v3.7.0](https://github.com/Microchip-MPLAB-Harmony/csp/releases/tag/v3.7.0)
+* [dev_packs v3.7.0](https://github.com/Microchip-MPLAB-Harmony/dev_packs/releases/tag/v3.7.0)
+
 ## Aerospace Release v3.0.2
 ### New Features
 

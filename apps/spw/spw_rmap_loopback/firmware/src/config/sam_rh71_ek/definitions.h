@@ -55,6 +55,7 @@
 #include "peripheral/spw/plib_spw_pktrx.h"
 #include "peripheral/spw/plib_spw_pkttx.h"
 #include "peripheral/spw/plib_spw_rmap.h"
+#include "peripheral/spw/plib_spw_tch.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/matrix/plib_matrix.h"

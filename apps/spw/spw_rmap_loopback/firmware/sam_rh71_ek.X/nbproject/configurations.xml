@@ -36,6 +36,7 @@
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_pktrx.h</itemPath>
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_pkttx.h</itemPath>
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_rmap.h</itemPath>
+              <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_tch.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <itemPath>../src/config/sam_rh71_ek/device_cache.h</itemPath>
@@ -140,6 +141,7 @@
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_pktrx.c</itemPath>
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_pkttx.c</itemPath>
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_rmap.c</itemPath>
+              <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_tch.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f2" displayName="stdio" projectFiles="true">
@@ -172,14 +174,14 @@
         <targetDevice>ATSAMRH71F20C</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>jlink</platformTool>
+        <platformTool>samice</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.40</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
         <pack name="SAMRH71_DFP" vendor="Microchip" version="1.2.79"/>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
       </packs>
       <compileType>
         <linkerTool>
@@ -238,7 +240,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_rh71_ek;../src/packs/ATSAMRH71F20C_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/arm"/>
+                  value="../src;../src/config/sam_rh71_ek;../src/packs/ATSAMRH71F20C_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>

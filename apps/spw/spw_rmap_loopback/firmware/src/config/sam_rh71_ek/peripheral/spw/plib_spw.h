@@ -91,7 +91,23 @@ typedef enum
     SPW_INT_MASK_DI1 = ( 1 << 8),
     /* Force the compiler to reserve 32-bit memory for enum */
     SPW_INT_MASK_INVALID = 0xFFFFFFFF
-}SPW_INT_MASK;
+} SPW_INT_MASK;
+
+// *****************************************************************************
+/* SPW Synchronization events mask
+   Summary:
+    Identifies the SPW synchronization events mask
+
+   Description:
+    This data type identifies the SPW synchronization events mask
+*/
+typedef enum
+{
+    SPW_SYNC_EVENT_MASK_RTCOUT0 = 0x01,
+    SPW_SYNC_EVENT_MASK_RTCOUT1 = 0x02,
+    /* Force the compiler to reserve 32-bit memory for enum */
+    SPW_SYNC_EVENT_MASK_INVALID = 0xFFFFFFFF
+} SPW_SYNC_EVENT_MASK;
 
 // *****************************************************************************
 /* SPW Callback

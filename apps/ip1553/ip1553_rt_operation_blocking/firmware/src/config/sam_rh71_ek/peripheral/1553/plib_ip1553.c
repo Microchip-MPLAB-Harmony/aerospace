@@ -390,7 +390,7 @@ void IP1553_TRBitCmdSet(bool enable)
 
    Summary:
     Set the built-in self test results in BIT register. This value is sent by
-    the terminal in response to a ?Transmit Built-In Test?.
+    the terminal in response to a "Transmit Built-In Test".
 
    Precondition:
     IP1553_Initialize must have been called for the IP1553 instance.
@@ -412,7 +412,7 @@ void IP1553_BitWordSet(uint16_t bitWord)
 
    Summary:
     Set the Vector Word value to be sent by the terminal in response to
-    a ?Transmit Vector Word? command.
+    a "Transmit Vector Word" command.
 
    Precondition:
     IP1553_Initialize must have been called for the IP1553 instance.

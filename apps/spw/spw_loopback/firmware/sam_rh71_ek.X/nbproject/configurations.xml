@@ -35,6 +35,7 @@
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_router.h</itemPath>
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_pktrx.h</itemPath>
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_pkttx.h</itemPath>
+              <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_tch.h</itemPath>
             </logicalFolder>
             <logicalFolder name="f7" displayName="tc" projectFiles="true">
               <itemPath>../src/config/sam_rh71_ek/peripheral/tc/plib_tc0.h</itemPath>
@@ -141,6 +142,7 @@
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_router.c</itemPath>
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_pktrx.c</itemPath>
               <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_pkttx.c</itemPath>
+              <itemPath>../src/config/sam_rh71_ek/peripheral/spw/plib_spw_tch.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f7" displayName="tc" projectFiles="true">
               <itemPath>../src/config/sam_rh71_ek/peripheral/tc/plib_tc0.c</itemPath>
@@ -165,7 +167,7 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>../src</Elem>
+    <Elem>../..</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -175,7 +177,7 @@
         <targetDevice>ATSAMRH71F20C</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>jlink</platformTool>
+        <platformTool>samice</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.40</languageToolchainVersion>
         <platform>3</platform>
@@ -254,7 +256,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_rh71_ek;../src/packs/ATSAMRH71F20C_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/;../src/arm"/>
+                  value="../src;../src/config/sam_rh71_ek;../src/packs/ATSAMRH71F20C_DFP;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/CMSIS/"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
