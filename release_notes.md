@@ -31,8 +31,8 @@ nav_order: 99
 
 ### Development Tools
 
-* [MPLAB® X IDE v5.35 or above](https://www.microchip.com/mplab/mplab-x-ide)
-* [MPLAB® XC32 C/C++ Compiler v2.40](https://www.microchip.com/mplab/compilers)
+* [MPLAB® X IDE v5.40 or above](https://www.microchip.com/mplab/mplab-x-ide)
+* [MPLAB® XC32 C/C++ Compiler v2.41](https://www.microchip.com/mplab/compilers)
 * MPLAB® X IDE plug-ins:
     * MPLAB® Harmony Configurator (MHC) v3.4.2 and above.
 

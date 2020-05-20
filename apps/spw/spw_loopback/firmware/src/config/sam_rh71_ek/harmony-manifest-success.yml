@@ -4,11 +4,11 @@
 
 
 project: spw_loopback
-creation_date: 2020-05-11T14:58:10.361+02:00[Europe/Paris]	# ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2020-05-20T13:56:20.918+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
-mhc_mode: IDE				# [IDE|Standalone|Headless]
-mplabx_version: --Please Update your plugin--		# if MPLAB X plugin only
-plugin_version: v3.4.2		# if MPLAB X plugin only
+mhc_mode: IDE            # [IDE|Standalone|Headless]
+mplabx_version: --Please Update your plugin--        # if MPLAB X plugin only
+plugin_version: v3.4.2        # if MPLAB X plugin only
 
 modules:
     - {name: "aerospace", version: "v3.1.0"}
