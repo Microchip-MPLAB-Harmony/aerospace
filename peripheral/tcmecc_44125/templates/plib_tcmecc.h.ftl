@@ -318,7 +318,7 @@ void ${TCMECC_INSTANCE_NAME}_NoFixCallbackRegister(TCMECC_CALLBACK callback, uin
 
 void TCMECC_INTFIX_InterruptHandler(void);
 
-void TCMECC_NOINTFIX_InterruptHandler(void);
+void TCMECC_INTNOFIX_InterruptHandler(void);
 
 </#if>
 
