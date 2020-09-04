@@ -81,18 +81,18 @@
                                             PIOC_REGS->PIO_MSKR = (1<<29); \
                                             PIOC_REGS->PIO_ODSR ^= (1<<29);\
                                         } while (0)
-#define SWITCH0_Get()               ((PIOC_REGS->PIO_PDSR >> 29) & 0x1)
 #define SWITCH0_OutputEnable()      do {\
                                             PIOC_REGS->PIO_MSKR = (1<<29); \
-										     PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define SWITCH0_InputEnable()       do { \
                                             PIOC_REGS->PIO_MSKR = (1<<29); \
-										     PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
                                         } while (0)
+#define SWITCH0_Get()               ((PIOC_REGS->PIO_PDSR >> 29) & 0x1)
+#define SWITCH0_PIN                  PIO_PIN_PC29
 #define SWITCH0_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<29))
 #define SWITCH0_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<29))
-#define SWITCH0_PIN                  PIO_PIN_PC29
 
 /*** Macros for SWITCH1 pin ***/
 #define SWITCH1_Set()               (PIOC_REGS->PIO_SODR = (1<<30))
@@ -101,18 +101,18 @@
                                             PIOC_REGS->PIO_MSKR = (1<<30); \
                                             PIOC_REGS->PIO_ODSR ^= (1<<30);\
                                         } while (0)
-#define SWITCH1_Get()               ((PIOC_REGS->PIO_PDSR >> 30) & 0x1)
 #define SWITCH1_OutputEnable()      do {\
                                             PIOC_REGS->PIO_MSKR = (1<<30); \
-										     PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define SWITCH1_InputEnable()       do { \
                                             PIOC_REGS->PIO_MSKR = (1<<30); \
-										     PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
                                         } while (0)
+#define SWITCH1_Get()               ((PIOC_REGS->PIO_PDSR >> 30) & 0x1)
+#define SWITCH1_PIN                  PIO_PIN_PC30
 #define SWITCH1_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<30))
 #define SWITCH1_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<30))
-#define SWITCH1_PIN                  PIO_PIN_PC30
 
 /*** Macros for SWITCH2 pin ***/
 #define SWITCH2_Set()               (PIOC_REGS->PIO_SODR = (1<<31))
@@ -121,18 +121,19 @@
                                             PIOC_REGS->PIO_MSKR = (1<<31); \
                                             PIOC_REGS->PIO_ODSR ^= (1<<31);\
                                         } while (0)
-#define SWITCH2_Get()               ((PIOC_REGS->PIO_PDSR >> 31) & 0x1)
 #define SWITCH2_OutputEnable()      do {\
                                             PIOC_REGS->PIO_MSKR = (1<<31); \
-										     PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOC_REGS->PIO_CFGR |=(1 << PIO_CFGR_DIR_Pos);\
                                         }while(0)
 #define SWITCH2_InputEnable()       do { \
                                             PIOC_REGS->PIO_MSKR = (1<<31); \
-										     PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
+                                            PIOC_REGS->PIO_CFGR &= ~(1 << PIO_CFGR_DIR_Pos);\
                                         } while (0)
+#define SWITCH2_Get()               ((PIOC_REGS->PIO_PDSR >> 31) & 0x1)
+#define SWITCH2_PIN                  PIO_PIN_PC31
 #define SWITCH2_InterruptEnable()   (PIOC_REGS->PIO_IER = (1<<31))
 #define SWITCH2_InterruptDisable()  (PIOC_REGS->PIO_IDR = (1<<31))
-#define SWITCH2_PIN                  PIO_PIN_PC31
+
 
 
 // *****************************************************************************
@@ -1287,7 +1288,7 @@ static inline void PIO_PinInterruptDisable(PIO_PIN pin)
 
     If a pin is not configured for interrupt in Pin Manager and yet its callback
     registration is attempted using this API, then registration doesn't happen
-    and API returns false indicating the same.    
+    and API returns false indicating the same.
 
   Precondition:
     The PIO_Initialize function must have been called.

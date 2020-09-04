@@ -315,7 +315,7 @@ void TCMECC_NoFixCallbackRegister(TCMECC_CALLBACK callback, uintptr_t contextHan
 
 void TCMECC_INTFIX_InterruptHandler(void);
 
-void TCMECC_NOINTFIX_InterruptHandler(void);
+void TCMECC_INTNOFIX_InterruptHandler(void);
 
 
 // DOM-IGNORE-BEGIN
