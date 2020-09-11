@@ -8,11 +8,11 @@ nav_order: 99
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
-## Aerospace Release v3.1.0
+## Aerospace Release v3.2.0
 ### New Features
 - **Enhancements**
-  - Fix typo in function name in TCMECC Plib header file.
-  - Regenerate Harmony files with new CSP v3.8.0 version.
+  - Fixed typo in function name in TCMECC Plib header file.
+  - Regenerated Harmony files with new CSP v3.8.0 version.
 
 ### Known Issues
 
