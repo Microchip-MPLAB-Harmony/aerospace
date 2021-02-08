@@ -413,7 +413,7 @@ int main(void)
                 else
                 {
                     /* Read status word */
-                    uint16_t transferStatusWord = IP1553_GetFirstStatusWord();
+                    transferStatusWord = IP1553_GetFirstStatusWord();
                     printf(" Transfer Status Word = 0x%04X\n", (unsigned int) transferStatusWord);
 
                     /* Print and reset Rx buffers*/

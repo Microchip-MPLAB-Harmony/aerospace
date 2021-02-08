@@ -158,10 +158,6 @@ void ${FLEXRAMECC_INSTANCE_NAME}_FixCallbackRegister(FLEXRAMECC_CALLBACK callbac
 
 void ${FLEXRAMECC_INSTANCE_NAME}_NoFixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t contextHandle);
 
-void ${FLEXRAMECC_INSTANCE_NAME}_INTFIX_InterruptHandler(void);
-
-void ${FLEXRAMECC_INSTANCE_NAME}_INTNOFIX_InterruptHandler(void);
-
 </#if>
 
 <#if INJECTION_TEST_MODE == true>

@@ -692,7 +692,7 @@ int main ( void )
 
         if (app_rx_is_all_data_received)
         {
-            float time_us = ((float) app_rx_average_process_time / ((float)TC0_CH2_TimerFrequencyGet() / 1000000));
+            float time_us = ((float) app_rx_average_process_time / (float)(TC0_CH2_TimerFrequencyGet() / (float)1000000.0));
             printf("Average RX process time = %lu us\r\n", (unsigned long) time_us);
             printf("Rx sequence errors = %u\r\n", (unsigned int)app_rx_seq_error);
             app_rx_is_all_data_received = false;
@@ -708,7 +708,7 @@ int main ( void )
         if (app_tx_is_end)
         {
             app_tx_is_end = false;
-            float time_us = ((float) app_tx_time_elapsed / ((float)TC0_CH1_TimerFrequencyGet() / 1000000));
+            float time_us = ((float) app_tx_time_elapsed / (float)(TC0_CH1_TimerFrequencyGet() / (float)1000000.0));
             uint32_t bytes = APP_TX_NUM_SEND * APP_TX_NUM_PACKET * APP_DATA_SIZE_WORDS * 4;
             printf("TX time=%lu us, for %u bytes\r\n", (unsigned long) time_us, (unsigned int)bytes);
             float rate = ((float) bytes * 8) / (float) time_us;

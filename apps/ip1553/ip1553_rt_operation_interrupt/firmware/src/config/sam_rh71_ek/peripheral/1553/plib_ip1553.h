@@ -261,8 +261,6 @@ IP1553_INT_MASK IP1553_IrqStatusGet( void );
 uint16_t IP1553_GetFirstStatusWord( void );
 void IP1553_CallbackRegister(IP1553_CALLBACK callback, uintptr_t contextHandle);
 
-void IP1553_InterruptHandler(void);
-
 void IP1553_InterruptEnable(IP1553_INT_MASK interruptMask);
 
 void IP1553_InterruptDisable(IP1553_INT_MASK interruptMask);

@@ -244,8 +244,6 @@ ICM_STATUS ICM_StatusGet(void);
 
 void ICM_CallbackRegister(ICM_CALLBACK callback, uintptr_t contextHandle);
 
-void ICM_InterruptHandler(void);
-
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

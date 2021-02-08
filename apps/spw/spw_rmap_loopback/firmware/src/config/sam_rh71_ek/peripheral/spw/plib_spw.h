@@ -160,8 +160,6 @@ void SPW_Initialize(void);
 
 void SPW_CallbackRegister(SPW_CALLBACK callback, uintptr_t contextHandle);
 
-void SPW_InterruptHandler(void);
-
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 }

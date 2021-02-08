@@ -245,8 +245,6 @@ ICM_STATUS ${ICM_INSTANCE_NAME}_StatusGet(void);
 
 void ${ICM_INSTANCE_NAME}_CallbackRegister(ICM_CALLBACK callback, uintptr_t contextHandle);
 
-void ${ICM_INSTANCE_NAME}_InterruptHandler(void);
-
 </#if>
 
 // DOM-IGNORE-BEGIN

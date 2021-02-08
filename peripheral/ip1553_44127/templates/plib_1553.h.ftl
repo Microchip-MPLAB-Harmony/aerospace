@@ -270,8 +270,6 @@ uint16_t ${IP1553_INSTANCE_NAME}_GetSecondStatusWord( void );
 <#if INTERRUPT_MODE == true>
 void ${IP1553_INSTANCE_NAME}_CallbackRegister(IP1553_CALLBACK callback, uintptr_t contextHandle);
 
-void ${IP1553_INSTANCE_NAME}_InterruptHandler(void);
-
 void ${IP1553_INSTANCE_NAME}_InterruptEnable(IP1553_INT_MASK interruptMask);
 
 void ${IP1553_INSTANCE_NAME}_InterruptDisable(IP1553_INT_MASK interruptMask);

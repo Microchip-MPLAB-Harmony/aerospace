@@ -152,13 +152,6 @@ void HEMC_FixCallbackRegister(HEMC_CALLBACK callback, uintptr_t contextHandle);
 
 void HEMC_NoFixCallbackRegister(HEMC_CALLBACK callback, uintptr_t contextHandle);
 
-void HEMC_InterruptHandler(void);
-
-void HEMC_INTFIX_InterruptHandler(void);
-
-void HEMC_INTNOFIX_InterruptHandler(void);
-
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Inlined TestMode Routines

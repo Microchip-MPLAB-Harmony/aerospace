@@ -313,10 +313,6 @@ void TCMECC_FixCallbackRegister(TCMECC_CALLBACK callback, uintptr_t contextHandl
 
 void TCMECC_NoFixCallbackRegister(TCMECC_CALLBACK callback, uintptr_t contextHandle);
 
-void TCMECC_INTFIX_InterruptHandler(void);
-
-void TCMECC_INTNOFIX_InterruptHandler(void);
-
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

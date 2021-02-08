@@ -162,8 +162,6 @@ void ${SPW_INSTANCE_NAME}_Initialize(void);
 
 <#if INTERRUPT_MODE == true>
 void SPW_CallbackRegister(SPW_CALLBACK callback, uintptr_t contextHandle);
-
-void ${SPW_INSTANCE_NAME}_InterruptHandler(void);
 </#if>
 
 // DOM-IGNORE-BEGIN

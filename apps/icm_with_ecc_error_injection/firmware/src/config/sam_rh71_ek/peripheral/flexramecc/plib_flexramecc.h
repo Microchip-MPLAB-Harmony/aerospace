@@ -157,10 +157,6 @@ void FLEXRAMECC_FixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t cont
 
 void FLEXRAMECC_NoFixCallbackRegister(FLEXRAMECC_CALLBACK callback, uintptr_t contextHandle);
 
-void FLEXRAMECC_INTFIX_InterruptHandler(void);
-
-void FLEXRAMECC_INTNOFIX_InterruptHandler(void);
-
 
 // *****************************************************************************
 // *****************************************************************************
