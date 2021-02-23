@@ -8,6 +8,30 @@ nav_order: 99
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## Aerospace Release v3.3.0
+### New Features
+- **Enhancements**
+  - Fix on FLEXRAMECC Plib after update of the SAMRH71 DFP to align register names with datasheet.
+  - Add new warning compiler switches in examples projects.
+  - Switch project configuration to yaml format.
+  - Update examples generated code with new CSP v3.9.0 version.
+
+### Known Issues
+
+* No known issues.
+
+### Development Tools
+
+* [MPLAB® X IDE v5.45 or above](https://www.microchip.com/mplab/mplab-x-ide)
+* [MPLAB® XC32 C/C++ Compiler v2.50](https://www.microchip.com/mplab/compilers)
+* MPLAB® X IDE plug-ins:
+    * MPLAB® Harmony Configurator (MHC) v3.6.2 and above.
+
+### Dependent Components
+
+* [CSP v3.9.0](https://github.com/Microchip-MPLAB-Harmony/csp/releases/tag/v3.9.0)
+* [dev_packs v3.9.0](https://github.com/Microchip-MPLAB-Harmony/dev_packs/releases/tag/v3.9.0)
+
 ## Aerospace Release v3.2.0
 ### New Features
 - **Enhancements**

@@ -5,7 +5,7 @@ frameworkPath: ../../../..
 processor: ATSAMRH71F20C
 projectName: ''
 settings:
-  PackageFilter: aerospace;audio;bootloader;bootloader_apps_ethernet;bootloader_apps_uart;bsp;core;crypto;csp;csp_apps_sam_rh71;gfx;gfx_apps;motor_control;net
+  PackageFilter: aerospace;csp
   FORCE_OPTIMIZATION: 'false'
   GENERATE_BACKUP: 'true'
   CMSISPath: .\dev_packs\arm\CMSIS\5.7.0
