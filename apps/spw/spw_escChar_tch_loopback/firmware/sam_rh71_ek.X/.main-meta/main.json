@@ -3,11 +3,11 @@
 	"category": "com.microchip.ide.project",
 	"content": {
 		"metaDataVersion": "1.1.0",
-		"name": "com.microchip.mcu32.mplabx.project.aerospace_apps_sam_rh71_spw_rmap_loopback",
+		"name": "com.microchip.mcu32.mplabx.project.aerospace_apps_sam_rh71_spw_escChar_tch_loopback",
 		"version": "3.3.0",
-		"displayName": "SpaceWire RMAP Loopback Example for SAM RH71",
-		"projectName": "spw_rmap_loopback_sam_rh71_ek",
-		"shortDescription": "This example shows how configure the SpaceWire peripheral to configure the RMAP module, send an RMAP command with the packet transceiver and receive the RMAP reply with the packet receiver.",
+		"displayName": "SpaceWire Escape Character and Time Code Handler Loopback Example for SAM RH71",
+		"projectName": "spw_escChar_tch_loopback_sam_rh71_ek",
+		"shortDescription": "This example shows how to configure the SpaceWire peripheral to handle escape character with Link interface and with TCH module",
 		"ide": {
 			"name": "MPLABX",
 			"semverRange": ">=5.45.0"
@@ -58,7 +58,9 @@
 			"SAM RH71 Family",
 			"SPW",
 			"SpaceWire",
-			"RMAP"
+			"TCH",
+			"Escape Character",
+			"Time Code"
 		],
 		"additionalData": {
 			"longDescription": {
