@@ -135,10 +135,10 @@ Receive buffer can be set in NEXT state using the function ```SPW_PKTRX_SetNextB
 
 ```c
     /* Allocate Rx buffer of data */
-    uint8_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) buffer_data[PACKET_SIZE_BYTES] = {0};
+    uint8_t __attribute__((aligned (32)))__attribute__((section (".ram_nocache"))) buffer_data[PACKET_SIZE_BYTES] = {0};
 
     /* Allocate Rx packet information list */
-    SPW_PKTRX_INFO __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) packet_info[PACKET_NUMBER] = {0};
+    SPW_PKTRX_INFO __attribute__((aligned (32)))__attribute__((section (".ram_nocache"))) packet_info[PACKET_NUMBER] = {0};
 
     // Set buffer in Next buffer with start condition now
     SPW_PKTRX_SetNextBuffer(
@@ -207,13 +207,13 @@ Send list can be set in NEXT state using the function ```SPW_PKTTX_SetNextSendLi
 
 ```c
     /* Allocate Tx buffer for header  */
-    uint8_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) header_buffer[HEADER_SIZE_BYTES] = {0};
+    uint8_t __attribute__((aligned (32)))__attribute__((section (".ram_nocache"))) header_buffer[HEADER_SIZE_BYTES] = {0};
 
     /* Allocate Tx buffer for data */
-    uint32_t __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) tx_data_buffer[DATA_SIZE_WORDS] = {0};
+    uint32_t __attribute__((aligned (32)))__attribute__((section (".ram_nocache"))) tx_data_buffer[DATA_SIZE_WORDS] = {0};
 
     /* Allocate Tx send list */
-    SPW_PKTTX_SEND_LIST_ENTRY __attribute__((aligned (32)))__attribute__((space(data), section (".ram_nocache"))) packet_send_list[NUM_PACKET] = {0};
+    SPW_PKTTX_SEND_LIST_ENTRY __attribute__((aligned (32)))__attribute__((section (".ram_nocache"))) packet_send_list[NUM_PACKET] = {0};
 
     // Prepare send list
     packet_send_list[0].RSize = 1;
