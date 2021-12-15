@@ -48,6 +48,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#include <stddef.h>
 #include "device.h"
 #include "plib_${SPW_INSTANCE_NAME?lower_case}.h"
 #include "plib_${SPW_INSTANCE_NAME?lower_case}_link.h"
