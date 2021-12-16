@@ -150,6 +150,10 @@ FLEXRAMECC_STATUS ${FLEXRAMECC_INSTANCE_NAME}_StatusGet(void);
 
 uint32_t* ${FLEXRAMECC_INSTANCE_NAME}_GetFailAddress(void);
 
+<#if FLEXRAMECC_HAS_FAIL_DATA == true >
+uint32_t ${FLEXRAMECC_INSTANCE_NAME}_GetFailData(void);
+
+</#if>
 void ${FLEXRAMECC_INSTANCE_NAME}_ResetCounters(void);
 
 <#if INTERRUPT_MODE == true>

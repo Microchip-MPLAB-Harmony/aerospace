@@ -127,13 +127,36 @@ FLEXRAMECC_STATUS ${FLEXRAMECC_INSTANCE_NAME}_StatusGet(void)
     None.
 
    Returns:
-    Pointer of fail address were fixable or unfixable error occured in FLEXRAM memory.
+    Pointer of fail address were fixable or unfixable error occurred in FLEXRAM memory.
 */
 uint32_t* ${FLEXRAMECC_INSTANCE_NAME}_GetFailAddress(void)
 {
     return (uint32_t*)(FLEXRAMECC_REGS->FLEXRAMECC_FAILAR);
 }
 
+<#if FLEXRAMECC_HAS_FAIL_DATA == true >
+// *****************************************************************************
+/* Function:
+    uint32_t ${FLEXRAMECC_INSTANCE_NAME}_GetFailData(void)
+
+   Summary:
+    Get the last fail data were ECC error occurs in FLEXRAM memory.
+
+   Precondition:
+    None.
+
+   Parameters:
+    None.
+
+   Returns:
+    Data were fixable or unfixable error occurred in FLEXRAM memory.
+*/
+uint32_t ${FLEXRAMECC_INSTANCE_NAME}_GetFailData(void)
+{
+    return (uint32_t)(FLEXRAMECC_REGS->FLEXRAMECC_FAILDR);
+}
+
+</#if>
 // *****************************************************************************
 /* Function:
     void ${FLEXRAMECC_INSTANCE_NAME}_ResetCounters(void)

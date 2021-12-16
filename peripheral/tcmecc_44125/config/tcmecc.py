@@ -97,6 +97,10 @@ def instantiateComponent(tcmeccComponent):
     # Initialize peripheral clock
     Database.setSymbolValue("core", tcmeccInstanceName.getValue() + "_CLOCK_ENABLE", True, 1)
 
+    tcmeccHasFailData = tcmeccComponent.createBooleanSymbol("TCMECC_HAS_FAIL_DATA", None)
+    tcmeccHasFailData.setDefaultValue((ATDF.getNode('/avr-tools-device-file/modules/module@[name="TCMECC"]/register-group@[name="TCMECC"]/register@[name="TCMECC_FAILDR"]') != None))
+    tcmeccHasFailData.setVisible(False)
+
     ################################################################################
     #### Menu ####
     ################################################################################

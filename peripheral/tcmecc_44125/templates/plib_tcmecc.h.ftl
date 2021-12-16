@@ -161,8 +161,16 @@ TCMECC_STATUS ${TCMECC_INSTANCE_NAME}_StatusGet(void);
 
 uint64_t* ${TCMECC_INSTANCE_NAME}_GetFailAddressITCM(void);
 
+<#if TCMECC_HAS_FAIL_DATA == true >
+uint32_t ${TCMECC_INSTANCE_NAME}_GetFailDataITCM(void);
+
+</#if>
 uint32_t* ${TCMECC_INSTANCE_NAME}_GetFailAddressDTCM(void);
 
+<#if TCMECC_HAS_FAIL_DATA == true >
+uint32_t ${TCMECC_INSTANCE_NAME}_GetFailDataDTCM(void);
+
+</#if>
 void ${TCMECC_INSTANCE_NAME}_ResetCounters(void);
 
 <#if INJECTION_TEST_MODE == true>

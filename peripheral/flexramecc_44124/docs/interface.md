@@ -281,7 +281,7 @@ uint32_t FLEXRAMECC_GetFailAddress(void)
 
 **Returns**
 
- Fail address were fixable or unfixable error occured in FLEXRAM memory.
+ Fail address were fixable or unfixable error occurred in FLEXRAM memory.
 
 ---
 

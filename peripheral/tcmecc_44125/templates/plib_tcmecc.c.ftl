@@ -129,13 +129,36 @@ TCMECC_STATUS ${TCMECC_INSTANCE_NAME}_StatusGet(void)
     None.
 
    Returns:
-    Pointer of fail address were fixable or unfixable error occured in ITCM.
+    Pointer of fail address were fixable or unfixable error occurred in ITCM.
 */
 uint64_t* ${TCMECC_INSTANCE_NAME}_GetFailAddressITCM(void)
 {
-    return (uint64_t*)((TCMECC_REGS->TCMECC_FAILAR)  & 0x1FFFF);
+    return (uint64_t*)((TCMECC_REGS->TCMECC_FAILAR)  & (ITCM_ADDR + ITCM_SIZE - 1));
 }
 
+<#if TCMECC_HAS_FAIL_DATA == true >
+// *****************************************************************************
+/* Function:
+    uint32_t ${TCMECC_INSTANCE_NAME}_GetFailDataITCM(void)
+
+   Summary:
+    Get the last fail data were ECC error occurs in Instruction TCM.
+
+   Precondition:
+    None.
+
+   Parameters:
+    None.
+
+   Returns:
+    Data were fixable or unfixable error occurred in ITCM.
+*/
+uint32_t ${TCMECC_INSTANCE_NAME}_GetFailDataITCM(void)
+{
+    return (uint32_t)(TCMECC_REGS->TCMECC_FAILDR);
+}
+
+</#if>
 // *****************************************************************************
 /* Function:
     uint32_t* ${TCMECC_INSTANCE_NAME}_GetFailAddressDTCM(void)
@@ -150,12 +173,36 @@ uint64_t* ${TCMECC_INSTANCE_NAME}_GetFailAddressITCM(void)
     None.
 
    Returns:
-    Pointer of fail address were fixable or unfixable error occured in DTCM.
+    Pointer of fail address were fixable or unfixable error occurred in DTCM.
 */
 uint32_t* ${TCMECC_INSTANCE_NAME}_GetFailAddressDTCM(void)
 {
-    return (uint32_t*)((TCMECC_REGS->TCMECC_FAILARD) & 0x2003FFFF);
+    return (uint32_t*)((TCMECC_REGS->TCMECC_FAILARD) & (DTCM_ADDR + DTCM_SIZE - 1));
 }
+
+<#if TCMECC_HAS_FAIL_DATA == true >
+// *****************************************************************************
+/* Function:
+    uint32_t ${TCMECC_INSTANCE_NAME}_GetFailDataDTCM(void)
+
+   Summary:
+    Get the last fail data were ECC error occurs in Data TCM.
+
+   Precondition:
+    None.
+
+   Parameters:
+    None.
+
+   Returns:
+    Data were fixable or unfixable error occurred in DTCM.
+*/
+uint32_t ${TCMECC_INSTANCE_NAME}_GetFailDataDTCM(void)
+{
+    return (uint32_t)(TCMECC_REGS->TCMECC_FAILDRD);
+}
+
+</#if>
 // *****************************************************************************
 /* Function:
     void ${TCMECC_INSTANCE_NAME}_ResetCounters(void)

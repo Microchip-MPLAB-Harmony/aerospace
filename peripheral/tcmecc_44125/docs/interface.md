@@ -282,7 +282,7 @@ None
 
 **Returns**
 
-Fail address were fixable or unfixable error occured in ITCM.
+Fail address were fixable or unfixable error occurred in ITCM.
 
 ### TCMECC_GetFailAddressDTCM
 
@@ -304,7 +304,7 @@ None
 
 **Returns**
 
-Fail address were fixable or unfixable error occured in DTCM.
+Fail address were fixable or unfixable error occurred in DTCM.
 
 ## Test Mode functions
 

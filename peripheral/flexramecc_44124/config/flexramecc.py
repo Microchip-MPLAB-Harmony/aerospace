@@ -100,6 +100,10 @@ def instantiateComponent(flexrameccComponent):
     # Initialize peripheral clock
     Database.setSymbolValue("core", flexrameccInstanceName.getValue() + "_CLOCK_ENABLE", True, 1)
 
+    flexrameccHasFailData = flexrameccComponent.createBooleanSymbol("FLEXRAMECC_HAS_FAIL_DATA", None)
+    flexrameccHasFailData.setDefaultValue((ATDF.getNode('/avr-tools-device-file/modules/module@[name="FLEXRAMECC"]/register-group@[name="FLEXRAMECC"]/register@[name="FLEXRAMECC_FAILDR"]') != None))
+    flexrameccHasFailData.setVisible(False)
+
     ################################################################################
     #### Menu ####
     ################################################################################
