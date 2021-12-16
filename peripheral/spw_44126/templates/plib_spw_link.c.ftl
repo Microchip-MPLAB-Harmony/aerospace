@@ -415,16 +415,32 @@ void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, u
     if ( link == SPW_LINK_1 )
     {
         if (active == true)
+<#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT0 = SPW_LINK1_ESCCHAREVENT0_ACTIVE(1) | SPW_LINK1_ESCCHAREVENT0_MASK(mask) | SPW_LINK1_ESCCHAREVENT0_VALUE(value);
+<#else>
+            SPW_REGS->SPW_LINK1_ESCCHAREVENT[0] = SPW_LINK1_ESCCHAREVENT_ACTIVE(1) | SPW_LINK1_ESCCHAREVENT_MASK(mask) | SPW_LINK1_ESCCHAREVENT_VALUE(value);
+</#if>
         else
+<#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT0 = 0;
+<#else>
+            SPW_REGS->SPW_LINK1_ESCCHAREVENT[0] = 0;
+</#if>
     }
     else if ( link == SPW_LINK_2 )
     {
         if (active == true)
+<#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT0 = SPW_LINK2_ESCCHAREVENT0_ACTIVE(1) | SPW_LINK2_ESCCHAREVENT0_MASK(mask) | SPW_LINK2_ESCCHAREVENT0_VALUE(value);
+<#else>
+            SPW_REGS->SPW_LINK2_ESCCHAREVENT[0] = SPW_LINK2_ESCCHAREVENT_ACTIVE(1) | SPW_LINK2_ESCCHAREVENT_MASK(mask) | SPW_LINK2_ESCCHAREVENT_VALUE(value);
+</#if>
         else
+<#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT0 = 0;
+<#else>
+            SPW_REGS->SPW_LINK2_ESCCHAREVENT[0] = 0;
+</#if>
     }
 }
 
@@ -452,16 +468,32 @@ void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, u
     if ( link == SPW_LINK_1 )
     {
         if (active == true)
+<#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT1 = SPW_LINK1_ESCCHAREVENT1_ACTIVE(1) | SPW_LINK1_ESCCHAREVENT1_MASK(mask) | SPW_LINK1_ESCCHAREVENT1_VALUE(value);
+<#else>
+            SPW_REGS->SPW_LINK1_ESCCHAREVENT[1] = SPW_LINK1_ESCCHAREVENT_ACTIVE(1) | SPW_LINK1_ESCCHAREVENT_MASK(mask) | SPW_LINK1_ESCCHAREVENT_VALUE(value);
+</#if>
         else
+<#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT1 = 0;
+<#else>
+            SPW_REGS->SPW_LINK1_ESCCHAREVENT[1] = 0;
+</#if>
     }
     else if ( link == SPW_LINK_2 )
     {
         if (active == true)
+<#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT1 = SPW_LINK2_ESCCHAREVENT1_ACTIVE(1) | SPW_LINK2_ESCCHAREVENT1_MASK(mask) | SPW_LINK2_ESCCHAREVENT1_VALUE(value);
+<#else>
+            SPW_REGS->SPW_LINK2_ESCCHAREVENT[1] = SPW_LINK2_ESCCHAREVENT_ACTIVE(1) | SPW_LINK2_ESCCHAREVENT_MASK(mask) | SPW_LINK2_ESCCHAREVENT_VALUE(value);
+</#if>
         else
+<#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT1 = 0;
+<#else>
+            SPW_REGS->SPW_LINK2_ESCCHAREVENT[1] = 0;
+</#if>
     }
 }
 

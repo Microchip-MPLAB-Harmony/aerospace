@@ -185,6 +185,10 @@ def instantiateComponent(spwComponent):
     Database.setSymbolValue("core", spwInstanceName.getValue() + "_SPWCLK_CLOCK_ENABLE", True, 1)
     Database.setSymbolValue("core", spwInstanceName.getValue() + "_TIMETICK_CLOCK_ENABLE", True, 1)
 
+    spwIsLinkEventAsTable = spwComponent.createBooleanSymbol("SPW_IS_LINK_EVT_REG_TABLE", None)
+    spwIsLinkEventAsTable.setDefaultValue((ATDF.getNode('/avr-tools-device-file/modules/module@[name="SPW"]/register-group@[name="SPW"]/register@[name="SPW_LINK1_ESCCHAREVENT"]') != None))
+    spwIsLinkEventAsTable.setVisible(False)
+
     ################################################################################
     #### Menu ####
     ################################################################################
@@ -280,7 +284,7 @@ def instantiateComponent(spwComponent):
     spwClkTimeTickEnComment.setLabel("Warning!!! " + spwInstanceName.getValue() + " Peripheral Clock TIMETICK is Disabled in Clock Manager")
     spwClkTimeTickEnComment.setDependencies(spwClockWarningStatus, ["core." + spwInstanceName.getValue() + "_TIMETICK_CLOCK_ENABLE"])
     if (Database.getSymbolValue("core", spwInstanceName.getValue() + "_TIMETICK_CLOCK_ENABLE")):
-        spwClkEnComment.setVisible(False)
+        spwClkTimeTickEnComment.setVisible(False)
 
     interruptVector = spwInstanceName.getValue() + "_INTERRUPT_ENABLE"
     interruptHandler = spwInstanceName.getValue() + "_INTERRUPT_HANDLER"
