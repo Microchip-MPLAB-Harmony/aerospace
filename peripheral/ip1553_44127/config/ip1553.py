@@ -94,6 +94,10 @@ def instantiateComponent(mil1553Component):
     # Initialize peripheral clock
     Database.setSymbolValue("core", mil1553InstanceName.getValue() + "_CLOCK_ENABLE", True, 1)
 
+    mil1553HasBusInd = mil1553Component.createBooleanSymbol("IP1553_HAS_BUS_IND", None)
+    mil1553HasBusInd.setDefaultValue((ATDF.getNode('/avr-tools-device-file/modules/module@[name="IP1553"]/register-group@[name="IP1553"]/register@[name="IP1553_ISR"]/bitfield@[name="BUS"]') != None))
+    mil1553HasBusInd.setVisible(False)
+
     ################################################################################
     #### Menu ####
     ################################################################################
