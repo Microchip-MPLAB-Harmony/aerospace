@@ -23,7 +23,11 @@
 
 ######################  Harmony Aerospace  ######################
 def loadModule():
-    print("Load Module: Harmony Aerospace")
-    d = dict(locals(), **globals())
-    execfile(Module.getPath()+"peripheral/config/peripheral.py", d, d)
+    device_node = ATDF.getNode('/avr-tools-device-file/devices/device')
+    dev_family = str(device_node.getAttribute("family"))
 
+    if( dev_family == "SAMRH" ):
+
+        print("Load Module: Harmony Aerospace")
+        d = dict(locals(), **globals())
+        execfile(Module.getPath()+"peripheral/config/peripheral.py", d, d)
