@@ -109,10 +109,12 @@ def instantiateComponent(flexrameccComponent):
     ################################################################################
 
     flexrameccInterruptMode = flexrameccComponent.createBooleanSymbol("INTERRUPT_MODE", None)
+    flexrameccInterruptMode.setHelp("mcc_h3_flexramecc_44124_configurations")
     flexrameccInterruptMode.setLabel("Interrupt Mode")
     flexrameccInterruptMode.setDefaultValue(False)
 
     flexrameccInjectionTestMode = flexrameccComponent.createBooleanSymbol("INJECTION_TEST_MODE", None)
+    flexrameccInjectionTestMode.setHelp("mcc_h3_flexramecc_44124_configurations")
     flexrameccInjectionTestMode.setLabel("Use Injection Test Mode")
     flexrameccInjectionTestMode.setDefaultValue(False)
 

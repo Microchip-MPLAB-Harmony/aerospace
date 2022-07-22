@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
+<meta name="DC.rights.owner" content="(C) Copyright 2022" />
+<meta name="DC.type" content="topic" />
+<meta name="DC.title" content="IP1553 Peripheral Library (IP1553)" />
+<meta name="DC.relation" scheme="URI" content="GUID-1CE8F33B-F9EF-4806-9B9A-83D4F0D0F22C.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-6A8CB99A-BA0A-4767-AC66-D69DBA3C891D.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-82EF7B89-5318-40A4-9C13-1ECD5DC2568D.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-148E20E9-1158-432E-AD5B-B9EA83D49E87.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-24005102-9CA3-48DA-A1A5-B09DC50F3DFA.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-5AE6D6C8-7849-4BB8-9981-D158DC725031.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-4AB1B046-7405-465B-800C-21C180F934C6.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-04A710C9-5415-43BC-9FA7-32EB4A10DB07.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-5FC60B83-126A-462E-8492-A93228E62591.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-7C5EABC7-D73D-422E-B006-23890BBCE179.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-0FE47211-F991-45CF-8F0F-1B1EE0FF96FB.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-B29EEA91-C0CD-4C9A-A637-B18F274E7B21.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-969B6D1D-28C5-4EC4-B330-6AE217DAB8F3.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-EDC9E838-528C-42C5-BDF3-AEA7885CFA4A.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-6F5EEE2E-6F25-4CF5-BB13-66A17EAEE8BF.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-2681A3BE-7432-4A66-A617-9628E573D6E8.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-51676D40-613D-4610-B70E-88606BAEE341.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-1932C7E3-FA73-480A-8886-F02A1A41D446.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-4B6F379C-E718-4DEC-95C1-3F86F54889EE.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-25B5324F-9EB5-4876-84CB-E8FB5A04B25B.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-AE4F9648-064C-4A80-BA06-57A0D9F17215.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-5937E4B0-531B-4F3E-92E6-A042FA0872C1.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-1C2BF865-3F04-48B8-9B03-BF04172FABC9.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-5404252A-91DA-4B6B-A828-2650A1EB56F6.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-4F58095F-9950-4D92-B520-EC186E051BCD.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-4337D93F-0FAF-4A4E-9804-45163A789E3D.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-4E8F4CCF-3319-462F-AB17-3216C7BF65DA.html" />
+<meta name="DC.relation" scheme="URI" content="GUID-427D2AC7-7EA4-4A24-BA38-0EE0A2EBE670.html" />
+<meta name="DC.format" content="XHTML" />
+<meta name="DC.identifier" content="ip1553-peripheral-library-ip1553" />
+<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
+<title>IP1553 Peripheral Library (IP1553)</title>
+<meta name="Microsoft.Help.Id" content="GUID-1496A2CC-C97C-4626-8C96-AF36CD92FAF6-ip1553-peripheral-library-ip1553" />
+<meta name="Microsoft.Help.TocParent" content="GUID-1496A2CC-C97C-4626-8C96-AF36CD92FAF6" />
+<meta name="Microsoft.Help.TocOrder" content="0" />
+<meta name="Microsoft.Help.Locale" content="en-US" />
+<meta name="Microsoft.Help.TopicLocale" content="en-US" />
+<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Aerospace Library Reference A 01/2022" />
+<script language="javascript">
+       
+       if (window.parent.location.protocol != 'file:') {
+				document.addEventListener('click', function(e) {
+				    if (e.target) {
+               if (e.target.nodeName == "A" ) {
+                    if (!e.target.target) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                              
+                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
+                      if (origUrl.length === 0) {
+                          origUrl = window.parent.location.href;
+                      }
+                      var href= e.target.getAttribute("href");
+                      var parts = href.split("#");
+          
+                      var url = "";
+                      if (parts.length == 2 ) {
+                        if (!parts[0].length) {
+                            url = window.parent.location.search.replace('?','')
+                        } else {
+                            url = parts[0].replace('.html','');
+                        }
+                      } else {
+                        url = parts[0].replace('.html','');
+                      }
+
+                      if (parts.length == 2) {
+                          url += "#" + parts[1];
+                      }
+    
+                      window.parent.location.href = origUrl + "?" + url;
+
+                      return false;
+                    }
+               }
+            }
+				});
+			}
+
+		</script><script language="javascript">
+         
+         function copyContent(content, button) {
+         
+            var textArea = document.createElement("textarea");
+            
+            // Place in the top-left corner of screen regardless of scroll position.
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            
+            // Ensure it has a small width and height. Setting to 1px / 1em
+            // doesn't work as this gives a negative w/h on some browsers.
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            
+            // We don't need padding, reducing the size if it does flash render.
+            textArea.style.padding = 0;
+            
+            // Clean up any borders.
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            
+            // Avoid flash of the white box if rendered for any reason.
+            textArea.style.background = 'transparent';
+            
+            textArea.value = content;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+               var successful = document.execCommand('copy');
+               var msg = successful ? 'successful' : 'unsuccessful';
+               if (!button.classList.contains("copied")){
+                  button.textContent = "Copied";
+                  button.classList.add("copied");
+                  setTimeout(function(){
+                     button.textContent = "Copy";
+                     button.classList.remove("copied");
+                  },1000);
+               }
+            } catch (err) {
+               console.log('Oops, unable to copy');
+            }
+            
+            document.body.removeChild(textArea);
+         }
+         
+         function cpy(id, button) {
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            
+            copyContent(content, button);
+         }
+         
+         document.addEventListener("DOMContentLoaded", function(event) {
+            document.querySelectorAll(".codeblock").forEach(function(elem) {
+               elem.style.position = "relative";
+               var copy = document.createElement("button");
+               copy.textContent = "Copy";
+               copy.setAttribute("class", "copy-code");
+               
+               var content = elem.textContent;
+               
+               copy.addEventListener("click", function(){
+                  copyContent(content, copy);
+               });
+               
+               elem.addEventListener("mouseenter", function(evt){
+                  elem.prepend(copy);
+               });
+            });
+            
+            document.querySelectorAll(".codeblock").forEach(function(elem) {
+               elem.addEventListener("mouseleave", function(evt){
+                  document.querySelector(".copy-code").remove();
+               });
+            });
+         });
+         
+      </script><script language="javascript">
+          
+          // Add the MathML namespace to html
+          var html = document.getElementsByTagName("html")[0],
+          head = document.getElementsByTagName("head")[0];
+          
+          var mathJax = document.createElement("script");
+          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
+          head.appendChild(mathJax);
+          
+          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
+          
+          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+          
+          if (!inIframe()) { 
+          
+          var Default = "index.html?GUID-1B864716-0BD8-4DE4-BF76-99782DCE1FA3"; 
+          
+          var displaylocation = "value" + window.location.href;
+          
+          var GUIDS = displaylocation.split('GUID');          
+          
+          if (displaylocation.indexOf('#GUID') != -1) {            
+          var First = GUIDS[1].split('.html');  
+          if (GUIDS[3]){First = GUIDS[2].split('.html');}
+          if (GUIDS[4]){First = GUIDS[3].split('.html');}
+          if (GUIDS[5]){First = GUIDS[4].split('.html');}
+          
+          var Second = GUIDS[2].split('#');   
+          if (GUIDS[3]){Second = GUIDS[3].split('#');}
+          if (GUIDS[4]){Second = GUIDS[4].split('#');}
+          if (GUIDS[5]){Second = GUIDS[5].split('#');}
+          
+          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
+          }                    
+          window.top.location = Default;
+          }       
+          
+        </script><link rel="stylesheet" type="text/css" href="syntax-highlight.css" /><style xml:space="">
+        
+          button.copy-code{
+            display:none;
+            padding:0.7em 1.4em;
+            margin:0 0.3em 0.3em 0;
+            border-radius:0.15em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            text-transform:uppercase;
+            font-weight:400;
+            color:#FFFFFF;
+            background-color:#9c9c9c;
+            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align:center;
+            position:relative;
+            border: 0;
+            float: right;
+            border-radius: .5em;
+            cursor: pointer;
+          }
+          button.copy-code:active{
+            top:0.1em;
+          }
+          
+          pre:hover button.copy-code{
+            display: inline-block !important;
+          }
+          button.copy-code.copied {
+            cursor: default !important;
+          }
+          
+          
+          @media all and (max-width:30em){
+            button.copy-code{
+              display:block;
+              margin:0.4em auto;
+            }
+          }
+        
+        
+      </style><link rel="stylesheet" type="text/css" href="syntax-highlight.css" /></head>
+<body id="ip1553-peripheral-library-ip1553">
+<h1 class="title topictitle1" id="ariaid-title1">IP1553 Peripheral Library (IP1553)</h1><div class="body"><p class="p">The IP1553 peripheral module is an interface commonly used in space applications. It features one nominal bus and one redundant
+bus to obtain reliable transfers and it can carry out data transfers at a bit rate of 1 Mbits/sec. A typical
+network is made of a Bus Controller (BC) and up to 31 Remote Terminals (RT).
+The IP1553 interface embeds two configurations of the Bus Controller or Remote Terminal as defined
+in the MIL-STD-1553B standard.</p>
+<p class="p"><strong class="ph b">Configuring the library</strong></p>
+<p class="p">Configure the peripheral library using the MHC.</p>
+<br /><img class="image" src="GUID-B5CA0EAC-E692-48F1-9580-CC07FAF83FC8-low.png" alt="ip1553_mhc_config" /><br /><ul class="ul"><li class="li"><p class="p">12 MHz input clock should be configured with clock configurator.</p>
+</li>
+<li class="li"><p class="p">The 1553 mode used is configurable : BC or RT mode</p>
+<ul class="ul"><li class="li"><p class="p">RT address should be configured for RT mode.</p>
+</li>
+</ul>
+</li>
+<li class="li"><p class="p">"Interrupt Mode" option can be enabled to add interface functions for interrupt support (Enable, Disable and callback register).</p>
+</li>
+</ul>
+<p class="p"><strong class="ph b">Using the library</strong></p>
+<p class="p">The IP1553 initialization is done during system initialization. It configures the module depending on the given parameters in MHC interface.</p>
+<p class="p">For both modes, once the module is initialize, the receive and transmit buffers should be initialized. Application must allocate 2 buffers (one for receive and one for transmit) from non-cached contiguous memory and buffer size must be 2 Kbyte (16 bit <em class="ph i">IP1553_BUFFERS_SIZE</em> IP1553_BUFFERS_NUM)</p>
+<p class="p">Code example for buffers configuration:</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Allocation of receive buffer for IP1553 */</em>
+    uint16_t IP1553RxBuffersRAM[IP1553_BUFFERS_NUM][IP1553_BUFFERS_SIZE] __attribute__((aligned (<span class="hl-number">32</span>)))__attribute__((section (<span class="hl-string">".ram_nocache"</span>)));
+
+    <em class="hl-comment">/* Allocation of transmit buffer for IP1553 */</em>
+    uint16_t IP1553TxBuffersRAM[IP1553_BUFFERS_NUM][IP1553_BUFFERS_SIZE] __attribute__((aligned (<span class="hl-number">32</span>)))__attribute__((section (<span class="hl-string">".ram_nocache"</span>)));
+
+    <em class="hl-comment">/* Set buffers Configuration */</em>
+    IP1553_BuffersConfigSet(&amp;IP1553TxBuffersRAM[<span class="hl-number">0</span>][<span class="hl-number">0</span>], &amp;IP1553RxBuffersRAM[<span class="hl-number">0</span>][<span class="hl-number">0</span>]);</pre><p class="p">To receive and transmit, the status of the buffers must be reset (indicate buffer is empty for RX and that buffer is ready to be sent for Tx):</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Reset Tx and Rx status for buffers 0 and 31 */</em>
+    IP1553_ResetTxBuffersStatus(<span class="hl-number">0x80000001</span>);
+    IP1553_ResetRxBuffersStatus(<span class="hl-number">0x80000001</span>);</pre><p class="p"><strong class="ph b">Bus Controller mode</strong></p>
+<p class="p">Once initialized, the Bus Controller can issue data transfer or mode commands:</p>
+<ul class="ul"><li class="li"><p class="p">From BC to RT</p>
+</li>
+<li class="li"><p class="p">From RT to BC</p>
+</li>
+<li class="li"><p class="p">From RT to RT</p>
+</li>
+</ul>
+<p class="p">After the send of the command the BC can check the status to detect the end of transmission/reception and/or possible errors flags.</p>
+<p class="p">Example of sending data from BC buffer 0 to RT1 buffer 3 and wait for status word:</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Send 4 words data from BC buffer 2 to RT1 buffer 3, on Bus A */</em>
+    IP1553_BcStartDataTransfer(
+        IP1553_DATA_TX_TYPE_BC_TO_RT,
+        <span class="hl-number">0</span>,
+        <span class="hl-number">2</span>,
+        <span class="hl-number">1</span>,
+        <span class="hl-number">3</span>,
+        <span class="hl-number">4</span>,
+        IP1553_BUS_A
+    );
+
+    <em class="hl-comment">/* Wait for status word */</em>
+    <strong class="hl-keyword">do</strong>
+    {
+        IP1553_INT_MASK status = IP1553_IrqStatusGet();
+        <strong class="hl-keyword">if</strong> ( (status &amp; IP1553_INT_MASK_ETX) != <span class="hl-number">0</span> )
+        {
+            isTransferEnded = true;
+        }
+        <strong class="hl-keyword">if</strong> ( (status &amp; IP1553_INT_MASK_ETRANS_MASK) != <span class="hl-number">0</span> )
+        {
+            hasStatusWord = IP1553_INT_MASK_GET_ETRANS(status);
+        }
+        transferErrors = status &amp; IP1553_INT_MASK_ERROR_MASK;
+    }
+    <strong class="hl-keyword">while</strong> ( ( (isTransferEnded == false) || (hasStatusWord == <span class="hl-number">0</span>) ) &amp;&amp; (transferErrors == <span class="hl-number">0</span>) );</pre><p class="p">Example of sending  <code class="ph codeph">Synchronize without data</code> mode command to RT01 and wait for status word:</p>
+<pre class="pre codeblock c">    IP1553_BcModeCommandTransfer(
+            <span class="hl-number">1</span>,
+            IP1553_MODE_CMD_SYNCHRONIZE_WITHOUT_DATA,
+            <span class="hl-number">0</span>,
+            IP1553_BUS_A);
+
+    <em class="hl-comment">/* Wait end of transfer */</em>
+    <strong class="hl-keyword">do</strong>
+    {
+        IP1553_INT_MASK status = IP1553_IrqStatusGet();
+        <strong class="hl-keyword">if</strong> ( (status &amp; IP1553_INT_MASK_ETRANS_MASK) != <span class="hl-number">0</span> )
+        {
+            hasStatusWord = IP1553_INT_MASK_GET_ETRANS(status);
+        }
+        transferErrors = status &amp; IP1553_INT_MASK_ERROR_MASK;
+    }
+    <strong class="hl-keyword">while</strong> ( (hasStatusWord == <span class="hl-number">0</span>) &amp;&amp; (transferErrors == <span class="hl-number">0</span>) );
+
+    <em class="hl-comment">/* Get Transfer Status Word */</em>
+    transferStatusWord = IP1553_GetFirstStatusWord();</pre><p class="p"><strong class="ph b">Remote Terminal mode</strong></p>
+<p class="p">When configured in RT mode, the 1553 module features a specific behavior depending on the command received from the 1553 network.</p>
+<p class="p">The status return by <code class="ph codeph">IP1553_IrqStatusGet</code> contains the information on detected errors or the end of data reception and transmission.</p>
+<p class="p">If the buffer read or write by the BC command were prepared (reset status to indicate empty or ready to send), the transfer is executed without error.</p>
+<p class="p">The functions <code class="ph codeph">IP1553_GetRxBuffersStatus</code> and <code class="ph codeph">IP1553_GetTxBuffersStatus</code> can then be used to determine the modified buffers.</p>
+<p class="p">Example of wait of data reception:</p>
+<pre class="pre codeblock c">    <strong class="hl-keyword">while</strong> ( true )
+    {
+        IP1553_INT_MASK status = IP1553_IrqStatusGet();
+
+        <strong class="hl-keyword">if</strong> ( (status &amp; IP1553_INT_MASK_ERX) == IP1553_INT_MASK_ERX )
+        {
+            uint32_t lastActiveBuffers = (~(IP1553_GetRxBuffersStatus())) &amp; <span class="hl-number">0x80000001</span>;
+            uint32_t buffer = <span class="hl-number">0</span>;
+            <strong class="hl-keyword">while</strong> ( lastActiveBuffers != <span class="hl-number">0</span> )
+            {
+                <strong class="hl-keyword">while</strong> ( ( lastActiveBuffers &amp; <span class="hl-number">0x1</span> ) == <span class="hl-number">0</span> )
+                {
+                    buffer++;
+                    lastActiveBuffers &gt;&gt;= <span class="hl-number">1</span>;
+                }
+
+                printf(<span class="hl-string">"RX buffer : %u"</span>, (<strong class="hl-keyword">unsigned</strong> <strong class="hl-keyword">int</strong>) buffer);
+
+                <em class="hl-comment">/* Reset Rx buffer status */</em>
+                IP1553_ResetRxBuffersStatus(IP1553_BUFFER_TO_BITFIELD_SA(buffer));
+
+                <em class="hl-comment">/* Go to next bit in lastActiveBuffer bit field */</em>
+                buffer++;
+                lastActiveBuffers &gt;&gt;= <span class="hl-number">1</span>;
+            }
+        }
+    }</pre><p class="p">In RT mode, the peripheral send mode command response automatically to the Bus Controller.
+The following functions can be used to set the flag bits in status word sent in response:</p>
+<ul class="ul"><li class="li"><p class="p"><code class="ph codeph">IP1553_BCEnableCmdSet</code> : Value indicated in the Dynamic Bus Control bit of the status word.</p>
+</li>
+<li class="li"><p class="p"><code class="ph codeph">IP1553_SREQBitCmdSet</code> : Value of the Service Request bit to returned in the status word.</p>
+</li>
+<li class="li"><p class="p"><code class="ph codeph">IP1553_BusyBitCmdSet</code> : Value of the busy bit to be returned in the status word.</p>
+</li>
+<li class="li"><p class="p"><code class="ph codeph">IP1553_SSBitCmdSet</code> : Value of the Subsystem Flag bit to be returned in the status word.</p>
+</li>
+<li class="li"><p class="p"><code class="ph codeph">IP1553_TRBitCmdSet</code> : Value of the T/F bit to be returned in the status word.</p>
+</li>
+</ul>
+<p class="p">For <code class="ph codeph">Transmit Built-In Test</code> and <code class="ph codeph">Transmit Vector Word</code> mode command, the data word sent in response can be modify using the functions:</p>
+<ul class="ul"><li class="li"><p class="p"><code class="ph codeph">IP1553_BitWordSet</code> : For Transmit Built-In Test response.</p>
+</li>
+<li class="li"><p class="p"><code class="ph codeph">IP1553_VectorWordSet</code> : For Transmit Vector Word response.</p>
+</li>
+</ul>
+<p class="p"><strong class="ph b">Using interrupts</strong></p>
+<p class="p">When interrupts are used to check the IP1553 status, the interrupt callback function should be set and expected interrupts enabled:</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Set 1553 application callback on interrupt event */</em>
+    IP1553_CallbackRegister(IP1553_Callback_Function, (uintptr_t) NULL);
+
+    <em class="hl-comment">/* Enable all IP1553 interrupts */</em>
+    IP1553_InterruptEnable(
+        IP1553_INT_MASK_EMT |
+        IP1553_INT_MASK_MTE |
+        IP1553_INT_MASK_ERX |
+        IP1553_INT_MASK_ETX |
+        IP1553_INT_MASK_ETRANS_MASK |
+        IP1553_INT_MASK_TE |
+        IP1553_INT_MASK_TCE |
+        IP1553_INT_MASK_TPE |
+        IP1553_INT_MASK_TDE |
+        IP1553_INT_MASK_TTE |
+        IP1553_INT_MASK_TWE |
+        IP1553_INT_MASK_BE |
+        IP1553_INT_MASK_ITR |
+        IP1553_INT_MASK_TVR |
+        IP1553_INT_MASK_DBR |
+        IP1553_INT_MASK_STR |
+        IP1553_INT_MASK_TSR |
+        IP1553_INT_MASK_OSR |
+        IP1553_INT_MASK_SDR |
+        IP1553_INT_MASK_SWD |
+        IP1553_INT_MASK_RRT |
+        IP1553_INT_MASK_ITF |
+        IP1553_INT_MASK_OTF |
+        IP1553_INT_MASK_IPB);</pre></div>
+<div class="related-links">
+<ul class="ullinks">
+<li class="link ulchildlink"><strong><a href="GUID-6A8CB99A-BA0A-4767-AC66-D69DBA3C891D.html">IP1553_INT_MASK</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-82EF7B89-5318-40A4-9C13-1ECD5DC2568D.html">IP1553_DATA_TX_TYPE</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-148E20E9-1158-432E-AD5B-B9EA83D49E87.html">IP1553_BUS</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-24005102-9CA3-48DA-A1A5-B09DC50F3DFA.html">IP1553_MODE_CMD</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-5AE6D6C8-7849-4BB8-9981-D158DC725031.html">IP1553_CALLBACK</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-4AB1B046-7405-465B-800C-21C180F934C6.html">IP1553_OBJ</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-04A710C9-5415-43BC-9FA7-32EB4A10DB07.html">IP1553_Initialize</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-5FC60B83-126A-462E-8492-A93228E62591.html">IP1553_BuffersConfigSet</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-7C5EABC7-D73D-422E-B006-23890BBCE179.html">IP1553_GetTxBuffersStatus</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-0FE47211-F991-45CF-8F0F-1B1EE0FF96FB.html">IP1553_ResetTxBuffersStatus</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-B29EEA91-C0CD-4C9A-A637-B18F274E7B21.html">IP1553_GetRxBuffersStatus</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-969B6D1D-28C5-4EC4-B330-6AE217DAB8F3.html">IP1553_ResetRxBuffersStatus</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-EDC9E838-528C-42C5-BDF3-AEA7885CFA4A.html">IP1553_IrqStatusGet</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-6F5EEE2E-6F25-4CF5-BB13-66A17EAEE8BF.html">IP1553_BcStartDataTransfer</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-2681A3BE-7432-4A66-A617-9628E573D6E8.html">IP1553_BcModeCommandTransfer</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-51676D40-613D-4610-B70E-88606BAEE341.html">IP1553_GetFirstStatusWord</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-1932C7E3-FA73-480A-8886-F02A1A41D446.html">IP1553_GetSecondStatusWord</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-4B6F379C-E718-4DEC-95C1-3F86F54889EE.html">IP1553_BCEnableCmdSet</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-25B5324F-9EB5-4876-84CB-E8FB5A04B25B.html">IP1553_SREQBitCmdSet</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-AE4F9648-064C-4A80-BA06-57A0D9F17215.html">IP1553_BusyBitCmdSet</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-5937E4B0-531B-4F3E-92E6-A042FA0872C1.html">IP1553_SSBitCmdSet</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-1C2BF865-3F04-48B8-9B03-BF04172FABC9.html">IP1553_TRBitCmdSet</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-5404252A-91DA-4B6B-A828-2650A1EB56F6.html">IP1553_BitWordSet</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-4F58095F-9950-4D92-B520-EC186E051BCD.html">IP1553_VectorWordSet</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-4337D93F-0FAF-4A4E-9804-45163A789E3D.html">IP1553_CallbackRegister</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-4E8F4CCF-3319-462F-AB17-3216C7BF65DA.html">IP1553_InterruptEnable</a></strong><br />
+</li>
+<li class="link ulchildlink"><strong><a href="GUID-427D2AC7-7EA4-4A24-BA38-0EE0A2EBE670.html">IP1553_InterruptDisable</a></strong><br />
+</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a class="link" href="GUID-1CE8F33B-F9EF-4806-9B9A-83D4F0D0F22C.html">SAM RH71 Aerospace Libraries</a></div>
+</div>
+</div></body>
+</html>

@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" /><meta name="copyright" content="(C) Copyright 2022" />
+<meta name="DC.rights.owner" content="(C) Copyright 2022" />
+<meta name="DC.type" content="topic" />
+<meta name="DC.title" content="SPW Peripheral Library (SPW)" />
+<meta name="DC.format" content="XHTML" />
+<meta name="DC.identifier" content="spw-peripheral-library-spw" />
+<link rel="stylesheet" type="text/css" href="stylesheets/atmel.css" />
+<title>SPW Peripheral Library (SPW)</title>
+<meta name="Microsoft.Help.Id" content="GUID-1496A2CC-C97C-4626-8C96-AF36CD92FAF6-spw-peripheral-library-spw" />
+<meta name="Microsoft.Help.TocParent" content="GUID-1496A2CC-C97C-4626-8C96-AF36CD92FAF6" />
+<meta name="Microsoft.Help.TocOrder" content="0" />
+<meta name="Microsoft.Help.Locale" content="en-US" />
+<meta name="Microsoft.Help.TopicLocale" content="en-US" />
+<meta name="Microsoft.Help.DisplayVersion" content="MPLAB® Harmony Aerospace Library Reference A 01/2022" />
+<script language="javascript">
+       
+       if (window.parent.location.protocol != 'file:') {
+				document.addEventListener('click', function(e) {
+				    if (e.target) {
+               if (e.target.nodeName == "A" ) {
+                    if (!e.target.target) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                              
+                      var origUrl = window.parent.location.href.substr(0, window.parent.location.href.indexOf("?"));
+                      if (origUrl.length === 0) {
+                          origUrl = window.parent.location.href;
+                      }
+                      var href= e.target.getAttribute("href");
+                      var parts = href.split("#");
+          
+                      var url = "";
+                      if (parts.length == 2 ) {
+                        if (!parts[0].length) {
+                            url = window.parent.location.search.replace('?','')
+                        } else {
+                            url = parts[0].replace('.html','');
+                        }
+                      } else {
+                        url = parts[0].replace('.html','');
+                      }
+
+                      if (parts.length == 2) {
+                          url += "#" + parts[1];
+                      }
+    
+                      window.parent.location.href = origUrl + "?" + url;
+
+                      return false;
+                    }
+               }
+            }
+				});
+			}
+
+		</script><script language="javascript">
+         
+         function copyContent(content, button) {
+         
+            var textArea = document.createElement("textarea");
+            
+            // Place in the top-left corner of screen regardless of scroll position.
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            
+            // Ensure it has a small width and height. Setting to 1px / 1em
+            // doesn't work as this gives a negative w/h on some browsers.
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            
+            // We don't need padding, reducing the size if it does flash render.
+            textArea.style.padding = 0;
+            
+            // Clean up any borders.
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            
+            // Avoid flash of the white box if rendered for any reason.
+            textArea.style.background = 'transparent';
+            
+            textArea.value = content;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+               var successful = document.execCommand('copy');
+               var msg = successful ? 'successful' : 'unsuccessful';
+               if (!button.classList.contains("copied")){
+                  button.textContent = "Copied";
+                  button.classList.add("copied");
+                  setTimeout(function(){
+                     button.textContent = "Copy";
+                     button.classList.remove("copied");
+                  },1000);
+               }
+            } catch (err) {
+               console.log('Oops, unable to copy');
+            }
+            
+            document.body.removeChild(textArea);
+         }
+         
+         function cpy(id, button) {
+            var element = document.getElementById(id);
+            var content = element.getAttribute("content");
+            
+            copyContent(content, button);
+         }
+         
+         document.addEventListener("DOMContentLoaded", function(event) {
+            document.querySelectorAll(".codeblock").forEach(function(elem) {
+               elem.style.position = "relative";
+               var copy = document.createElement("button");
+               copy.textContent = "Copy";
+               copy.setAttribute("class", "copy-code");
+               
+               var content = elem.textContent;
+               
+               copy.addEventListener("click", function(){
+                  copyContent(content, copy);
+               });
+               
+               elem.addEventListener("mouseenter", function(evt){
+                  elem.prepend(copy);
+               });
+            });
+            
+            document.querySelectorAll(".codeblock").forEach(function(elem) {
+               elem.addEventListener("mouseleave", function(evt){
+                  document.querySelector(".copy-code").remove();
+               });
+            });
+         });
+         
+      </script><script language="javascript">
+          
+          // Add the MathML namespace to html
+          var html = document.getElementsByTagName("html")[0],
+          head = document.getElementsByTagName("head")[0];
+          
+          var mathJax = document.createElement("script");
+          mathJax.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML";
+          head.appendChild(mathJax);
+          
+          html.setAttribute("xmlns:m","http://www.w3.org/1998/Math/MathML");
+          
+          function inIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+          
+          if (!inIframe()) { 
+          
+          var Default = "index.html?GUID-11BD48AF-0F5C-4F45-854E-9569AAB916C9"; 
+          
+          var displaylocation = "value" + window.location.href;
+          
+          var GUIDS = displaylocation.split('GUID');          
+          
+          if (displaylocation.indexOf('#GUID') != -1) {            
+          var First = GUIDS[1].split('.html');  
+          if (GUIDS[3]){First = GUIDS[2].split('.html');}
+          if (GUIDS[4]){First = GUIDS[3].split('.html');}
+          if (GUIDS[5]){First = GUIDS[4].split('.html');}
+          
+          var Second = GUIDS[2].split('#');   
+          if (GUIDS[3]){Second = GUIDS[3].split('#');}
+          if (GUIDS[4]){Second = GUIDS[4].split('#');}
+          if (GUIDS[5]){Second = GUIDS[5].split('#');}
+          
+          Default = "index.html?" + "GUID" + First[0] + "GUID" + Second[0];     
+          }                    
+          window.top.location = Default;
+          }       
+          
+        </script><link rel="stylesheet" type="text/css" href="syntax-highlight.css" /><style xml:space="">
+        
+          button.copy-code{
+            display:none;
+            padding:0.7em 1.4em;
+            margin:0 0.3em 0.3em 0;
+            border-radius:0.15em;
+            box-sizing: border-box;
+            text-decoration:none;
+            font-family:'Roboto',sans-serif;
+            text-transform:uppercase;
+            font-weight:400;
+            color:#FFFFFF;
+            background-color:#9c9c9c;
+            box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+            text-align:center;
+            position:relative;
+            border: 0;
+            float: right;
+            border-radius: .5em;
+            cursor: pointer;
+          }
+          button.copy-code:active{
+            top:0.1em;
+          }
+          
+          pre:hover button.copy-code{
+            display: inline-block !important;
+          }
+          button.copy-code.copied {
+            cursor: default !important;
+          }
+          
+          
+          @media all and (max-width:30em){
+            button.copy-code{
+              display:block;
+              margin:0.4em auto;
+            }
+          }
+        
+        
+      </style><link rel="stylesheet" type="text/css" href="syntax-highlight.css" /></head>
+<body id="spw-peripheral-library-spw">
+<h1 class="title topictitle1" id="ariaid-title1">SPW Peripheral Library (SPW)</h1><div class="body"><p class="p">The SpaceWire (SpW) module provides support for transmission of any type of protocol or data structure using SpaceWire packets. It has hardware support for logical addressing, execution of incoming RMAP commands, and for reception/generation of Escape Characters (Broadcast Codes) and Time Codes.</p>
+<p class="p"><strong class="ph b">Configuring the library</strong></p>
+<p class="p">Configure the peripheral library using the MHC.</p>
+<br /><img class="image" src="GUID-8B75FA7D-4899-456D-ADA4-3610EC4D45D3-low.png" alt="spw_mhc_config" /><br /><ul class="ul"><li class="li"><p class="p">"Interrupt Mode" option can be enabled to add interface functions for interrupt support (Enable, Disable and callback register).</p>
+</li>
+<li class="li"><p class="p">For each link, set the default command mode and bit rate.</p>
+</li>
+</ul>
+<br /><img class="image" src="GUID-10CDD14A-0187-4C77-B7C1-38EB1720635C-low.png" alt="spw_mhc_config-router" /><br /><ul class="ul"><li class="li"><p class="p">Configure the router and set logical address routing in table.</p>
+<ul class="ul"><li class="li"><p class="p">"Disable timeout": Disable the default timeout on destination address stall.</p>
+</li>
+<li class="li"><p class="p">"Enable Logical Addressing" : Check to enable router logical addressing.</p>
+</li>
+<li class="li"><p class="p">"Enable Fallback routing" : Enable the fallback routing if the addressed destination is unavailable. (only applicable with logical addressing)</p>
+</li>
+</ul>
+</li>
+</ul>
+<br /><img class="image" src="GUID-5E53EDE3-4340-47D5-95E5-C7446FC91AAB-low.png" alt="spw_mhc_config_rmap" /><br /><ul class="ul"><li class="li"><p class="p">Enable and configure the RMAP module to accept/reject commands automatically.</p>
+<ul class="ul"><li class="li"><p class="p">"Target Logical Address" : Any incoming RMAP command must have a TLA matching this value, or TLA = 0xFE, in order to be accepted.</p>
+</li>
+<li class="li"><p class="p">"Destination Key" : Any incoming RMAP command must have a matching Destination Key in order to be accepted.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p class="p"><strong class="ph b">Using the library</strong></p>
+<p class="p">The SPW initialization is done during system initialization. It configure the module depending on the given parameters in MHC interface.</p>
+<p class="p">If interrupts are used, the callback function should be set and expected interrupts enabled:</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Add SPW interrupt callback */</em>
+    SPW_CallbackRegister(SPW_Callback_Function, (uintptr_t)NULL);
+
+    <em class="hl-comment">/* Enable SPW Link interrupts */</em>
+    SPW_LINK_InterruptEnable(SPW_LINK_<span class="hl-number">1</span> , SPW_LINK_INT_MASK_DISERR |
+                                          SPW_LINK_INT_MASK_PARERR |
+                                          SPW_LINK_INT_MASK_ESCERR |
+                                          SPW_LINK_INT_MASK_CRERR |
+                                          SPW_LINK_INT_MASK_LINKABORT |
+                                          SPW_LINK_INT_MASK_EEPTRANS |
+                                          SPW_LINK_INT_MASK_EEPREC |
+                                          SPW_LINK_INT_MASK_DISCARD);
+
+    <em class="hl-comment">/* Enable packet TX interrupts */</em>
+    SPW_PKTTX_InterruptEnable(SPW_PKTTX_INT_MASK_DEACT);
+
+    <em class="hl-comment">/* Enable packet TX interrupts */</em>
+    SPW_PKTTX_InterruptEnable(SPW_PKTTX_INT_MASK_DEACT);</pre><p class="p"><strong class="ph b">Link State</strong></p>
+<p class="p">For both link, the current state can be checked with <code class="ph codeph">SPW_LINK_StatusGet</code></p>
+<p class="p">Example for waiting both links to be in <code class="ph codeph">Run</code> state:</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Wait link goes to Run state */</em>
+    SPW_LINK_STATE spwLink1Status = <span class="hl-number">0</span>;
+    SPW_LINK_STATE spwLink2Status = <span class="hl-number">0</span>;
+    <strong class="hl-keyword">do</strong>
+    {
+        spwLink1Status = SPW_LINK_GET_STATE(SPW_LINK_StatusGet(SPW_LINK_<span class="hl-number">1</span>));
+        spwLink2Status = SPW_LINK_GET_STATE(SPW_LINK_StatusGet(SPW_LINK_<span class="hl-number">2</span>));
+    }
+    <strong class="hl-keyword">while</strong> ( (spwLink1Status != SPW_LINK_STATE_RUN) &amp;&amp;
+            (spwLink2Status != SPW_LINK_STATE_RUN) );</pre><p class="p"><strong class="ph b">Link Distributed interrupts</strong></p>
+<p class="p">For both link, distributed interrupt and distributed interrupt acknowledge can be enabled and disable using functions:</p>
+<ul class="ul"><li class="li"><p class="p"><code class="ph codeph">SPW_LINK_DistInterruptEnable</code> and <code class="ph codeph">SPW_LINK_DistInterruptDisable</code> for distributed interrupt.</p>
+</li>
+<li class="li"><p class="p"><code class="ph codeph">SPW_LINK_DistAckInterruptEnable</code> and <code class="ph codeph">SPW_LINK_DistAckInterruptDisable</code> for distributed interrupt acknowledge.</p>
+</li>
+</ul>
+<p class="p">If interrupts are used, the callback function should be set and expected interrupts enabled.</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Enable Link 1 distributed interrupt for values 2 and 8 */</em>
+    SPW_LINK_DistInterruptEnable(SPW_LINK_<span class="hl-number">1</span>, SPW_LINK_DIST_ACK_MASK_D2 | SPW_LINK_DIST_ACK_MASK_D8);
+    <em class="hl-comment">/* Enable Link 2 distributed interrupt for values 2 and 8 */</em>
+    SPW_LINK_DistInterruptEnable(SPW_LINK_<span class="hl-number">2</span>, SPW_LINK_DIST_ACK_MASK_D2 | SPW_LINK_DIST_ACK_MASK_D8);
+    <em class="hl-comment">/* Enable Link 1 distributed interrupt acknowledge for values 2 and 8 */</em>
+    SPW_LINK_DistAckInterruptEnable(SPW_LINK_<span class="hl-number">1</span>, SPW_LINK_DIST_ACK_MASK_D2 | SPW_LINK_DIST_ACK_MASK_D8);
+    <em class="hl-comment">/* Enable Link 2 distributed interrupt acknowledge for values 2 and 8 */</em>
+    SPW_LINK_DistAckInterruptEnable(SPW_LINK_<span class="hl-number">2</span>, SPW_LINK_DIST_ACK_MASK_D2 | SPW_LINK_DIST_ACK_MASK_D8);</pre><p class="p">The interrupt status can be read and clear using the functions:</p>
+<ul class="ul"><li class="li"><p class="p"><code class="ph codeph">SPW_LINK_DistIrqStatusGetMaskedAndClear</code> for distributed interrupt.</p>
+</li>
+<li class="li"><p class="p"><code class="ph codeph">SPW_LINK_DistAckIrqStatusGetMaskedAndClear</code> for distributed interrupt acknowledge.</p>
+</li>
+</ul>
+<p class="p"><strong class="ph b">Link escape character matching events</strong></p>
+<p class="p">For each link, two escape character matching event can be configured using <code class="ph codeph">SPW_LINK_EscapeCharEvent1Set</code> and <code class="ph codeph">SPW_LINK_EscapeCharEvent2Set</code> functions.</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Set link 2 escape character match event 1 for time code 0x22 */</em>
+    SPW_LINK_EscapeCharEvent1Set(SPW_LINK_<span class="hl-number">2</span>, true, <span class="hl-number">0xFF</span>, <span class="hl-number">0x22</span>);</pre><p class="p">Matching event generate an interrupt. The matching escape character can then be read using the functions <code class="ph codeph">SPW_LINK_LastRecvEscapeCharEvent1Get</code> or <code class="ph codeph">SPW_LINK_LastRecvEscapeCharEvent2Get</code>.</p>
+<p class="p"><strong class="ph b">Link transmit escape character</strong></p>
+<p class="p">Escape character can be transmit from both link using the function <code class="ph codeph">SPW_LINK_TransmitEscapeChar</code></p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Transmit escape character (time code 0x22) on link 1 */</em>
+    SPW_LINK_TransmitEscapeChar(SPW_LINK_<span class="hl-number">1</span>, <span class="hl-number">0x22</span>);</pre><p class="p"><strong class="ph b">Router configuration and status</strong></p>
+<p class="p">The router configuration is done during system initialization and it can be also modified by the application:</p>
+<ul class="ul"><li class="li"><p class="p">Timeout can be enable or disable with <code class="ph codeph">SPW_ROUTER_TimeoutDisable</code> function</p>
+</li>
+<li class="li"><p class="p">Fall back option can be enable or disable with <code class="ph codeph">SPW_ROUTER_FallbackEnable</code> function</p>
+</li>
+<li class="li"><p class="p">Logical address routing can be modified with <code class="ph codeph">SPW_ROUTER_RoutingTableEntrySet</code> function.</p>
+</li>
+</ul>
+<p class="p">The router status can be get using the function <code class="ph codeph">SPW_ROUTER_StatusGet</code> and timeout status with <code class="ph codeph">SPW_ROUTER_TimeoutStatusGet</code></p>
+<p class="p"><strong class="ph b">Packet reception</strong></p>
+<p class="p">The receiver can receive SpaceWire packets if the routing mechanism is set up to reach them, i.e., if the logical address or logical path is correctly set.</p>
+<p class="p">The received buffers have 3 state:</p>
+<ul class="ul"><li class="li"><p class="p">NEXT: The Rx buffers are set up.</p>
+</li>
+<li class="li"><p class="p">CURRENT: The Rx buffers collect SpaceWire packets.</p>
+</li>
+<li class="li"><p class="p">PREVIOUS: The data collected and stored in memory can be read.</p>
+</li>
+</ul>
+<p class="p"><strong class="ph b">Set a buffer in NEXT state</strong></p>
+<p class="p">Receive buffer can be set in NEXT state using the function <code class="ph codeph">SPW_PKTRX_SetNextBuffer</code>. Parameters are :</p>
+<ul class="ul"><li class="li"><p class="p">The data buffer pointers that will contains the received packet and his size in bytes.</p>
+</li>
+<li class="li"><p class="p">The packet information buffer pointer and the number of packet that can be received.</p>
+</li>
+<li class="li"><p class="p">The split option to indicate if incoming packet should be split when this buffer activates.</p>
+</li>
+<li class="li"><p class="p">The start condition and the matching value for start condition if needed.</p>
+</li>
+</ul>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Allocate Rx buffer of data */</em>
+    uint8_t <span class="hl-functions">__attribute__</span>((aligned (<span class="hl-number">32</span>)))__attribute__((section (<span class="hl-string">".ram_nocache"</span>))) buffer_data[PACKET_SIZE_BYTES] = {<span class="hl-number">0</span>};
+
+    <em class="hl-comment">/* Allocate Rx packet information list */</em>
+    SPW_PKTRX_INFO <span class="hl-functions">__attribute__</span>((aligned (<span class="hl-number">32</span>)))__attribute__((section (<span class="hl-string">".ram_nocache"</span>))) packet_info[PACKET_NUMBER] = {<span class="hl-number">0</span>};
+
+    <em class="hl-comment">// Set buffer in Next buffer with start condition now</em>
+    SPW_PKTRX_SetNextBuffer(
+        &amp;(buffer_data[<span class="hl-number">0</span>]),
+        <strong class="hl-keyword">sizeof</strong>(buffer_data),
+        &amp;(packet_info[<span class="hl-number">0</span>]),
+        PACKET_NUMBER,
+        false,
+        SPW_PKTRX_NXTBUF_START_NOW,
+        <span class="hl-number">0</span>);</pre><p class="p"><strong class="ph b">Get receiver status</strong></p>
+<p class="p">The status for NEXT, CURRENT and PREVIOUS buffers can be get with <code class="ph codeph">SPW_PKTRX_StatusGet</code> to check or wait transitions. For example, wait buffer become active after he was set in next buffer:</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Wait buffer become active */</em>
+    <strong class="hl-keyword">while</strong> ((SPW_PKTRX_StatusGet() &amp; SPW_PKTRX_STATUS_ACT) == <span class="hl-number">0</span>);</pre><p class="p"><strong class="ph b">Deactivate CURRENT buffer: Split or Discard</strong></p>
+<p class="p">The CURRENT buffer automatically deactivates if:</p>
+<ul class="ul"><li class="li"><p class="p">The CURRENT buffer (information) is full and the PREVIOUS one is not locked.</p>
+</li>
+<li class="li"><p class="p">The CURRENT buffer (data) is full and the PREVIOUS one is not locked. In this case, the on-going packet is split.</p>
+</li>
+<li class="li"><p class="p">The starting condition of the next buffer is matched and the PREVIOUS one is not locked</p>
+</li>
+</ul>
+<p class="p">The user can also request the CURRENT buffer to deactivate in two ways:</p>
+<ul class="ul"><li class="li"><p class="p">Split request with function <code class="ph codeph">SPW_PKTRX_CurrentPacketSplit</code> if the PREVIOUS buffer is not locked</p>
+</li>
+<li class="li"><p class="p">Abort of the CURRENT reception with function <code class="ph codeph">SPW_PKTRX_CurrentPacketAbort</code>, in that case it discards any ongoing packet.</p>
+</li>
+</ul>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Deactivate current buffer (Abort with split) */</em>
+    SPW_PKTRX_CurrentPacketSplit();</pre><p class="p"><strong class="ph b">Get PREVIOUS status to unlock the buffer</strong></p>
+<p class="p">The status of the previous buffer can be gets with function ``SPW_PKTRX_GetPreviousBufferStatus````. Reading his status also unlock the PREVIOUS buffer.</p>
+<pre class="pre codeblock c"><em class="hl-comment">/* Get Status and unlock previous buffer */</em>
+SPW_PKTRX_PREV_STATUS status = SPW_PKTRX_GetPreviousBufferStatus();</pre><p class="p"><strong class="ph b">Packet transmission</strong></p>
+<p class="p">SpaceWire packets are transmitted by the packet transmit block to the SpaceWire network, passing through the router block. Send list with multiple entries are used to transfer data SpaceWire packets. Each entry describe the elements in the packet that will be sent:</p>
+<ul class="ul"><li class="li"><p class="p">Routing bytes</p>
+</li>
+<li class="li"><p class="p">Escape characters</p>
+</li>
+<li class="li"><p class="p">Header pointer, size and CRC option.</p>
+</li>
+<li class="li"><p class="p">Data pointer, size and CRC option.</p>
+</li>
+</ul>
+<p class="p">Send lists go through three states:</p>
+<ul class="ul"><li class="li"><p class="p">NEXT: The transmit send lists are set up.</p>
+</li>
+<li class="li"><p class="p">CURRENT: The send list is sent over the SpaceWire network.</p>
+</li>
+<li class="li"><p class="p">PREVIOUS: All the data has been transferred to the network and the status of the send list can be read.</p>
+</li>
+</ul>
+<p class="p"><strong class="ph b">Set a send list in NEXT state</strong></p>
+<p class="p">Send list can be set in NEXT state using the function <code class="ph codeph">SPW_PKTTX_SetNextSendList</code>. Parameters are:</p>
+<ul class="ul"><li class="li"><p class="p">The routing table pointer for the 4 routing bytes. If they differ from 0, those will be the start of each packet in the Send List. All bytes are set to 0 if this pointer is NULL.</p>
+</li>
+<li class="li"><p class="p">The send list buffer pointers and the number of entries to be sent.</p>
+</li>
+<li class="li"><p class="p">The abort option if ongoing send list should be abort when this send list wants to start.</p>
+</li>
+<li class="li"><p class="p">The start condition and the matching value for start condition if needed.</p>
+</li>
+</ul>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Allocate Tx buffer for header  */</em>
+    uint8_t <span class="hl-functions">__attribute__</span>((aligned (<span class="hl-number">32</span>)))__attribute__((section (<span class="hl-string">".ram_nocache"</span>))) header_buffer[HEADER_SIZE_BYTES] = {<span class="hl-number">0</span>};
+
+    <em class="hl-comment">/* Allocate Tx buffer for data */</em>
+    uint32_t <span class="hl-functions">__attribute__</span>((aligned (<span class="hl-number">32</span>)))__attribute__((section (<span class="hl-string">".ram_nocache"</span>))) tx_data_buffer[DATA_SIZE_WORDS] = {<span class="hl-number">0</span>};
+
+    <em class="hl-comment">/* Allocate Tx send list */</em>
+    SPW_PKTTX_SEND_LIST_ENTRY <span class="hl-functions">__attribute__</span>((aligned (<span class="hl-number">32</span>)))__attribute__((section (<span class="hl-string">".ram_nocache"</span>))) packet_send_list[NUM_PACKET] = {<span class="hl-number">0</span>};
+
+    <em class="hl-comment">// Prepare send list</em>
+    packet_send_list[<span class="hl-number">0</span>].RSize = <span class="hl-number">1</span>;
+    packet_send_list[<span class="hl-number">0</span>].RB1 = SPW_ROUTER_LINK0_PORT;
+    packet_send_list[<span class="hl-number">0</span>].EscMask = <span class="hl-number">0xF</span>;
+    packet_send_list[<span class="hl-number">0</span>].EscChar = <span class="hl-number">0xFA</span>;
+    packet_send_list[<span class="hl-number">0</span>].HCrc = <span class="hl-number">1</span>;
+    packet_send_list[<span class="hl-number">0</span>].HSize = HEADER_SIZE_BYTES;
+    packet_send_list[<span class="hl-number">0</span>].HAddr = (<strong class="hl-keyword">unsigned</strong> <strong class="hl-keyword">int</strong> )  &amp;(header_buffer[<span class="hl-number">0</span>]);
+    packet_send_list[<span class="hl-number">0</span>].DCrc = <span class="hl-number">1</span>;
+    packet_send_list[<span class="hl-number">0</span>].DSize = DATA_SIZE_WORDS * <span class="hl-number">4</span>;
+    packet_send_list[<span class="hl-number">0</span>].DAddr = (<strong class="hl-keyword">unsigned</strong> <strong class="hl-keyword">int</strong>) &amp;(tx_data_buffer[<span class="hl-number">0</span>]);
+
+    <em class="hl-comment">// Set NEXT send list without router bytes.</em>
+    SPW_PKTTX_SetNextSendList(
+        NULL,
+        &amp;(_packet_send_list[<span class="hl-number">0</span>]),
+        NUM_PACKET,
+        true,
+        SPW_PKTTX_NXTSEND_START_NOW,
+        <span class="hl-number">0</span>);</pre><p class="p"><strong class="ph b">Get transmitter status</strong></p>
+<p class="p">The status for NEXT, CURRENT and PREVIOUS buffers can be get with <code class="ph codeph">SPW_PKTTX_StatusGet</code>.</p>
+<p class="p">The field <code class="ph codeph">SPW_PKTTX_STATUS_PREV_MASK</code> contains the PREVIOUS send list status.</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Get transmitter Status */</em>
+    SPW_PKTTX_STATUS tx_status = SPW_PKTTX_StatusGet();
+
+    <em class="hl-comment">/* Get PREVIOUS status */</em>
+    SPW_PKTTX_PREV previous = SPW_PKTTX_STATUS_PREV_GET(tx_status);</pre><p class="p"><strong class="ph b">Unlock PREVIOUS</strong></p>
+<p class="p">The PREVIOUS send list should be unlocked by performing a dummy write in status register. This can be done with the function <code class="ph codeph">SPW_PKTTX_UnlockStatus</code>:</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Unlock previous buffer status */</em>
+    SPW_PKTTX_UnlockStatus();</pre><p class="p"><strong class="ph b">RMAP get Status</strong></p>
+<p class="p">RMAP status can be check with <code class="ph codeph">SPW_RMAP_StatusGetAndClear</code> function. It can be used to check if there was an error during the processing of a received RMAP command.</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Get and clear RMAP status */</em>
+    SPW_RMAP_STATUS status = SPW_RMAP_StatusGetAndClear();
+
+    <em class="hl-comment">/* Get ERROR code */</em>
+    SPW_RMAP_ERRCODE error_code = SPW_RMAP_STATUS_GET_ERRCODE(status);</pre><p class="p"><strong class="ph b">Time Code Handler</strong></p>
+<p class="p">The time code handler (TCH) receives and transmits time codes over multiple SpaceWire interfaces. It operates
+either in Master mode where it is the source of time codes, or in Slave mode where it is driven by incoming time
+codes.</p>
+<p class="p"><strong class="ph b">configure Sender and Listener links</strong></p>
+<p class="p">To select interfaces were time code should be transmitted to or received from using the functions <code class="ph codeph">SPW_TCH_LinkListenerSet</code> and <code class="ph codeph">SPW_TCH_LinkSenderSet</code></p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Configure TCH to send Time Code on Link 1 */</em>
+    SPW_TCH_LinkSenderSet(SPW_TCH_SEL_LINK_MASK_L1);</pre><p class="p"><strong class="ph b">configure Event Source</strong></p>
+<p class="p">The event source that drives the time codes is configured using the function <code class="ph codeph">SPW_TCH_ConfigureEvent</code></p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Configure TCH event source on RTCOUT0 event */</em>
+    SPW_TCH_ConfigureEvent(SPW_SYNC_EVENT_MASK_RTCOUT0);</pre><p class="p"><strong class="ph b">TCH Restart</strong></p>
+<p class="p">The <code class="ph codeph">SPW_TCH_ConfigureRestart</code> function can be used to restart the current value of the Time Code, restart value can be configured to be set either :</p>
+<ul class="ul"><li class="li"><p class="p">Only once to set a value on next input source event.</p>
+</li>
+<li class="li"><p class="p">Periodically at each input source event.</p>
+</li>
+</ul>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Configure TCH restart at 0 on each PPS event (1 pulse per second) */</em>
+    SPW_TCH_ConfigureRestart(<span class="hl-number">0</span>, false, SPW_TCH_CFG_RESTART_IN_PPS, <span class="hl-number">0</span>);</pre><p class="p"><strong class="ph b">Time Code Event notification</strong></p>
+<p class="p">To react on any valid time code, the time code event interrupt can be used. The function <code class="ph codeph">SPW_TCH_ConfigureTcEvent</code> can be used to set the mask and values. To trigger an interrupt, for any bit set in the mask the corresponding bit in the time code and the value must be equal.</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Configure Time Code Event to match time code '0x10' */</em>
+    SPW_TCH_ConfigureTcEvent(<span class="hl-number">0xFF</span>, <span class="hl-number">0x10</span>);</pre><p class="p"><strong class="ph b">Time Code Watchdog</strong></p>
+<p class="p">A watchdog notification can be set up to detect whether a time code arrives in the expected time window. This is
+typically only used in Slave mode. Early and late watchdog indications can be programmed with the function <code class="ph codeph">SPW_TCH_ConfigureWatchdog</code>.
+They both works independently and will trigger dedicated interrupt when:</p>
+<ul class="ul"><li class="li"><p class="p">If a time code arrives before the programmed number of ticks of TimeTick clock.</p>
+</li>
+<li class="li"><p class="p">If no time code arrives before the programmed number of ticks of TimeTick clock.</p>
+</li>
+</ul>
+<p class="p"><strong class="ph b">Get or select Time Code</strong></p>
+<p class="p">The last Time Code distributed value can be read using the function <code class="ph codeph">SPW_TCH_LastTimeCodeGet</code></p>
+<p class="p">The next Time Code value to distribute can be set manually : To select Time Code N to be transmitted, write N-1 with the function <code class="ph codeph">SPW_TCH_LastTimeCodeSet</code> before the configured event.</p>
+<p class="p">To run Master mode manually from software without an event source, the function <code class="ph codeph">SPW_TCH_LastTimeCodeSet</code> can be used with the parameter <code class="ph codeph">now</code> to <code class="ph codeph">true</code> each time a time code should be sent.</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Manually send time code '0x04' now */</em>
+    SPW_TCH_LastTimeCodeSet(<span class="hl-number">0x04</span>, true);</pre><p class="p"><strong class="ph b">Time Code Interrupts</strong></p>
+<p class="p">TCH interrupts can be enabled and disable using functions <code class="ph codeph">SPW_TCH_InterruptEnable</code> and <code class="ph codeph">SPW_TCH_InterruptDisable</code></p>
+<p class="p">If interrupts are used, the callback function should be set and expected interrupts enabled.</p>
+<pre class="pre codeblock c">    <em class="hl-comment">/* Enable SPW TCH interrupts */</em>
+    SPW_TCH_InterruptEnable(SPW_TCH_INT_MASK_TCEVENT | SPW_TCH_INT_MASK_TIMECODE);</pre><p class="p">The TCH interrupt status can be read and clear using the function <code class="ph codeph">SPW_TCH_IrqStatusGetMaskedAndClear</code></p>
+</div>
+</body>
+</html>

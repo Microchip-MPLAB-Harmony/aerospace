@@ -51,9 +51,11 @@ def interruptControl(NVIC, event):
 
 def spwCreateLink(component, menu, LinkNumber):
     linkDescriptor = component.createMenuSymbol(spwInstanceName.getValue() + "_LINK"+ str(LinkNumber), menu)
+    linkDescriptor.setHelp("mcc_h3_spw_44126_configurations")
     linkDescriptor.setLabel("Link " + str(LinkNumber) + " configuration")
 
     linkCommand = component.createKeyValueSetSymbol(spwInstanceName.getValue() + "_LINK" + str(LinkNumber) + "_CMD", linkDescriptor)
+    linkCommand.setHelp("mcc_h3_spw_44126_configurations")
     linkCommand.setLabel("Link command")
     linkCommand.setDisplayMode("Description")
     linkCommand.setOutputMode("Value")
@@ -64,6 +66,7 @@ def spwCreateLink(component, menu, LinkNumber):
     linkCommand.setSelectedKey("AUTOSTART")
 
     linkSpeed = component.createIntegerSymbol(spwInstanceName.getValue() + "_LINK" + str(LinkNumber) + "_SPEED", linkDescriptor)
+    linkSpeed.setHelp("mcc_h3_spw_44126_configurations")
     linkSpeed.setLabel("Link speed Kbit/s:")
     linkSpeed.setMin(0)
     linkSpeed.setMax(200000)
@@ -87,13 +90,16 @@ def spwCreateLink(component, menu, LinkNumber):
 
 def spwCreateTableEntry(component, menu, LogicalAddress):
     LogicalAddrDescMenu = component.createMenuSymbol(spwInstanceName.getValue() + "_ROUTER_TABLE_LA"+ str(LogicalAddress), menu)
+    LogicalAddrDescMenu.setHelp("mcc_h3_spw_44126_configurations")
     LogicalAddrDescMenu.setLabel("Logical address " + str(LogicalAddress))
 
     LogicalAddrDelHeader = component.createBooleanSymbol(spwInstanceName.getValue() + "_ROUTER_TABLE_LA"+ str(LogicalAddress) + "_DEL", LogicalAddrDescMenu)
+    LogicalAddrDelHeader.setHelp("mcc_h3_spw_44126_configurations")
     LogicalAddrDelHeader.setLabel("Delete header byte")
     LogicalAddrDelHeader.setDefaultValue(False)
 
     LogicalAddrPhysicalAddr = component.createKeyValueSetSymbol(spwInstanceName.getValue() + "_ROUTER_TABLE_LA"+ str(LogicalAddress) + "_ADDR", LogicalAddrDescMenu)
+    LogicalAddrPhysicalAddr.setHelp("mcc_h3_spw_44126_configurations")
     LogicalAddrPhysicalAddr.setLabel("Physical address")
     LogicalAddrPhysicalAddr.setDisplayMode("Description")
     LogicalAddrPhysicalAddr.setOutputMode("Value")
@@ -212,11 +218,13 @@ def instantiateComponent(spwComponent):
     spwClkValue.setDependencies(spwTimeTickFreq, ["core." + spwInstanceName.getValue() + "_TIMETICK_CLOCK_FREQUENCY"])
 
     spwInterruptMode = spwComponent.createBooleanSymbol("INTERRUPT_MODE", None)
+    spwInterruptMode.setHelp("mcc_h3_spw_44126_configurations")
     spwInterruptMode.setLabel("Interrupt Mode")
     spwInterruptMode.setDefaultValue(False)
 
     # Link configuration
     spwLinkMenu = spwComponent.createMenuSymbol(spwInstanceName.getValue() + "_LINK", None)
+    spwLinkMenu.setHelp("mcc_h3_spw_44126_configurations")
     spwLinkMenu.setLabel("Links configuration")
 
     for filter in range (2):
@@ -224,23 +232,28 @@ def instantiateComponent(spwComponent):
 
     #Router configuration
     spwRouterMenu = spwComponent.createMenuSymbol(spwInstanceName.getValue() + "_ROUTER", None)
+    spwRouterMenu.setHelp("mcc_h3_spw_44126_configurations")
     spwRouterMenu.setLabel("Router configuration")
 
     spwRouterDisTimeout = spwComponent.createBooleanSymbol(spwInstanceName.getValue() + "_ROUTER_DISTIMEOUT", spwRouterMenu)
+    spwRouterDisTimeout.setHelp("mcc_h3_spw_44126_configurations")
     spwRouterDisTimeout.setLabel("Disable timeout")
     spwRouterDisTimeout.setDefaultValue(False)
 
     spwRouterEnLogicalAddr = spwComponent.createBooleanSymbol(spwInstanceName.getValue() + "_ROUTER_LAENA", spwRouterMenu)
+    spwRouterEnLogicalAddr.setHelp("mcc_h3_spw_44126_configurations")
     spwRouterEnLogicalAddr.setLabel("Enable Logical Addressing")
     spwRouterEnLogicalAddr.setDefaultValue(False)
 
     spwRouterEnFallback = spwComponent.createBooleanSymbol(spwInstanceName.getValue() + "_ROUTER_FALLBACK", spwRouterMenu)
+    spwRouterEnFallback.setHelp("mcc_h3_spw_44126_configurations")
     spwRouterEnFallback.setLabel("Enable Fallback Routing")
     spwRouterEnFallback.setDefaultValue(False)
     spwRouterEnFallback.setVisible(False)
     spwRouterEnFallback.setDependencies(spwSetVisibleIfEventTrue, [spwInstanceName.getValue() + "_ROUTER_LAENA"])
 
     spwRouterTableMenu = spwComponent.createMenuSymbol(spwInstanceName.getValue() + "_ROUTER_TABLE", spwRouterMenu)
+    spwRouterTableMenu.setHelp("mcc_h3_spw_44126_configurations")
     spwRouterTableMenu.setLabel("Logical Address Table Entries")
     spwRouterTableMenu.setVisible(False)
     spwRouterTableMenu.setDependencies(spwSetVisibleIfEventTrue, [spwInstanceName.getValue() + "_ROUTER_LAENA"])
@@ -250,19 +263,23 @@ def instantiateComponent(spwComponent):
 
     # RMAP module configuration
     spwRmapMenu = spwComponent.createMenuSymbol(spwInstanceName.getValue() + "_RMAP", None)
+    spwRmapMenu.setHelp("mcc_h3_spw_44126_configurations")
     spwRmapMenu.setLabel("RMAP configuration")
 
     spwRmapEnable = spwComponent.createBooleanSymbol(spwInstanceName.getValue() + "_RMAP_EN", spwRmapMenu)
+    spwRmapEnable.setHelp("mcc_h3_spw_44126_configurations")
     spwRmapEnable.setLabel("Enable RMAP")
     spwRmapEnable.setDefaultValue(False)
 
     spwRmapTargetLogicalAddr = spwComponent.createIntegerSymbol(spwInstanceName.getValue() + "_RMAP_TLA", spwRmapMenu)
+    spwRmapTargetLogicalAddr.setHelp("mcc_h3_spw_44126_configurations")
     spwRmapTargetLogicalAddr.setLabel("Target Logical Address")
     spwRmapTargetLogicalAddr.setMin(0)
     spwRmapTargetLogicalAddr.setMax(0xFF)
     spwRmapTargetLogicalAddr.setDefaultValue(0)
 
     spwRmapDestKey = spwComponent.createIntegerSymbol(spwInstanceName.getValue() + "_RMAP_DESTKEY", spwRmapMenu)
+    spwRmapDestKey.setHelp("mcc_h3_spw_44126_configurations")
     spwRmapDestKey.setLabel("Destination Key")
     spwRmapDestKey.setMin(0)
     spwRmapDestKey.setMax(0xFF)

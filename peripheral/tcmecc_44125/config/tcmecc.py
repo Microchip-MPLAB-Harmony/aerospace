@@ -106,10 +106,12 @@ def instantiateComponent(tcmeccComponent):
     ################################################################################
 
     tcmeccInterruptMode = tcmeccComponent.createBooleanSymbol("INTERRUPT_MODE", None)
+    tcmeccInterruptMode.setHelp("mcc_h3_tcmmecc_44125_configurations")
     tcmeccInterruptMode.setLabel("Interrupt Mode")
     tcmeccInterruptMode.setDefaultValue(False)
 
     tcmeccInjectionTestMode = tcmeccComponent.createBooleanSymbol("INJECTION_TEST_MODE", None)
+    tcmeccInterruptMode.setHelp("mcc_h3_tcmmecc_44125_configurations")
     tcmeccInjectionTestMode.setLabel("Use Injection Test Mode")
     tcmeccInjectionTestMode.setDefaultValue(False)
 

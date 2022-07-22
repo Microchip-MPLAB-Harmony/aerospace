@@ -1,9 +1,7 @@
-﻿---
-title: Harmony 3 Aerospace Package
-nav_order: 1
----
+﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
+![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
-# MPLAB® Harmony 3 Aerospace
+# MPLAB® Harmony 3 Aerospace Library
 
 MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating
 embedded firmware solutions for Microchip 32-bit SAM and PIC® microcontroller
@@ -33,39 +31,6 @@ the following links for release notes, training materials, and interface referen
 | config     | Aerospace module configuration file                       |
 | docs       | Aerospace library help documentation                      |
 | peripheral | Peripheral library templates and configuration data       |
-
-## Code Examples
-
-The following applications are provided to demonstrate the typical or interesting usage models of one or more Peripheral libraries.
-
-| MIL1553 Examples | Description |
-| --- | :---: |
-| [IP1553 Bus Controller operation blocking](apps/ip1553/ip1553_bc_operation_blocking/readme.md) | This example shows how to start the IP1553 module in Bus Controller mode and issue data transfer commands in a blocking manner. |
-| [IP1553 Bus Controller operation interrupt](apps/ip1553/ip1553_bc_operation_interrupt/readme.md) | This example shows how to start the IP1553 module in Bus Controller mode and issue data transfer commands in a non-blocking manner. |
-| [IP1553 Remote Terminal operation blocking](apps/ip1553/ip1553_rt_operation_blocking/readme.md) | This example shows how to start the IP1553 module in Remote Terminal mode with RT01 address and receive data transfer commands in a blocking manner. |
-| [IP1553 Remote Terminal operation interrupt](apps/ip1553/ip1553_rt_operation_interrupt/readme.md) | This example shows how to start the IP1553 module in Remote Terminal mode with RT01 address and receive data transfer commands in a non-blocking manner. |
-
-| ICM with ECC errors injections Example | Status |
-| --- | :---: |
-| [ICM with ECC errors injections](apps/icm_with_ecc_error_injection/readme.md) | This example shows how configure the ICM and the different ECC controllers to handler and correct if possible ECC errors. |
-
-| SpaceWire Examples | Status |
-| --- | :---: |
-| [SpaceWire Loopback](apps/spw/spw_loopback/readme.md) | This example shows how configure the SpaceWire peripheral to send and receive multiple packets. |
-| [SpaceWire RMAP Loopback](apps/spw/spw_rmap_loopback/readme.md) | This example shows how configure the SpaceWire peripheral to configure the RMAP module, send an RMAP command with the packet transceiver and receive the RMAP reply with the packet receiver. |
-| [SpaceWire Escape Character and Time Code Handler Loopback](apps/spw/spw_escChar_tch_loopback/readme.md) | This example shows how to configure the SpaceWire peripheral to handle escape character with Link interface and with TCH module. |
-
-## Peripheral libraries
-
-### SAMRH71
-
-| PLIB | Peripheral |
-| --- | :---: |
-| [IP1553](peripheral/ip1553_44127/docs/readme.md) | MIL STD 1553 interface |
-| [ICM](peripheral/icm_11105/docs/readme.md) | Integrity Check Monitor |
-| [FLEXRAMECC](peripheral/flexramecc_44124/docs/readme.md) | FlexRAM Memory and Embedded ECC Controller |
-| [TCMECC](peripheral/tcmecc_44125/docs/readme.md) | TCM Error Correction Code |
-| [SpaceWire](peripheral/spw_44126/docs/readme.md) | SpaceWire module |
 
 ____
 

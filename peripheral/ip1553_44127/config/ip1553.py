@@ -112,6 +112,7 @@ def instantiateComponent(mil1553Component):
     mil1553ClkValue.setDependencies(mil1553SourceFreq, ["core." + mil1553InstanceName.getValue() + "_CLOCK_FREQUENCY"])
 
     mil1553mode = mil1553Component.createKeyValueSetSymbol("IP1553_MODE", None)
+    mil1553mode.setHelp("mcc_h3_ip1553_44127_configurations")
     mil1553mode.setLabel("Select 1553 Mode")
     mil1553mode.setOutputMode("Key")
     mil1553mode.setDisplayMode("Description")
@@ -120,10 +121,12 @@ def instantiateComponent(mil1553Component):
     mil1553mode.setSelectedKey("BC", 1)
     
     mil1553InterruptMode = mil1553Component.createBooleanSymbol("INTERRUPT_MODE", None)
+    mil1553InterruptMode.setHelp("mcc_h3_ip1553_44127_configurations")
     mil1553InterruptMode.setLabel("Interrupt Mode")
     mil1553InterruptMode.setDefaultValue(False)
 
     mil1553rtAddress = mil1553Component.createIntegerSymbol("IP1553_RT_ADDR", None)
+    mil1553rtAddress.setHelp("mcc_h3_ip1553_44127_configurations")
     mil1553rtAddress.setLabel("RT Address")
     mil1553rtAddress.setMin(1)
     mil1553rtAddress.setMax(30)
@@ -143,7 +146,10 @@ def instantiateComponent(mil1553Component):
 
     mil1553ClockInvalidSym = mil1553Component.createCommentSymbol("IP1553_CLOCK_INVALID_COMMENT", None)
     mil1553ClockInvalidSym.setLabel("Warning!!! " + mil1553InstanceName.getValue() + " GCLK clock frequency should be 12MHz")
-    mil1553ClockInvalidSym.setVisible(False)
+    if (int(Database.getSymbolValue("core", mil1553InstanceName.getValue() + "_CLOCK_FREQUENCY")) != 12000000):
+        mil1553ClockInvalidSym.setVisible(True)
+    else:
+        mil1553ClockInvalidSym.setVisible(False)
     mil1553ClockInvalidSym.setDependencies(mil1553ClockValueStatus, ["core." + mil1553InstanceName.getValue() + "_CLOCK_FREQUENCY"])
 
     interruptVector = mil1553InstanceName.getValue() + "_INTERRUPT_ENABLE"

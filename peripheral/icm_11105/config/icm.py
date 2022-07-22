@@ -58,8 +58,10 @@ def icmCreateRegionDesc(component, menu, RegionNumber):
     
     icmRegionDescStartAddr = component.createHexSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_TYPE", regionDescriptor)
     icmRegionDescStartAddr.setLabel("Start Address :")
+    icmRegionDescStartAddr.setHelp("mcc_h3_icm_11105_configurations")
 
     icmRegionDescAlgo = component.createKeyValueSetSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_ALGO", regionDescriptor)
+    icmRegionDescAlgo.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescAlgo.setLabel("SHA Algorithm")
     icmRegionDescAlgo.setDisplayMode("Description")
     icmRegionDescAlgo.setOutputMode("Value")
@@ -69,6 +71,7 @@ def icmCreateRegionDesc(component, menu, RegionNumber):
     icmRegionDescAlgo.setSelectedKey("SHA1")
 
     icmRegionDescPROCDLY = component.createKeyValueSetSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_PROCDLY", regionDescriptor)
+    icmRegionDescPROCDLY.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescPROCDLY.setLabel("SHA Processing Delay")
     icmRegionDescPROCDLY.setOutputMode("Value")
     icmRegionDescPROCDLY.addKey("SHORTEST",  "0", "SHA processing runtime shortest")
@@ -77,49 +80,59 @@ def icmCreateRegionDesc(component, menu, RegionNumber):
     icmRegionDescPROCDLY.setSelectedKey("SHORTEST")
 
     icmRegionDescDisableInt = component.createMenuSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_DISABLE_INT", regionDescriptor)
+    icmRegionDescDisableInt.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescDisableInt.setLabel("Disable interrupt events")
 
     icmRegionDescDisIntSUIEN = component.createBooleanSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_SUIEN", icmRegionDescDisableInt)
+    icmRegionDescDisIntSUIEN.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescDisIntSUIEN.setLabel("Disable Status Updated Condition")
     icmRegionDescDisIntSUIEN.setDescription("If disabled, the Region Status Updated Condition interrupt flag remains cleared")
     icmRegionDescDisIntSUIEN.setDefaultValue(False)
 
     icmRegionDescDisIntECIEN = component.createBooleanSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_ECIEN", icmRegionDescDisableInt)
+    icmRegionDescDisIntECIEN.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescDisIntECIEN.setLabel("Disable End Bit Condition")
     icmRegionDescDisIntECIEN.setDescription("If disabled, the End Bit Condition interrupt flag remains cleared")
     icmRegionDescDisIntECIEN.setDefaultValue(False)
 
     icmRegionDescDisIntWCIEN = component.createBooleanSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_WCIEN", icmRegionDescDisableInt)
+    icmRegionDescDisIntWCIEN.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescDisIntWCIEN.setLabel("Disable Wrap Condition")
     icmRegionDescDisIntWCIEN.setDescription("If disabled, the Wrap Condition interrupt flag remains cleared")
     icmRegionDescDisIntWCIEN.setDefaultValue(False)
 
     icmRegionDescDisIntBEIEN = component.createBooleanSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_BEIEN", icmRegionDescDisableInt)
+    icmRegionDescDisIntBEIEN.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescDisIntBEIEN.setLabel("Disable Bus Error Interrupt")
     icmRegionDescDisIntBEIEN.setDescription("If disabled, the Bus Error Interrupt flag remains cleared")
     icmRegionDescDisIntBEIEN.setDefaultValue(False)
 
     icmRegionDescDisIntDMIEN = component.createBooleanSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_DMIEN", icmRegionDescDisableInt)
+    icmRegionDescDisIntDMIEN.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescDisIntDMIEN.setLabel("Disable Digest Mismatch Interrupt")
     icmRegionDescDisIntDMIEN.setDescription("If disabled, the Digest Mismatch Interrupt flag remains cleared")
     icmRegionDescDisIntDMIEN.setDefaultValue(False)
 
     icmRegionDescDisIntRHIEN = component.createBooleanSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_RHIEN", icmRegionDescDisableInt)
+    icmRegionDescDisIntRHIEN.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescDisIntRHIEN.setLabel("Disable Digest Mismatch Interrupt")
     icmRegionDescDisIntRHIEN.setDescription("If disabled, the Digest Mismatch Interrupt flag remains cleared")
     icmRegionDescDisIntRHIEN.setDefaultValue(False)
 
     icmRegionDescEOM = component.createBooleanSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_EOM", regionDescriptor)
+    icmRegionDescEOM.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescEOM.setLabel("Enable End of Monitoring")
     icmRegionDescEOM.setDescription("The current descriptor terminates the Main List. WRAP value has no effect.")
     icmRegionDescEOM.setDefaultValue(False)
 
     icmRegionDescWRAP = component.createBooleanSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_WRAP", regionDescriptor)
+    icmRegionDescWRAP.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescWRAP.setLabel("Wrap command")
     icmRegionDescWRAP.setDescription("The next region descriptor address loaded is the descriptor list base address.")
     icmRegionDescWRAP.setDefaultValue(False)
 
     icmRegionDescCDWBN = component.createKeyValueSetSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_CDWBN", regionDescriptor)
+    icmRegionDescCDWBN.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescCDWBN.setLabel("Digest process")
     icmRegionDescCDWBN.setOutputMode("Value")
     icmRegionDescCDWBN.addKey("Write Back", "0", "The digest is written to the Hash area.")
@@ -127,6 +140,7 @@ def icmCreateRegionDesc(component, menu, RegionNumber):
     icmRegionDescCDWBN.setSelectedKey("Write Back")
 
     icmRegionDescSize = component.createIntegerSymbol(icmInstanceName.getValue() + "_REGION_DESC" + str(RegionNumber) + "_SIZE", regionDescriptor)
+    icmRegionDescSize.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescSize.setLabel("Size in byte (multiple of 64):")
     icmRegionDescSize.setMin(64)
     icmRegionDescSize.setMax(64*65536)
@@ -214,41 +228,50 @@ def instantiateComponent(icmComponent):
     ################################################################################
 
     icmInterruptMode = icmComponent.createBooleanSymbol("INTERRUPT_MODE", None)
+    icmInterruptMode.setHelp("mcc_h3_icm_11105_configurations")
     icmInterruptMode.setLabel("Interrupt Mode")
     icmInterruptMode.setDefaultValue(False)
 
     icmDualBuff = icmComponent.createBooleanSymbol("DUALBUFF", None)
+    icmDualBuff.setHelp("mcc_h3_icm_11105_configurations")
     icmDualBuff.setLabel("Enable dual input buffer")
     icmDualBuff.setDefaultValue(False)
 
     icmASCD = icmComponent.createBooleanSymbol("ASCD", None)
+    icmASCD.setHelp("mcc_h3_icm_11105_configurations")
     icmASCD.setLabel("Automatic switch to compare digest")
     icmASCD.setDefaultValue(False)
 
     icmBusBurdenControl = icmComponent.createIntegerSymbol("BUS_BURDEN_CONTROL", None)
+    icmBusBurdenControl.setHelp("mcc_h3_icm_11105_configurations")
     icmBusBurdenControl.setLabel("Bus Burden Control:")
     icmBusBurdenControl.setDefaultValue(0)
     icmBusBurdenControl.setMin(0)
     icmBusBurdenControl.setMax(15)
 
     icmDisableSecList = icmComponent.createBooleanSymbol("SLBDIS", None)
+    icmDisableSecList.setHelp("mcc_h3_icm_11105_configurations")
     icmDisableSecList.setLabel("Disable Secondary list branch")
     icmDisableSecList.setDefaultValue(False)
 
     icmDisableEndMonitoring = icmComponent.createBooleanSymbol("EOMDIS", None)
+    icmDisableEndMonitoring.setHelp("mcc_h3_icm_11105_configurations")
     icmDisableEndMonitoring.setLabel("Disable End of Monitoring")
     icmDisableEndMonitoring.setDefaultValue(False)
     
     icmDisableWriteBack = icmComponent.createBooleanSymbol("WBDIS", None)
+    icmDisableWriteBack.setHelp("mcc_h3_icm_11105_configurations")
     icmDisableWriteBack.setLabel("Disable Write Back")
     icmDisableWriteBack.setDefaultValue(False)
 
     # up to 4 region descriptor
     icmRegionDescriptorMenu = icmComponent.createMenuSymbol("regionDescriptor", None)
+    icmRegionDescriptorMenu.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescriptorMenu.setLabel("Region Descriptor (up to 4)")
     icmRegionDescriptorMenu.setDependencies(adjustRegionDescriptor, ["REGION_DESC_NUM"])
 
     icmRegionDescriptorNumber = icmComponent.createIntegerSymbol("REGION_DESC_NUM", icmRegionDescriptorMenu)
+    icmRegionDescriptorNumber.setHelp("mcc_h3_icm_11105_configurations")
     icmRegionDescriptorNumber.setLabel("Number of Region Descriptor:")
     icmRegionDescriptorNumber.setDefaultValue(0)
     icmRegionDescriptorNumber.setMin(0)

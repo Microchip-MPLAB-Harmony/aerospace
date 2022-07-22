@@ -1,12 +1,25 @@
-﻿---
-title: Release notes
-nav_order: 99
----
-
-![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
+﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
 # Microchip MPLAB® Harmony 3 Release Notes
+
+## Aerospace Release v3.4.0
+### New Features
+- **Enhancements**
+  - Remove Applications examples from aerospace repository to have them in dedicated repository.
+  - Update peripheral libraries to add SAMRH707 support and new registers.
+  - Fix compilation issues with XC32 v4.00.
+
+### Known Issues
+
+* No known issues.
+
+### Development Tools
+
+* [MPLAB® X IDE v6.00 or above](https://www.microchip.com/mplab/mplab-x-ide)
+* [MPLAB® XC32 C/C++ Compiler v4.10](https://www.microchip.com/mplab/compilers)
+* MPLAB® X IDE plug-ins:
+    * MPLAB® Code Configurator 5.1.9 or higher
 
 ## Aerospace Release v3.3.0
 ### New Features
