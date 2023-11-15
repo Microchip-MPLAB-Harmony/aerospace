@@ -82,7 +82,7 @@ void ${SPW_INSTANCE_NAME}_ROUTER_Initialize(void)
 
 <#if .vars["${SPW_INSTANCE_NAME}_ROUTER_LAENA"] == true>
     /* Initialize all entried in logical address routing table to zero */
-    for (uint8_t entry = 0; entry < 224; entry++)
+    for (uint8_t entry = 0; entry < 224U; entry++)
     {
         SPW_REGS->SPW_ROUTER_TABLE[entry] = 0;
     }
@@ -90,9 +90,9 @@ void ${SPW_INSTANCE_NAME}_ROUTER_Initialize(void)
     <#list 0..223 as i>
     <#assign ROUTER_DEL = "SPW_ROUTER_TABLE_LA" + (i+32) + "_DEL" >
     <#assign ROUTER_PHYS_ADDR = "SPW_ROUTER_TABLE_LA" + (i+32) + "_ADDR" >
-    <#if .vars[ROUTER_PHYS_ADDR]?number != 0>
+    <#if .vars[ROUTER_PHYS_ADDR] != "DISABLE">
     /* Configure logical addresses ${i+32} in routing table */
-    ${SPW_INSTANCE_NAME}_ROUTER_RoutingTableEntrySet(${i+32}, ${.vars[ROUTER_DEL]?c}, ${.vars[ROUTER_PHYS_ADDR]});
+    ${SPW_INSTANCE_NAME}_ROUTER_RoutingTableEntrySet(${i+32}U, ${.vars[ROUTER_DEL]?c}, SPW_ROUTER_PHYS_ADDR_${.vars[ROUTER_PHYS_ADDR]});
     </#if>
     </#list>
 </#if>
@@ -118,7 +118,9 @@ void ${SPW_INSTANCE_NAME}_ROUTER_TimeoutDisable(bool disable)
 {
     uint32_t cfgReg = ( SPW_REGS->SPW_ROUTER_CFG & ~SPW_ROUTER_CFG_DISTIMEOUT_Msk );
     if (disable == true)
+    {
         cfgReg |= SPW_ROUTER_CFG_DISTIMEOUT(1);
+    }
     SPW_REGS->SPW_ROUTER_CFG = cfgReg;
 }
 
@@ -142,7 +144,9 @@ void ${SPW_INSTANCE_NAME}_ROUTER_LogicalAddressRoutingEnable(bool enable)
 {
     uint32_t cfgReg = ( SPW_REGS->SPW_ROUTER_CFG & ~SPW_ROUTER_CFG_LAENA_Msk );
     if (enable == true)
+    {
         cfgReg |= SPW_ROUTER_CFG_LAENA(1);
+    }
     SPW_REGS->SPW_ROUTER_CFG = cfgReg;
 }
 
@@ -166,7 +170,9 @@ void ${SPW_INSTANCE_NAME}_ROUTER_FallbackEnable(bool enable)
 {
     uint32_t cfgReg = ( SPW_REGS->SPW_ROUTER_CFG & ~SPW_ROUTER_CFG_FALLBACK_Msk );
     if (enable == true)
+    {
         cfgReg |= SPW_ROUTER_CFG_FALLBACK(1);
+    }
     SPW_REGS->SPW_ROUTER_CFG = cfgReg;
 }
 
@@ -190,12 +196,14 @@ void ${SPW_INSTANCE_NAME}_ROUTER_FallbackEnable(bool enable)
 */
 void ${SPW_INSTANCE_NAME}_ROUTER_RoutingTableEntrySet(uint8_t logicalAddress, bool delHeader, SPW_ROUTER_PHYS_ADDR physicalAddress)
 {
-    if ( logicalAddress >= 32 )
+    if ( logicalAddress >= 32U )
     {
         uint32_t entry = SPW_ROUTER_TABLE_ADDR(physicalAddress);
         if (delHeader == true)
+        {
             entry |= SPW_ROUTER_TABLE_DELHEAD(1);
-        SPW_REGS->SPW_ROUTER_TABLE[logicalAddress-32] = entry; 
+        }
+        SPW_REGS->SPW_ROUTER_TABLE[logicalAddress-32U] = entry; 
     }
 }
 

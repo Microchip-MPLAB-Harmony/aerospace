@@ -50,6 +50,9 @@
 
 #include <stddef.h>
 #include "device.h"
+<#if core.CoreSysIntFile == true>
+#include "interrupts.h"
+</#if>
 #include "plib_${TCMECC_INSTANCE_NAME?lower_case}.h"
 
 // *****************************************************************************
@@ -133,7 +136,7 @@ TCMECC_STATUS ${TCMECC_INSTANCE_NAME}_StatusGet(void)
 */
 uint64_t* ${TCMECC_INSTANCE_NAME}_GetFailAddressITCM(void)
 {
-    return (uint64_t*)((TCMECC_REGS->TCMECC_FAILAR)  & (ITCM_ADDR + ITCM_SIZE - 1));
+    return (uint64_t*)((TCMECC_REGS->TCMECC_FAILAR)  & (ITCM_ADDR + ITCM_SIZE - 1U));
 }
 
 <#if TCMECC_HAS_FAIL_DATA == true >
@@ -177,7 +180,7 @@ uint32_t ${TCMECC_INSTANCE_NAME}_GetFailDataITCM(void)
 */
 uint32_t* ${TCMECC_INSTANCE_NAME}_GetFailAddressDTCM(void)
 {
-    return (uint32_t*)((TCMECC_REGS->TCMECC_FAILARD) & (DTCM_ADDR + DTCM_SIZE - 1));
+    return (uint32_t*)((TCMECC_REGS->TCMECC_FAILARD) & (DTCM_ADDR + DTCM_SIZE - 1U));
 }
 
 <#if TCMECC_HAS_FAIL_DATA == true >
@@ -255,12 +258,6 @@ void ${TCMECC_INSTANCE_NAME}_ResetCounters(void)
   Returns:
     None.
 
-  Example:
-    <code>
-        // Refer to the description of the TCMECC_CALLBACK data type for
-        // example usage.
-    </code>
-
   Remarks:
     None.
 */
@@ -306,12 +303,6 @@ void ${TCMECC_INSTANCE_NAME}_FixCallbackRegister(TCMECC_CALLBACK callback, uintp
   Returns:
     None.
 
-  Example:
-    <code>
-        // Refer to the description of the TCMECC_CALLBACK data type for
-        // example usage.
-    </code>
-
   Remarks:
     None.
 */
@@ -351,7 +342,7 @@ void ${TCMECC_INSTANCE_NAME}_NoFixCallbackRegister(TCMECC_CALLBACK callback, uin
     instance interrupt is enabled. If peripheral instance's interrupt is not
     enabled user need to call it from the main while loop of the application.
 */
-void TCMECC_INTFIX_InterruptHandler(void)
+void __attribute__((used)) TCMECC_INTFIX_InterruptHandler(void)
 {
 
     if (${TCMECC_INSTANCE_NAME?lower_case}Obj.fix_callback != NULL)
@@ -385,7 +376,7 @@ void TCMECC_INTFIX_InterruptHandler(void)
     instance interrupt is enabled. If peripheral instance's interrupt is not
     enabled user need to call it from the main while loop of the application.
 */
-void TCMECC_INTNOFIX_InterruptHandler(void)
+void __attribute__((used)) TCMECC_INTNOFIX_InterruptHandler(void)
 {
     if (${TCMECC_INSTANCE_NAME?lower_case}Obj.nofix_callback != NULL)
     {

@@ -50,7 +50,11 @@
 
 #include <stddef.h>
 #include "device.h"
+<#if core.CoreSysIntFile == true>
+#include "interrupts.h"
+</#if>
 #include "plib_${FLEXRAMECC_INSTANCE_NAME?lower_case}.h"
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -210,12 +214,6 @@ void ${FLEXRAMECC_INSTANCE_NAME}_ResetCounters(void)
   Returns:
     None.
 
-  Example:
-    <code>
-        // Refer to the description of the FLEXRAMECC_CALLBACK data type for
-        // example usage.
-    </code>
-
   Remarks:
     None.
 */
@@ -261,12 +259,6 @@ void ${FLEXRAMECC_INSTANCE_NAME}_FixCallbackRegister(FLEXRAMECC_CALLBACK callbac
   Returns:
     None.
 
-  Example:
-    <code>
-        // Refer to the description of the FLEXRAMECC_CALLBACK data type for
-        // example usage.
-    </code>
-
   Remarks:
     None.
 */
@@ -307,7 +299,7 @@ void ${FLEXRAMECC_INSTANCE_NAME}_NoFixCallbackRegister(FLEXRAMECC_CALLBACK callb
     instance interrupt is enabled. If peripheral instance's interrupt is not
     enabled user need to call it from the main while loop of the application.
 */
-void ${FLEXRAMECC_INSTANCE_NAME}_INTFIX_InterruptHandler(void)
+void __attribute__((used)) ${FLEXRAMECC_INSTANCE_NAME}_INTFIX_InterruptHandler(void)
 {
 
     if (${FLEXRAMECC_INSTANCE_NAME?lower_case}Obj.fix_callback != NULL)
@@ -341,7 +333,7 @@ void ${FLEXRAMECC_INSTANCE_NAME}_INTFIX_InterruptHandler(void)
     instance interrupt is enabled. If peripheral instance's interrupt is not
     enabled user need to call it from the main while loop of the application.
 */
-void ${FLEXRAMECC_INSTANCE_NAME}_INTNOFIX_InterruptHandler(void)
+void __attribute__((used)) ${FLEXRAMECC_INSTANCE_NAME}_INTNOFIX_InterruptHandler(void)
 {
 
     if (${FLEXRAMECC_INSTANCE_NAME?lower_case}Obj.nofix_callback != NULL)

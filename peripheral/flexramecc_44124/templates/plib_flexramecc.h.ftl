@@ -77,19 +77,17 @@
    Description:
     This data type identifies the FLEXRAMECC status
 */
-typedef enum
-{
-    FLEXRAMECC_STATUS_MEM_FIX = FLEXRAMECC_SR_MEM_FIX_Msk, 
-    FLEXRAMECC_STATUS_CPT_FIX_MASK = FLEXRAMECC_SR_CPT_FIX_Msk,
-    FLEXRAMECC_STATUS_OVER_FIX = FLEXRAMECC_SR_OVER_FIX_Msk,
-    FLEXRAMECC_STATUS_MEM_NOFIX = FLEXRAMECC_SR_MEM_NOFIX_Msk,
-    FLEXRAMECC_STATUS_CPT_NOFIX_MASK = FLEXRAMECC_SR_CPT_NOFIX_Msk,
-    FLEXRAMECC_STATUS_OVER_NOFIX = FLEXRAMECC_SR_OVER_NOFIX_Msk,
-    FLEXRAMECC_STATUS_HES_MASK = FLEXRAMECC_SR_HES_Msk, 
-    FLEXRAMECC_STATUS_TYPE = FLEXRAMECC_SR_TYPE_Msk,
-    /* Force the compiler to reserve 32-bit memory for enum */
-    FLEXRAMECC_STATUS_INVALID = 0xFFFFFFFF
-} FLEXRAMECC_STATUS;
+typedef uint32_t FLEXRAMECC_STATUS;
+
+#define FLEXRAMECC_STATUS_MEM_FIX               (FLEXRAMECC_SR_MEM_FIX_Msk)
+#define FLEXRAMECC_STATUS_CPT_FIX_MASK          (FLEXRAMECC_SR_CPT_FIX_Msk)
+#define FLEXRAMECC_STATUS_OVER_FIX              (FLEXRAMECC_SR_OVER_FIX_Msk)
+#define FLEXRAMECC_STATUS_MEM_NOFIX             (FLEXRAMECC_SR_MEM_NOFIX_Msk)
+#define FLEXRAMECC_STATUS_CPT_NOFIX_MASK        (FLEXRAMECC_SR_CPT_NOFIX_Msk)
+#define FLEXRAMECC_STATUS_OVER_NOFIX            (FLEXRAMECC_SR_OVER_NOFIX_Msk)
+#define FLEXRAMECC_STATUS_HES_MASK              (FLEXRAMECC_SR_HES_Msk)
+#define FLEXRAMECC_STATUS_TYPE                  (FLEXRAMECC_SR_TYPE_Msk)
+#define FLEXRAMECC_STATUS_INVALID               (0xFFFFFFFFUL)
 
 // *****************************************************************************
 /* FLEXRAMECC Callback
@@ -189,7 +187,10 @@ void ${FLEXRAMECC_INSTANCE_NAME}_NoFixCallbackRegister(FLEXRAMECC_CALLBACK callb
 static inline void ${FLEXRAMECC_INSTANCE_NAME}_TestModeReadEnable(void)
 {
     FLEXRAMECC_REGS->FLEXRAMECC_CR |= FLEXRAMECC_CR_TEST_MODE_RD_Msk;
-    while ( ( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_RD_Msk ) != FLEXRAMECC_CR_TEST_MODE_RD_Msk);
+    while ( ( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_RD_Msk ) != FLEXRAMECC_CR_TEST_MODE_RD_Msk)
+    {
+        /* Wait for the update of the control register */
+    }
 }
 
 // *****************************************************************************
@@ -211,7 +212,10 @@ static inline void ${FLEXRAMECC_INSTANCE_NAME}_TestModeReadEnable(void)
 static inline void ${FLEXRAMECC_INSTANCE_NAME}_TestModeReadDisable(void)
 {
     FLEXRAMECC_REGS->FLEXRAMECC_CR &= ~(FLEXRAMECC_CR_TEST_MODE_RD_Msk);
-    while ( (FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_RD_Msk) ==  FLEXRAMECC_CR_TEST_MODE_RD_Msk );
+    while ( (FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_RD_Msk) ==  FLEXRAMECC_CR_TEST_MODE_RD_Msk )
+    {
+        /* Wait for the update of the control register */
+    }
 }
 
 // *****************************************************************************
@@ -235,7 +239,10 @@ static inline void ${FLEXRAMECC_INSTANCE_NAME}_TestModeReadDisable(void)
 static inline void ${FLEXRAMECC_INSTANCE_NAME}_TestModeWriteEnable(void)
 {
     FLEXRAMECC_REGS->FLEXRAMECC_CR |= FLEXRAMECC_CR_TEST_MODE_WR_Msk;
-    while ( ( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_WR_Msk ) != FLEXRAMECC_CR_TEST_MODE_WR_Msk );
+    while ( ( FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_WR_Msk ) != FLEXRAMECC_CR_TEST_MODE_WR_Msk )
+    {
+        /* Wait for the update of the control register */
+    }
 
 }
 
@@ -258,7 +265,10 @@ static inline void ${FLEXRAMECC_INSTANCE_NAME}_TestModeWriteEnable(void)
 static inline void ${FLEXRAMECC_INSTANCE_NAME}_TestModeWriteDisable(void)
 {
     FLEXRAMECC_REGS->FLEXRAMECC_CR &= ~(FLEXRAMECC_CR_TEST_MODE_WR_Msk);
-    while ( (FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_WR_Msk) == FLEXRAMECC_CR_TEST_MODE_WR_Msk );
+    while ( (FLEXRAMECC_REGS->FLEXRAMECC_CR & FLEXRAMECC_CR_TEST_MODE_WR_Msk) == FLEXRAMECC_CR_TEST_MODE_WR_Msk )
+    {
+        /* Wait for the update of the control register */
+    }
 }
 
 // *****************************************************************************

@@ -50,6 +50,9 @@
 
 #include <stddef.h>
 #include "device.h"
+<#if core.CoreSysIntFile == true>
+#include "interrupts.h"
+</#if>
 #include "plib_${IP1553_INSTANCE_NAME?lower_case}.h"
 
 // *****************************************************************************
@@ -286,6 +289,10 @@ void ${IP1553_INSTANCE_NAME}_BcStartDataTransfer(IP1553_DATA_TX_TYPE transferTyp
     {
         cmdr3 |= IP1553_CMDR3_BCR(1);
     }
+    else
+    {
+        /* No data sent or received by BC */
+    }
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CMDR3 = cmdr3;
 }
 
@@ -352,7 +359,7 @@ void ${IP1553_INSTANCE_NAME}_BcModeCommandTransfer(uint8_t rtAddr, IP1553_MODE_C
 */
 uint16_t ${IP1553_INSTANCE_NAME}_GetFirstStatusWord( void )
 {
-    return ( ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CTRL1 & IP1553_CTRL1_IP1553DATA1_Msk ) >> IP1553_CTRL1_IP1553DATA1_Pos );
+    return (uint16_t)( ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CTRL1 & IP1553_CTRL1_IP1553DATA1_Msk ) >> IP1553_CTRL1_IP1553DATA1_Pos );
 }
 
 <#if IP1553_MODE == "BC">
@@ -374,7 +381,7 @@ uint16_t ${IP1553_INSTANCE_NAME}_GetFirstStatusWord( void )
 */
 uint16_t ${IP1553_INSTANCE_NAME}_GetSecondStatusWord( void )
 {
-    return ( ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CTRL1 & IP1553_CTRL1_IP1553DATA2_Msk) >> IP1553_CTRL1_IP1553DATA2_Pos );
+    return (uint16_t)( ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CTRL1 & IP1553_CTRL1_IP1553DATA2_Msk) >> IP1553_CTRL1_IP1553DATA2_Pos );
 }
 </#if>
 <#if IP1553_MODE == "RT">
@@ -400,9 +407,14 @@ void ${IP1553_INSTANCE_NAME}_BCEnableCmdSet(bool enable)
 {
     uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_BEC_Msk );
     if (enable == true)
+    {
         crReg |= IP1553_CR_BEC(1);
+    }
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
-    while (IP1553_REGS->IP1553_CR != crReg);
+    while (IP1553_REGS->IP1553_CR != crReg)
+    {
+        /* Wait for the update of the configuration register with the new value */
+    }
 }
 
 // *****************************************************************************
@@ -426,9 +438,14 @@ void ${IP1553_INSTANCE_NAME}_SREQBitCmdSet(bool enable)
 {
     uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_SRC_Msk );
     if (enable == true)
+    {
         crReg |= IP1553_CR_SRC(1);
+    }
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
-    while (IP1553_REGS->IP1553_CR != crReg);
+    while (IP1553_REGS->IP1553_CR != crReg)
+    {
+        /* Wait for the update of the configuration register with the new value */
+    }
 }
 
 // *****************************************************************************
@@ -453,9 +470,14 @@ void ${IP1553_INSTANCE_NAME}_BusyBitCmdSet(bool enable)
 {
     uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_BC_Msk );
     if (enable == true)
+    {
         crReg |= IP1553_CR_BC(1);
+    }
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
-    while (IP1553_REGS->IP1553_CR != crReg);
+    while (IP1553_REGS->IP1553_CR != crReg)
+    {
+        /* Wait for the update of the configuration register with the new value */
+    }
 }
 
 // *****************************************************************************
@@ -479,9 +501,14 @@ void ${IP1553_INSTANCE_NAME}_SSBitCmdSet(bool enable)
 {
     uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_SC_Msk );
     if (enable == true)
+    {
         crReg |= IP1553_CR_SC(1);
+    }
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
-    while (IP1553_REGS->IP1553_CR != crReg);
+    while (IP1553_REGS->IP1553_CR != crReg)
+    {
+        /* Wait for the update of the configuration register with the new value */
+    }
 }
 
 // *****************************************************************************
@@ -509,9 +536,14 @@ void ${IP1553_INSTANCE_NAME}_TRBitCmdSet(bool enable)
 {
     uint32_t crReg = ( ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR & ~IP1553_CR_TC_Msk );
     if (enable == true)
+    {
         crReg |= IP1553_CR_TC(1);
+    }
     ${IP1553_INSTANCE_NAME}_REGS->IP1553_CR = crReg;
-    while (IP1553_REGS->IP1553_CR != crReg);
+    while (IP1553_REGS->IP1553_CR != crReg)
+    {
+        /* Wait for the update of the configuration register with the new value */
+    }
 }
 
 // *****************************************************************************
@@ -533,7 +565,7 @@ void ${IP1553_INSTANCE_NAME}_TRBitCmdSet(bool enable)
 */
 void ${IP1553_INSTANCE_NAME}_BitWordSet(uint16_t bitWord)
 {
-    ${IP1553_INSTANCE_NAME}_REGS->IP1553_BITR = ( bitWord & 0xFFFF );
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_BITR = (uint32_t)( bitWord & 0xFFFFUL );
 }
 
 // *****************************************************************************
@@ -555,7 +587,7 @@ void ${IP1553_INSTANCE_NAME}_BitWordSet(uint16_t bitWord)
 */
 void ${IP1553_INSTANCE_NAME}_VectorWordSet(uint16_t vectorWord)
 {
-    ${IP1553_INSTANCE_NAME}_REGS->IP1553_VWR = ( vectorWord & 0xFFFF );
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_VWR = (uint32_t)( vectorWord & 0xFFFFUL );
 }
 </#if>
 
@@ -590,12 +622,6 @@ void ${IP1553_INSTANCE_NAME}_VectorWordSet(uint16_t vectorWord)
 
   Returns:
     None.
-
-  Example:
-    <code>
-        // Refer to the description of the IP1553_CALLBACK data type for
-        // example usage.
-    </code>
 
   Remarks:
     None.
@@ -636,7 +662,7 @@ void ${IP1553_INSTANCE_NAME}_CallbackRegister(IP1553_CALLBACK callback, uintptr_
     instance interrupt is enabled. If peripheral instance's interrupt is not
     enabled user need to call it from the main while loop of the application.
 */
-void ${IP1553_INSTANCE_NAME}_InterruptHandler(void)
+void __attribute__((used)) ${IP1553_INSTANCE_NAME}_InterruptHandler(void)
 {
 
     if (${IP1553_INSTANCE_NAME?lower_case}Obj.callback != NULL)
@@ -663,7 +689,7 @@ void ${IP1553_INSTANCE_NAME}_InterruptHandler(void)
 */
 void ${IP1553_INSTANCE_NAME}_InterruptEnable(IP1553_INT_MASK interruptMask)
 {
-    ${IP1553_INSTANCE_NAME}_REGS->IP1553_IER = interruptMask;
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_IER = (uint32_t)interruptMask;
 }
 
 // *****************************************************************************
@@ -684,6 +710,6 @@ void ${IP1553_INSTANCE_NAME}_InterruptEnable(IP1553_INT_MASK interruptMask)
 */
 void ${IP1553_INSTANCE_NAME}_InterruptDisable(IP1553_INT_MASK interruptMask)
 {
-    ${IP1553_INSTANCE_NAME}_REGS->IP1553_IDR = interruptMask;
+    ${IP1553_INSTANCE_NAME}_REGS->IP1553_IDR = (uint32_t)interruptMask;
 }
 </#if>

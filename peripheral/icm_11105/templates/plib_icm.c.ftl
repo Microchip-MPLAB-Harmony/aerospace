@@ -50,6 +50,9 @@
 
 #include <stddef.h>
 #include "device.h"
+<#if core.CoreSysIntFile == true>
+#include "interrupts.h"
+</#if>
 #include "plib_${ICM_INSTANCE_NAME?lower_case}.h"
 
 // *****************************************************************************
@@ -60,6 +63,15 @@
 
 <#if INTERRUPT_MODE == true>
 static ICM_OBJ ${ICM_INSTANCE_NAME?lower_case}Obj;
+</#if>
+
+/* MISRA C-2012 Rule 7.2 is deviated in the below code block. Deviation record ID - H3_MISRAC_2012_R_7_2_DR_1*/
+<#if core.COVERITY_SUPPRESS_DEVIATION?? && core.COVERITY_SUPPRESS_DEVIATION>
+<#if core.COMPILER_CHOICE == "XC32">
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunknown-pragmas"
+</#if>
+#pragma coverity compliance block deviate "MISRA C-2012 Rule 7.2"  "H3_MISRAC_2012_R_7_2_DR_1"
 </#if>
 
 <#if REGION_DESC_NUM?number gt 0>
@@ -87,6 +99,14 @@ static const icm_descriptor_registers_t __attribute__((aligned (64))) ${ICM_INST
     </#list>
 };
 </#if>
+
+<#if core.COVERITY_SUPPRESS_DEVIATION?? && core.COVERITY_SUPPRESS_DEVIATION>
+#pragma coverity compliance end_block "MISRA C-2012 Rule 7.2"
+<#if core.COMPILER_CHOICE == "XC32">
+#pragma GCC diagnostic pop
+</#if>
+</#if>
+/* MISRAC 2012 deviation block end */
 
 // *****************************************************************************
 // *****************************************************************************
@@ -156,7 +176,9 @@ void ${ICM_INSTANCE_NAME}_SetEndOfMonitoringDisable(bool disable)
 {
     uint32_t cfgReg = ( ${ICM_INSTANCE_NAME}_REGS->ICM_CFG & ~ICM_CFG_EOMDIS_Msk );
     if (disable == true)
+    {
         cfgReg |= ICM_CFG_EOMDIS(1);
+    }
     ${ICM_INSTANCE_NAME}_REGS->ICM_CFG = cfgReg;
 }
 
@@ -186,7 +208,9 @@ void ${ICM_INSTANCE_NAME}_WriteBackDisable(bool disable)
 {
     uint32_t cfgReg = ( ${ICM_INSTANCE_NAME}_REGS->ICM_CFG & ~ICM_CFG_WBDIS_Msk );
     if (disable == true)
+    {
         cfgReg |= ICM_CFG_WBDIS(1);
+    }
     ${ICM_INSTANCE_NAME}_REGS->ICM_CFG = cfgReg;
 }
 
@@ -450,7 +474,7 @@ ICM_INT_MSK ${ICM_INSTANCE_NAME}_InterruptMasked(void)
 */
 void ${ICM_INSTANCE_NAME}_InterruptEnable(ICM_INT_MSK interruptMask)
 {
-    ${ICM_INSTANCE_NAME}_REGS->ICM_IER = interruptMask;
+    ${ICM_INSTANCE_NAME}_REGS->ICM_IER = (uint32_t)(interruptMask);
 }
 
 // *****************************************************************************
@@ -471,7 +495,7 @@ void ${ICM_INSTANCE_NAME}_InterruptEnable(ICM_INT_MSK interruptMask)
 */
 void ${ICM_INSTANCE_NAME}_InterruptDisable(ICM_INT_MSK interruptMask)
 {
-    ${ICM_INSTANCE_NAME}_REGS->ICM_IDR = interruptMask;
+    ${ICM_INSTANCE_NAME}_REGS->ICM_IDR = (uint32_t)(interruptMask);
 }
 
 // *****************************************************************************
@@ -530,12 +554,6 @@ ICM_STATUS ${ICM_INSTANCE_NAME}_StatusGet(void)
   Returns:
     None.
 
-  Example:
-    <code>
-        // Refer to the description of the ICM_CALLBACK data type for
-        // example usage.
-    </code>
-
   Remarks:
     None.
 */
@@ -575,7 +593,7 @@ void ${ICM_INSTANCE_NAME}_CallbackRegister(ICM_CALLBACK callback, uintptr_t cont
     instance interrupt is enabled. If peripheral instance's interrupt is not
     enabled user need to call it from the main while loop of the application.
 */
-void ${ICM_INSTANCE_NAME}_InterruptHandler(void)
+void __attribute__((used)) ${ICM_INSTANCE_NAME}_InterruptHandler(void)
 {
 
     if (${ICM_INSTANCE_NAME?lower_case}Obj.callback != NULL)

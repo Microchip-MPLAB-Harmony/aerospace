@@ -114,6 +114,10 @@ SPW_LINK_STATUS ${SPW_INSTANCE_NAME}_LINK_StatusGet(SPW_LINK link)
     {
         status = SPW_REGS->SPW_LINK2_STATUS;
     }
+    else
+    {
+        /* Link index not supported */
+    }
     return (SPW_LINK_STATUS)(status);
 }
 
@@ -143,10 +147,14 @@ SPW_LINK_INT_MASK ${SPW_INSTANCE_NAME}_LINK_IrqStatusGetMaskedAndClear(SPW_LINK 
         pendingMaskedIrq = SPW_REGS->SPW_LINK1_PI_RM;
         SPW_REGS->SPW_LINK1_PI_C = pendingMaskedIrq;
     }
-    else if (link == SPW_LINK_2)
+    else if ( link == SPW_LINK_2 )
     {
         pendingMaskedIrq = SPW_REGS->SPW_LINK2_PI_RM;
         SPW_REGS->SPW_LINK2_PI_C = pendingMaskedIrq;
+    }
+    else
+    {
+        /* Link index not supported */
     }
     return (SPW_LINK_INT_MASK)(pendingMaskedIrq);
 }
@@ -178,6 +186,10 @@ void ${SPW_INSTANCE_NAME}_LINK_InterruptEnable(SPW_LINK link, SPW_LINK_INT_MASK 
     {
         SPW_REGS->SPW_LINK2_IM_S = (uint32_t)interruptMask;
     }
+    else
+    {
+        /* Link index not supported */
+    }
 }
 
 // *****************************************************************************
@@ -207,6 +219,10 @@ void ${SPW_INSTANCE_NAME}_LINK_InterruptDisable(SPW_LINK link, SPW_LINK_INT_MASK
     {
         SPW_REGS->SPW_LINK2_IM_C = (uint32_t)interruptMask;
     }
+    else
+    {
+        /* Link index not supported */
+    }
 }
 
 // *****************************************************************************
@@ -234,10 +250,14 @@ SPW_LINK_DIST_INT_MASK ${SPW_INSTANCE_NAME}_LINK_DistIrqStatusGetMaskedAndClear(
         pendingMaskedIrq = SPW_REGS->SPW_LINK1_DISTINTPI_RM;
         SPW_REGS->SPW_LINK1_DISTINTPI_C = pendingMaskedIrq;
     }
-    else if (link == SPW_LINK_2)
+    else if ( link == SPW_LINK_2 )
     {
         pendingMaskedIrq = SPW_REGS->SPW_LINK2_DISTINTPI_RM;
         SPW_REGS->SPW_LINK2_DISTINTPI_C = pendingMaskedIrq;
+    }
+    else
+    {
+        /* Link index not supported */
     }
     return (SPW_LINK_DIST_INT_MASK)(pendingMaskedIrq);
 }
@@ -269,6 +289,10 @@ void ${SPW_INSTANCE_NAME}_LINK_DistInterruptEnable(SPW_LINK link, SPW_LINK_DIST_
     {
         SPW_REGS->SPW_LINK2_DISTINTIM_S = (uint32_t)interruptMask;
     }
+    else
+    {
+        /* Link index not supported */
+    }
 }
 
 // *****************************************************************************
@@ -298,6 +322,10 @@ void ${SPW_INSTANCE_NAME}_LINK_DistInterruptDisable(SPW_LINK link, SPW_LINK_DIST
     {
         SPW_REGS->SPW_LINK2_DISTINTIM_C = (uint32_t)interruptMask;
     }
+    else
+    {
+        /* Link index not supported */
+    }
 }
 
 // *****************************************************************************
@@ -325,10 +353,14 @@ SPW_LINK_DIST_ACK_MASK ${SPW_INSTANCE_NAME}_LINK_DistAckIrqStatusGetMaskedAndCle
         pendingMaskedIrq = SPW_REGS->SPW_LINK1_DISTACKPI_RM;
         SPW_REGS->SPW_LINK1_DISTACKPI_C = pendingMaskedIrq;
     }
-    else if (link == SPW_LINK_2)
+    else if ( link == SPW_LINK_2 )
     {
         pendingMaskedIrq = SPW_REGS->SPW_LINK2_DISTACKPI_RM;
         SPW_REGS->SPW_LINK2_DISTACKPI_C = pendingMaskedIrq;
+    }
+    else
+    {
+        /* Link index not supported */
     }
     return (SPW_LINK_DIST_ACK_MASK)(pendingMaskedIrq);
 }
@@ -360,6 +392,10 @@ void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptEnable(SPW_LINK link, SPW_LINK_DI
     {
         SPW_REGS->SPW_LINK2_DISTACKIM_S = (uint32_t)interruptMask;
     }
+    else
+    {
+        /* Link index not supported */
+    }
 }
 
 // *****************************************************************************
@@ -389,6 +425,10 @@ void ${SPW_INSTANCE_NAME}_LINK_DistAckInterruptDisable(SPW_LINK link, SPW_LINK_D
     {
         SPW_REGS->SPW_LINK2_DISTACKIM_C = (uint32_t)interruptMask;
     }
+    else
+    {
+        /* Link index not supported */
+    }
 }
 
 // *****************************************************************************
@@ -415,32 +455,44 @@ void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent1Set(SPW_LINK link, bool active, u
     if ( link == SPW_LINK_1 )
     {
         if (active == true)
+        {
 <#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT0 = SPW_LINK1_ESCCHAREVENT0_ACTIVE(1) | SPW_LINK1_ESCCHAREVENT0_MASK(mask) | SPW_LINK1_ESCCHAREVENT0_VALUE(value);
 <#else>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT[0] = SPW_LINK1_ESCCHAREVENT_ACTIVE(1) | SPW_LINK1_ESCCHAREVENT_MASK(mask) | SPW_LINK1_ESCCHAREVENT_VALUE(value);
 </#if>
+        }
         else
+        {
 <#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT0 = 0;
 <#else>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT[0] = 0;
 </#if>
+        }
     }
     else if ( link == SPW_LINK_2 )
     {
         if (active == true)
+        {
 <#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT0 = SPW_LINK2_ESCCHAREVENT0_ACTIVE(1) | SPW_LINK2_ESCCHAREVENT0_MASK(mask) | SPW_LINK2_ESCCHAREVENT0_VALUE(value);
 <#else>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT[0] = SPW_LINK2_ESCCHAREVENT_ACTIVE(1) | SPW_LINK2_ESCCHAREVENT_MASK(mask) | SPW_LINK2_ESCCHAREVENT_VALUE(value);
 </#if>
+        }
         else
+        {
 <#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT0 = 0;
 <#else>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT[0] = 0;
 </#if>
+        }
+    }
+    else
+    {
+        /* Link index not supported */
     }
 }
 
@@ -468,34 +520,55 @@ void ${SPW_INSTANCE_NAME}_LINK_EscapeCharEvent2Set(SPW_LINK link, bool active, u
     if ( link == SPW_LINK_1 )
     {
         if (active == true)
+        {
 <#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT1 = SPW_LINK1_ESCCHAREVENT1_ACTIVE(1) | SPW_LINK1_ESCCHAREVENT1_MASK(mask) | SPW_LINK1_ESCCHAREVENT1_VALUE(value);
 <#else>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT[1] = SPW_LINK1_ESCCHAREVENT_ACTIVE(1) | SPW_LINK1_ESCCHAREVENT_MASK(mask) | SPW_LINK1_ESCCHAREVENT_VALUE(value);
 </#if>
+        }
         else
+        {
 <#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT1 = 0;
 <#else>
             SPW_REGS->SPW_LINK1_ESCCHAREVENT[1] = 0;
 </#if>
+        }
     }
     else if ( link == SPW_LINK_2 )
     {
         if (active == true)
+        {
 <#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT1 = SPW_LINK2_ESCCHAREVENT1_ACTIVE(1) | SPW_LINK2_ESCCHAREVENT1_MASK(mask) | SPW_LINK2_ESCCHAREVENT1_VALUE(value);
 <#else>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT[1] = SPW_LINK2_ESCCHAREVENT_ACTIVE(1) | SPW_LINK2_ESCCHAREVENT_MASK(mask) | SPW_LINK2_ESCCHAREVENT_VALUE(value);
 </#if>
+        }
         else
+        {
 <#if SPW_IS_LINK_EVT_REG_TABLE == false>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT1 = 0;
 <#else>
             SPW_REGS->SPW_LINK2_ESCCHAREVENT[1] = 0;
 </#if>
+        }
+    }
+    else
+    {
+        /* Link index not supported */
     }
 }
+
+/* MISRA C-2012 Rule 5.1 is deviated in the below code block. Deviation record ID - H3_MISRAC_2012_R_5_1_DR_1*/
+<#if core.COVERITY_SUPPRESS_DEVIATION?? && core.COVERITY_SUPPRESS_DEVIATION>
+<#if core.COMPILER_CHOICE == "XC32">
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunknown-pragmas"
+</#if>
+#pragma coverity compliance block deviate "MISRA C-2012 Rule 5.1"  "H3_MISRAC_2012_R_5_1_DR_1"
+</#if>
 
 // *****************************************************************************
 /* Function:
@@ -523,6 +596,10 @@ uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent1Get(SPW_LINK link)
     else if ( link == SPW_LINK_2 )
     {
         charEvent1 = (uint8_t)( (SPW_REGS->SPW_LINK2_ESCCHARSTS & SPW_LINK2_ESCCHARSTS_CHAR1_Msk) >> SPW_LINK2_ESCCHARSTS_CHAR1_Pos );
+    }
+    else
+    {
+        /* Link index not supported */
     }
     return charEvent1;
 }
@@ -554,8 +631,20 @@ uint8_t ${SPW_INSTANCE_NAME}_LINK_LastRecvEscapeCharEvent2Get(SPW_LINK link)
     {
         charEvent2 = (uint8_t)( (SPW_REGS->SPW_LINK2_ESCCHARSTS & SPW_LINK2_ESCCHARSTS_CHAR2_Msk) >> SPW_LINK2_ESCCHARSTS_CHAR2_Pos );
     }
+    else
+    {
+        /* Link index not supported */
+    }
     return charEvent2;
 }
+
+<#if core.COVERITY_SUPPRESS_DEVIATION?? && core.COVERITY_SUPPRESS_DEVIATION>
+#pragma coverity compliance end_block "MISRA C-2012 Rule 5.1"
+<#if core.COMPILER_CHOICE == "XC32">
+#pragma GCC diagnostic pop
+</#if>
+</#if>
+/* MISRAC 2012 deviation block end */
 
 // *****************************************************************************
 /* Function:
@@ -583,6 +672,10 @@ void ${SPW_INSTANCE_NAME}_LINK_TransmitEscapeChar(SPW_LINK link, uint8_t escChar
     else if ( link == SPW_LINK_2 )
     {
         SPW_REGS->SPW_LINK2_TRANSESC = SPW_LINK2_TRANSESC_CHAR(escChar);
+    }
+    else
+    {
+        /* Link index not supported */
     }
 }
 
