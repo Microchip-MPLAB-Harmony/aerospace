@@ -3,6 +3,22 @@
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## Aerospace Release v3.5.0
+### New Features
+- **Enhancements**
+  - Fix MISRA-C violations in aerospace peripheral libraries.
+
+### Known Issues
+
+* No known issues.
+
+### Development Tools
+
+* [MPLAB® X IDE v6.15 or above](https://www.microchip.com/mplab/mplab-x-ide)
+* [MPLAB® XC32 C/C++ Compiler v4.35](https://www.microchip.com/mplab/compilers)
+* MPLAB® X IDE plug-ins:
+    * MPLAB® Code Configurator 5.4.1 or higher
+
 ## Aerospace Release v3.4.0
 ### New Features
 - **Enhancements**
